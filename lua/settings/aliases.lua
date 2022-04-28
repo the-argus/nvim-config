@@ -1,7 +1,7 @@
 -- Constants
 
-PACKER_INSTALL_PATH = vim.fn.stdpath "data" .. "/site/pack/packer/opt/packer.nvim"
-PACKER_COMPILE_PATH = vim.fn.stdpath "config" .. "/lua/_compiled.lua"
+-- PACKER_INSTALL_PATH = vim.fn.stdpath "data" .. "/site/pack/packer/opt/packer.nvim"
+-- PACKER_COMPILE_PATH = vim.fn.stdpath "config" .. "/lua/_compiled.lua"
 
 -- Aliases
 cmd = vim.api.nvim_command

@@ -2,6 +2,7 @@
 utils = require "utils"
 -- setup vim options, auto-commands, user commands, etc.
 require "settings"
+require "plugins"
 
 -- bootstrap
 -- if packer doesn't exists then clone and generate plugins spec
