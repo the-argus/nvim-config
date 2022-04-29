@@ -5,7 +5,17 @@ end
 
 local lspconfig = require("lspconfig")
 
-local servers = { "sumneko_lua" }
+local servers = {   "sumneko_lua",
+                    "pylsp",
+                    "jsonls",
+                    "clangd",
+                    "omnisharp",
+                    "html",
+                    "bashls",
+                    "cssls",
+                    "lemminx",
+                    "rust_analyzer"
+                }
 
 lsp_installer.setup {
 	ensure_installed = servers
