@@ -117,7 +117,7 @@ cmp.setup {
   sources = {
       -- preference order of each completion source
     { name = "luasnip" },
-    { name = "nvim-lsp" },
+    { name = "nvim_lsp" },
     { name = "buffer" },
     { name = "path" },
   },
