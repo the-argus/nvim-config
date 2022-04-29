@@ -47,7 +47,6 @@ local kind_icons = {
 }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
-
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -117,9 +116,8 @@ cmp.setup {
   },
   sources = {
       -- preference order of each completion source
-    { name = "nvim-lsp" },
-    { name = "nvim-lua" },
     { name = "luasnip" },
+    { name = "nvim-lsp" },
     { name = "buffer" },
     { name = "path" },
   },
@@ -131,8 +129,38 @@ cmp.setup {
   --   border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
   -- },
   -- documentation = false,
+  window = {
+  	completion = cmp.config.window.bordered(),
+  	documentation = cmp.config.window.bordered(),
+  },
   experimental = {
     ghost_text = true,
     native_menu = false,
   },
 }
+
+cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+        { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+    }, {
+        { name = 'buffer' },
+    })
+})
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'buffer' }
+    }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        { name = 'cmdline' }
+    })
+})

@@ -43,9 +43,9 @@ packer.init {
 return packer.startup(function(use)
     -- My plugins here
     use "wbthomason/packer.nvim" -- Have packer manage itself
-    -- use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
-    -- use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
-    
+    use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
+    use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
+
     -- helpful for commenting out selection
     use {
         "numToStr/Comment.nvim",
@@ -60,6 +60,8 @@ return packer.startup(function(use)
     use "hrsh7th/cmp-nvim-lua"
 
     use "hrsh7th/cmp-path"
+    use "hrsh7th/cmp-buffer"
+    use "hrsh7th/cmp-cmdline"
     use "saadparwaiz1/cmp_luasnip"
 
     -- snippets
