@@ -4,18 +4,22 @@
 local M = {}
 local api = vim.api
 
+function M.buffer_close()
+    vim.cmd(":bp|sp|bn|bd")
+end
+
 --- Check whether the current buffer is empty.
 -- @see help empty()
 -- @see help expand()
 function M.is_buffer_empty()
-  return fn.empty(fn.expand "%:t") == 1
+  return vim.fn.empty(vim.fn.expand "%:t") == 1
 end
 
 --- Check if the windows width is greater than a given number of columns.
 -- @param cols number of columns
 -- @see help winwidth()
 function M.has_width_gt(cols)
-  return fn.winwidth(0) / 2 > cols
+  return vim.fn.winwidth(0) / 2 > cols
 end
 
 --- Wraps around vim.notify. Sets some default values that will be used by the
@@ -210,7 +214,7 @@ function M.shorten()
           level = vim.log.levels.ERROR,
         }
       else
-        fn.setreg(v.register, raw[#raw])
+        vim.fn.setreg(v.register, raw[#raw])
         M.notify {
           message = "Saved link to system clipboard!",
           icon = " ",
@@ -237,7 +241,7 @@ function M.imgur()
     prompt = "   ",
     default_value = "Image path...",
     on_submit = function(value)
-      local raw = api.nvim_exec(string.format(format, fn.expand(value)), true)
+      local raw = api.nvim_exec(string.format(format, vim.fn.expand(value)), true)
       if value == "Your URL..." then
         M.notify {
           message = "ERROR: Unable to upload image!",
