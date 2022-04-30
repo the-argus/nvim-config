@@ -6,7 +6,7 @@ end
 local lspconfig = require("lspconfig")
 
 local servers = {   "sumneko_lua",
-                    "pylsp",
+                    "pyright",
                     "jsonls",
                     "clangd",
                     "omnisharp",
