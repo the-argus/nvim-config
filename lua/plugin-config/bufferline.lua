@@ -9,8 +9,8 @@ local utils = require("utils.neovim")
 bufferline.setup {
   options = {
     numbers = "none", -- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
-    close_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
-    right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
+    close_command = utils.close_command .. " %d", -- can be a string | function, see "Mouse actions"
+    right_mouse_command = utils.close_command .. " %d", -- can be a string | function, see "Mouse actions"
     left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
     middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
     -- NOTE: this plugin is designed with this icon in mind,
@@ -60,7 +60,7 @@ bufferline.setup {
     -- end,
     offsets = { { filetype = "NvimTree", text = "", padding = 1 } },
     show_buffer_icons = true,
-    show_buffer_close_icons = true,
+    show_buffer_close_icons = false,
     show_close_icon = false,
     show_tab_indicators = true,
     persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
@@ -76,12 +76,12 @@ bufferline.setup {
   },
   highlights = {
     fill = {
-      guifg = { attribute = "fg", highlight = "#ff0000" },
+      guifg = { attribute = "fg", highlight = "TabLine" },
       guibg = { attribute = "bg", highlight = "TabLine" },
     },
     background = {
       guifg = { attribute = "fg", highlight = "TabLine" },
-      guibg = { attribute = "bg", highlight = "TabLine" },
+      guibg = { attribute = "bg", highlight = "CursorColumn" },
     },
 
     -- buffer_selected = {

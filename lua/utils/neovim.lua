@@ -4,8 +4,9 @@
 local M = {}
 local api = vim.api
 
+M.close_command = ":bp|sp|bn|bd"
 function M.buffer_close()
-    vim.cmd(":bp|sp|bn|bd")
+    vim.cmd(M.close_command)
 end
 
 --- Check whether the current buffer is empty.
