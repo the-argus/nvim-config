@@ -71,6 +71,12 @@ return packer.startup(function(use)
     use "neovim/nvim-lspconfig" -- enable LSP
     use "williamboman/nvim-lsp-installer" -- simple to use language server installer
 
+    use({
+        'rose-pine/neovim',
+        as = 'rose-pine',
+        tag = 'v1.*'
+    })
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then
