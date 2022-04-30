@@ -63,6 +63,10 @@ end
 local lsp_keymap_config = require("settings.keymap.lsp")
 
 M.on_attach = function(client, bufnr)
+    -- fix overrides
+    -- if client.name == "sumneko_lua" then
+    --     client.resolved_capabilities.document_formatting = false
+    -- end
   lsp_keymap_config.create_keymaps(bufnr)
   lsp_highlight_document(client)
 end
