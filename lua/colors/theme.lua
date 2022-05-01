@@ -241,10 +241,12 @@ function M.get(config)
 		TSVariableBuiltin = { fg = p.love },
 
         -- bufferline
-        BufferLineText = { fg = p.text },
-        BufferLineTextSel = { fg = p.highlight_high },
-        BufferLineBG = { bg = p.subtle },
-        BufferLineBGSel = { bg = p.base },
+        BufferLineTextSel = { fg = p.text, bg = p.base },
+        BufferLineText = { fg = p.highlight_high, bg = p.base },
+        BufferLineBGSel = { bg = p.highlight_high },
+        BufferLineBG = { bg = p.base },
+        BufferLineSeparatorSel = { fg = p.gold, bg = p.base },
+        BufferLineSeparator = { fg = p.highlight_high, bg = p.base },
 
 		-- romgrk/barbar.nvim
 		BufferCurrent = { fg = p.text, bg = p.overlay },

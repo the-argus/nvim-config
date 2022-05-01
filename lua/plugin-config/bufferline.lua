@@ -77,7 +77,7 @@ bufferline.setup {
   highlights = {
     fill = {
       guifg = { attribute = "fg", highlight = "BufferLineText" },
-      guibg = { attribute = "bg", highlight = "BufferLineBGSel" },
+      guibg = { attribute = "bg", highlight = "BufferLineBG" },
     },
     background = {
       guifg = { attribute = "fg", highlight = "BufferLineText" },
@@ -90,17 +90,17 @@ bufferline.setup {
       gui = 'none'
     },
     buffer_visible = {
-      guifg = { attribute = "fg", highlight = "TabLine" },
-      guibg = { attribute = "bg", highlight = "TabLine" },
+      guifg = { attribute = "fg", highlight = "BufferLineText" },
+      guibg = { attribute = "bg", highlight = "BufferLineBG" },
     },
 
     close_button = {
-      guifg = { attribute = "fg", highlight = "TabLine" },
-      guibg = { attribute = "bg", highlight = "TabLine" },
+      guifg = { attribute = "fg", highlight = "BufferLineText" },
+      guibg = { attribute = "bg", highlight = "BufferLineBG" },
     },
     close_button_visible = {
-      guifg = { attribute = "fg", highlight = "TabLine" },
-      guibg = { attribute = "bg", highlight = "TabLine" },
+      guifg = { attribute = "fg", highlight = "BufferLineTextSel" },
+      guibg = { attribute = "bg", highlight = "BufferLineBGSel" },
     },
     -- close_button_selected = {
     --   guifg = {attribute='fg',highlight='TabLineSel'},
@@ -108,12 +108,12 @@ bufferline.setup {
     --   },
 
     tab_selected = {
-      guifg = { attribute = "fg", highlight = "Normal" },
-      guibg = { attribute = "bg", highlight = "Normal" },
+      guifg = { attribute = "fg", highlight = "BufferLineTextSel" },
+      guibg = { attribute = "bg", highlight = "BufferLineBGSel" },
     },
     tab = {
-      guifg = { attribute = "fg", highlight = "TabLine" },
-      guibg = { attribute = "bg", highlight = "TabLine" },
+      guifg = { attribute = "fg", highlight = "BufferLineText" },
+      guibg = { attribute = "bg", highlight = "BufferLineBG" },
     },
     tab_close = {
       -- guifg = {attribute='fg',highlight='LspDiagnosticsDefaultError'},
@@ -151,12 +151,12 @@ bufferline.setup {
     },
 
     separator = {
-      guifg = { attribute = "bg", highlight = "TabLine" },
-      guibg = { attribute = "bg", highlight = "TabLine" },
+      guifg = { attribute = "bg", highlight = "BufferLineSeparator" },
+      guibg = { attribute = "bg", highlight = "BufferLineBG" },
     },
     separator_selected = {
-      guifg = { attribute = "bg", highlight = "Normal" },
-      guibg = { attribute = "bg", highlight = "Normal" },
+      guifg = { attribute = "bg", highlight = "BufferLineSeparatorSel" },
+      guibg = { attribute = "bg", highlight = "BufferLineBGSel" },
     },
     -- separator_visible = {
     --   guifg = {attribute='bg',highlight='TabLine'},
