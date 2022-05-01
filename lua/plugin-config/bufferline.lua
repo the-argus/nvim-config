@@ -37,7 +37,7 @@ bufferline.setup {
     max_name_length = 30,
     max_prefix_length = 30, -- prefix used when a buffer is de-duplicated
     tab_size = 21,
-    diagnostics = "nvim_lsp", -- | "nvim_lsp" | "coc",
+    diagnostics = false, -- | "nvim_lsp" | "coc",
     diagnostics_update_in_insert = false,
     -- diagnostics_indicator = function(count, level, diagnostics_dict, context)
     --   return "("..count..")"
@@ -76,19 +76,19 @@ bufferline.setup {
   },
   highlights = {
     fill = {
-      guifg = { attribute = "fg", highlight = "TabLine" },
-      guibg = { attribute = "bg", highlight = "TabLine" },
+      guifg = { attribute = "fg", highlight = "BufferLineText" },
+      guibg = { attribute = "bg", highlight = "BufferLineBGSel" },
     },
     background = {
-      guifg = { attribute = "fg", highlight = "TabLine" },
-      guibg = { attribute = "bg", highlight = "CursorColumn" },
+      guifg = { attribute = "fg", highlight = "BufferLineText" },
+      guibg = { attribute = "bg", highlight = "BufferLineBG" },
     },
 
-    -- buffer_selected = {
-    --   guifg = {attribute='fg',highlight='#ff0000'},
-    --   guibg = {attribute='bg',highlight='#0000ff'},
-    --   gui = 'none'
-    --   },
+    buffer_selected = {
+      guifg = {attribute='fg',highlight='BufferLineTextSel'},
+      guibg = {attribute='bg',highlight='BufferLineBGSel'},
+      gui = 'none'
+    },
     buffer_visible = {
       guifg = { attribute = "fg", highlight = "TabLine" },
       guibg = { attribute = "bg", highlight = "TabLine" },

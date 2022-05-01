@@ -240,6 +240,12 @@ function M.get(config)
 		TSVariable = { fg = p.text, style = styles.italic },
 		TSVariableBuiltin = { fg = p.love },
 
+        -- bufferline
+        BufferLineText = { fg = p.text },
+        BufferLineTextSel = { fg = p.highlight_high },
+        BufferLineBG = { bg = p.subtle },
+        BufferLineBGSel = { bg = p.base },
+
 		-- romgrk/barbar.nvim
 		BufferCurrent = { fg = p.text, bg = p.overlay },
 		BufferCurrentIndex = { fg = p.text, bg = p.overlay },

@@ -1,6 +1,6 @@
 local variants = {
 	main = {
-		base = '#191724',
+		base = '#19172400',
 		surface = '#1f1d2e',
 		overlay = '#26233a',
 		muted = '#6e6a86',
