@@ -3,7 +3,7 @@ local utils = require("utils.neovim")
 local k = vim.keymap.set
 
 k('n', '<Leader>t', '<Cmd>enew<CR>') -- open a new empty buffer
-k('n', '<Leader>x', utils.buffer_close) -- close a buffer
+k('n', '<S-x>', utils.buffer_close) -- close a buffer
 k('n', '<S-k>', '<Cmd>bnext<CR>') -- next buffer
 k('n', '<S-j>', '<Cmd>bprevious<CR>') -- previous buffer
 

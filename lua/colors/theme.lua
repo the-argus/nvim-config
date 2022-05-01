@@ -248,6 +248,9 @@ function M.get(config)
         BufferLineSeparatorSel = { fg = p.gold, bg = p.base },
         BufferLineSeparator = { fg = p.highlight_high, bg = p.base },
 
+        -- devicons
+        LuaDevicon = { fg = p.text, bg = p.base },
+
 		-- romgrk/barbar.nvim
 		BufferCurrent = { fg = p.text, bg = p.overlay },
 		BufferCurrentIndex = { fg = p.text, bg = p.overlay },
