@@ -87,7 +87,6 @@ bufferline.setup {
     buffer_selected = {
       guifg = {attribute='fg',highlight='BufferLineTextSel'},
       guibg = {attribute='bg',highlight='BufferLineBGSel'},
-      gui = 'none'
     },
     buffer_visible = {
       guifg = { attribute = "fg", highlight = "BufferLineText" },
