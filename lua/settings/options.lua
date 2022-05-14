@@ -40,17 +40,15 @@ cmd("filetype plugin indent on")
 o.number = true
 o.relativenumber = true
 o.cursorline = true -- highlight line cursor is on
-vim.api.nvim_set_hl(0, "CursorLine", {ctermbg=240, cterm={} })
-vim.api.nvim_set_hl(0, "CursorLineNr", {ctermbg=240, cterm={} })
 o.cursorlineopt = "both"
 -- o.signcolumn = "yes" -- shows signs in the number column
 o.numberwidth = 1
 
 -- fonts and colors
 o.termguicolors = true -- use 24bit rgb color
-o.guifont="VictorMono Nerd Font:h12"
-cmd("highlight Comment cterm=italic")
-cmd("highlight Comment gui=italic")
+o.guifont="Comic Code:h12"
+cmd("hi Comment cterm=italic")
+cmd("hi Comment gui=italic")
 
 -- misc
 o.cc = "80" -- 80 char width column for coding style

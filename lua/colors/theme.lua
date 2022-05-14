@@ -18,7 +18,7 @@ function M.get(config)
 	theme = {
 		ColorColumn = { bg = p.highlight_high },
 		Conceal = { bg = p.none },
-		-- Cursor = {},
+		-- Cursor = {bg = p.text},
 		CursorColumn = { bg = p.highlight_low },
 		-- CursorIM = {},
 		CursorLine = { bg = p.highlight_low },
