@@ -1,20 +1,19 @@
-local is_okay, devicons = pcall(require, 'nvim-web-devicons')
-if not is_okay then
+local di_present, devicons = pcall(require, 'nvim-web-devicons')
+if not di_present then
     return
 end
 
-devicons.setup {
- -- your personnal icons can go here (to override)
- -- you can specify color or cterm_color instead of specifying both of them
- -- DevIcon will be appended to `name`
- override = {
-  lua = {
-    -- color = "#428850",
-    cterm_color = "7",
-    name = "Lua"
-  }
- };
- -- globally enable default icons (default to false)
- -- will get overriden by `get_icons` option
- default = true;
-}
+-- get all icons
+local icons = devicons.get_icons()
+
+-- -- make them monochrome
+for name, icon_style in pairs(icons) do
+    local higroupname = "DevIcon" .. icon_style.name
+    local style = "ctermfg=7 guifg=#FFFFFF"
+    vim.cmd(string.format("highlight %s %s", higroupname, style))
+end
+
+devicons.setup({
+    override = icons
+})
+

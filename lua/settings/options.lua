@@ -5,8 +5,11 @@ local o = vim.opt
 o.showmatch = true
 
 -- include subdirectories when searching
--- o.path = o.path .. "**"
-cmd("set path+=**")
+-- o.path:append('**')
+for path in string.gmatch(vim.fn.glob("**"), "%S+") do
+    vim.opt.path:append(path)
+end
+-- cmd("set path+=**")
 o.wildmenu = true
 
 -- buffers can be hidden if modified
@@ -30,7 +33,7 @@ o.incsearch = true
 -- tabs
 o.tabstop = 4
 o.softtabstop = 4 -- see 4 spaces as a tab
-o.expandtab = true-- convert tabs to whitespace
+o.expandtab = true -- convert tabs to whitespace
 o.shiftwidth = 4 -- autoident width
 o.autoindent = true -- indent newlines to the same as previous lines
 cmd("filetype plugin indent on")
@@ -46,7 +49,7 @@ o.numberwidth = 1
 
 -- fonts and colors
 o.termguicolors = true -- use 24bit rgb color
-o.guifont="Comic Code:h12"
+o.guifont = "Comic Code,Fira Code Nerd Font Mono,VictorMono Nerd Font:h11"
 cmd("hi Comment cterm=italic")
 cmd("hi Comment gui=italic")
 
@@ -54,7 +57,7 @@ cmd("hi Comment gui=italic")
 o.cc = "80" -- 80 char width column for coding style
 o.clipboard = "unnamedplus" -- system clipboard
 o.ttyfast = true -- speeds up scrolling
-o.scrolloff = 8 -- number of lines to keep above and below cursor
+-- o.scrolloff = 8 -- number of lines to keep above and below cursor
 o.showmode = true
 o.magic = true -- :h magic
 o.emoji = true
