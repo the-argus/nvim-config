@@ -114,8 +114,8 @@ return packer.startup(function(use)
     --     end
     -- }
     use "tpope/vim-repeat" -- repeat plugin motions
-    -- use "gbprod/substitute.nvim" -- motion to substitute with current register
-    use "inkarkat/vim-ReplaceWithRegister"
+    use "gbprod/substitute.nvim" -- motion to substitute with current register
+    -- use "inkarkat/vim-ReplaceWithRegister"
     use "michaeljsmith/vim-indent-object" -- treat indentations as text objects
     -- treat lines as text objects (starting from after whitespace)
     use "kana/vim-textobj-user"
