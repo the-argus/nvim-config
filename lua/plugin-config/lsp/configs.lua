@@ -5,6 +5,8 @@ end
 
 local lspconfig = require("lspconfig")
 
+local install_path = vim.g.path.concat { vim.fn.stdpath "data", "lsp_servers" }
+
 local servers = {   "sumneko_lua",
                     "pyright",
                     "jsonls",
@@ -20,7 +22,11 @@ local servers = {   "sumneko_lua",
                 }
 
 lsp_installer.setup {
-	ensure_installed = servers
+	ensure_installed = servers,
+
+    automatic_installation = false,
+    -- The directory in which to install all servers.
+    install_root_dir = install_path
 }
 
 for _, server in pairs(servers) do
