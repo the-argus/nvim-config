@@ -5,27 +5,16 @@ local o = vim.opt
 o.showmatch = true
 
 -- include subdirectories when searching
--- o.path:append('**')
-local lanes_present, lanes = pcall(require, "lanes")
-if lanes_present then
-    local scan = function ()
-        for path in string.gmatch(vim.fn.glob("**"), "%S+") do
-            vim.opt.path:append(path)
-        end
-        return true
-    end
-    local scan_path = lanes.gen( {priority=-1}, scan)
-
-    local success = scan_path()
-    if success then
-        print("Scanned path recursively.")
-    else
-        print(":(")
-    end
-else
-    print("lanes multithreading package not found.")
+local max = 100 -- maximum number of sub-files to search for
+local c = 0
+for path in string.gmatch(vim.fn.glob("**"), "%S+") do
+  vim.opt.path:append(path)
+  c = c + 1
+  if c >= max then
+    break
+  end
 end
--- cmd("set path+=**")
+
 o.wildmenu = true
 
 -- buffers can be hidden if modified
