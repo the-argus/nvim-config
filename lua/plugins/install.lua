@@ -47,13 +47,14 @@ return packer.startup(function(use)
     use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
 
     -- helpful for commenting out selection
-    use {
-        "numToStr/Comment.nvim",
-        config = function()
-            require "plugin-config/comment-nvim"
-        end,
-        event = { "InsertEnter" },
-    }
+    use "numToStr/Comment.nvim"
+    -- use {
+    --     "numToStr/Comment.nvim",
+    --     config = function()
+    --         require "plugin-config/comment-nvim"
+    --     end,
+    --     event = { "InsertEnter" },
+    -- }
     -- cmp plugins
     use "hrsh7th/nvim-cmp"
     use "hrsh7th/cmp-nvim-lsp"
