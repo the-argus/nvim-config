@@ -74,6 +74,8 @@ return packer.startup(function(use)
 
     -- syntax highlighting
     use "nvim-treesitter/nvim-treesitter"
+    -- r'ainbow brackets
+    use "p00f/nvim-ts-rainbow"
 
     -- file tree
     use {
