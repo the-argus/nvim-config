@@ -4,38 +4,6 @@ local o = vim.opt
 -- o.nocompatible = true -- this isnt REAL
 o.showmatch = true
 
-local function recursive_path()
-    -- include subdirectories when searching
-    local max = 100 -- maximum number of sub-files to search for
-    local c = 0
-    for path in string.gmatch(vim.fn.glob("**"), "%S+") do
-        vim.opt.path:append(path)
-        c = c + 1
-        if c >= max then
-            break
-        end
-    end
-end
-
--- autocmd for checking if we're in a git repo
--- stolen from https://github.com/WieeRd/nvim/blob/master/lua/custom/autocmds.lua#L10-L27
-local function recursive_path_if_git()
-    local cmd = "git rev-parse --is-inside-work-tree"
-    if vim.fn.system(cmd) == "true\n" then
-        recursive_path()
-        return true -- remove autocmd after lazy loading git plugins
-    end
-end
-
-vim.api.nvim_create_autocmd(
-    { "VimEnter", "DirChanged" },
-    {
-        callback = function() vim.schedule(recursive_path_if_git) end,
-        group = vim.api.nvim_create_augroup("CustomAutocmds", { clear = true })
-    }
-)
-
-
 o.wildmenu = true
 
 -- buffers can be hidden if modified
