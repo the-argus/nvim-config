@@ -6,18 +6,38 @@ if vim.g.neovide ~= nil then
 end
 
 local function open_url(command_info)
-    -- remove quotes that are usually passed in around the url
+    -- string manipulation
     local url = string.gsub(command_info.args, "\"", "")
-    -- get the basename of the file being wget-ed
     local splits = util.split_string(url, "/")
     local basename = splits[#splits]
-    -- set the wget out path to /tmp/filename
-    local path = string.format("/tmp/%s", basename)
-    -- wget the file
-    local command = string.format("wget \"%s\" -O %s", url, path)
-    vim.fn.system(command)
+    local path = string.format("/tmp/%s", basename) --could also use os.tmpname
+    local w3m_command = string.format("w3m -dump \"%s\" > %s", url, path)
+
+    -- attempt to use w3m
+    local w3m_pipe = io.popen(w3m_command)
+    -- local w3m_output = w3m_pipe:read('*all')
+    local w3m_worked = ({ w3m_pipe:close() })[1]
+
+    if w3m_worked then
+        vim.cmd(string.format(":vs|view %s", path))
+    else
+        -- attempt wget instead
+        local wget_command = string.format("wget \"%s\" > %s", url, path)
+        -- attempt to use w3m
+        local wget_pipe = io.popen(wget_command)
+        -- local wget_output = wget_pipe:read('*all')
+        local wget_worked = ({ wget_pipe:close() })[1]
+
+        if not wget_worked then
+            print(
+                string.format("W3M and Wget failed to retrieve %s", url)
+                )
+        else
+            print("W3M failed, defaulting to wget.")
+            vim.cmd(string.format(":vs|view %s", path))
+        end
+    end
     -- open the wget-ed file
-    vim.cmd(string.format(":vs|view %s", path))
 end
 
 vim.api.nvim_create_user_command("Url", open_url, {})
