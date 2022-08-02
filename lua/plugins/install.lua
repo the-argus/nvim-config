@@ -85,6 +85,21 @@ return packer.startup(function(use)
         }
     }
 
+    -- focus mode
+    use {
+        "folke/zen-mode.nvim",
+        config = function()
+            require("zen-mode").setup(require("plugin-config.focus").zen)
+        end
+    }
+    use {
+        "the-argus/twilight.nvim",
+        config = function()
+            require("twilight").setup(require("plugin-config.focus").twilight)
+        end
+    }
+    use "folke/twilight.nvim"
+
     -- use({
     --     'rose-pine/neovim',
     --     as = 'rose-pine',
