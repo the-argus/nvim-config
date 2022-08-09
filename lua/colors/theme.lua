@@ -2,6 +2,11 @@ local blend = require('colors.util').blend
 
 local M = {}
 
+local function makeTrans (initial_value)
+    -- this literally makes the highlight group invisible lol
+    return initial_value .. "00"
+end
+
 function M.get(config)
 	local p = require("colors.palette")
 
@@ -16,12 +21,12 @@ function M.get(config)
 	styles.nc_background = (config.dim_nc_background and p.surface) or styles.background
 
 	theme = {
-		ColorColumn = { bg = p.highlight_high },
+		ColorColumn = { fg = "#FF0000", style = "bold" },
 		Conceal = { bg = p.none },
 		-- Cursor = {bg = p.text},
-		CursorColumn = { bg = p.highlight_low },
+		-- CursorColumn = { bg = makeTrans(p.highlight_low) },
 		-- CursorIM = {},
-		CursorLine = { bg = p.highlight_low },
+		CursorLine = { style = "bold" },
 		CursorLineNr = { fg = p.text },
 		DarkenedPanel = { bg = p.surface },
 		DarkenedStatusline = { bg = p.surface },
@@ -65,7 +70,7 @@ function M.get(config)
 		SpellLocal = { sp = p.subtle, style = 'undercurl' },
 		SpellRare = { sp = p.subtle, style = 'undercurl' },
 		SignColumn = { fg = p.text, bg = styles.background },
-		StatusLine = { fg = p.subtle, bg = styles.float_background },
+		StatusLine = { fg = p.subtle, bg = makeTrans(styles.float_background) },
 		StatusLineNC = { fg = p.muted, bg = styles.background },
 		StatusLineTerm = { link = 'StatusLine' },
 		StatusLineTermNC = { link = 'StatusLineNC' },

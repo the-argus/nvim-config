@@ -56,3 +56,20 @@ vim.api.nvim_create_autocmd(
         group = vim.api.nvim_create_augroup("CustomAutocmds", { clear = true })
     }
 )
+
+-- automatically enter insert mode when opening terminal
+vim.api.nvim_create_autocmd(
+    { "TermOpen" },
+    {
+        callback = function() vim.cmd("startinsert") end,
+        group = vim.api.nvim_create_augroup("CustomAutocmds", { clear = true })
+    }
+)
+-- remove line numbers from terminal
+vim.api.nvim_create_autocmd(
+    { "TermOpen" },
+    {
+        callback = function() vim.cmd("setlocal listchars= nonumber norelativenumber") end,
+        group = vim.api.nvim_create_augroup("CustomAutocmds", { clear = true })
+    }
+)

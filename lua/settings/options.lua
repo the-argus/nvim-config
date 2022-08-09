@@ -38,8 +38,8 @@ o.number = true
 o.relativenumber = true
 o.cursorline = true -- highlight line cursor is on
 o.cursorlineopt = "both"
--- o.signcolumn = "yes" -- shows signs in the number column
-o.numberwidth = 1
+o.signcolumn = "yes" -- shows signs in the number column
+o.numberwidth = 2
 
 -- fonts and colors
 o.termguicolors = true -- use 24bit rgb color
@@ -48,7 +48,12 @@ cmd("hi Comment cterm=italic")
 cmd("hi Comment gui=italic")
 
 -- misc
-o.cc = "80" -- 80 char width column for coding style
+-- o.cc = "80" -- 80 char width column for coding style
+local columnRange = {}
+for i=80,999 do
+    table.insert(columnRange, i)
+end
+o.cc = columnRange
 o.clipboard = "unnamedplus" -- system clipboard
 o.ttyfast = true -- speeds up scrolling
 -- o.scrolloff = 8 -- number of lines to keep above and below cursor
