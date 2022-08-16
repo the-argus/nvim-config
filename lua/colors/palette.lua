@@ -1,8 +1,3 @@
-local function file_exists(name)
-   local f=io.open(name,"r")
-   if f~=nil then io.close(f) return true else return false end
-end
-
 local palette = {
     base = '#19172400',
     surface = '#1f1d2e',
@@ -23,9 +18,9 @@ local palette = {
     none = 'NONE',
 }
 
-
-if file_exists("lua/color-override.lua") then
-    palette = require "color-override"
+local overriden, new_palette = pcall(require, "color-override")
+if overriden then
+    palette = new_palette
 end
 
 
