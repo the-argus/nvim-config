@@ -98,7 +98,7 @@ return packer.startup(function(use)
             require("twilight").setup(require("plugin-config.focus").twilight)
         end
     }
-    use "folke/twilight.nvim"
+    -- use "folke/twilight.nvim"
 
     -- use({
     --     'rose-pine/neovim',
@@ -121,6 +121,7 @@ return packer.startup(function(use)
     }
 
     use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
+    use "gpanders/editorconfig.nvim"
 
     -- cringe vimscript, really good plugins though
     use "tpope/vim-surround" -- act on surrounding characters
