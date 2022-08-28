@@ -19,7 +19,7 @@ null_ls.setup({
         diagnostics.jsonlint,
         formatting.fixjson,
 
-        formatting.nixfmt,
+        -- formatting.nixfmt,
         formatting.rustfmt
 	},
 })
