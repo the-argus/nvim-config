@@ -20,6 +20,7 @@ null_ls.setup({
         formatting.fixjson,
 
         -- formatting.nixfmt,
+        formatting.alejandra,
         formatting.rustfmt
 	},
 })

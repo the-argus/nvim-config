@@ -64,9 +64,10 @@ local lsp_keymap_config = require("settings.keymap.lsp")
 
 M.on_attach = function(client, bufnr)
     -- fix overrides
-    -- if client.name == "sumneko_lua" then
-    --     client.resolved_capabilities.document_formatting = false
-    -- end
+    -- disable formatting for a lang server
+    if client.name == "rnix" then
+        client.resolved_capabilities.document_formatting = false
+    end
     lsp_keymap_config.create_keymaps(bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     lsp_highlight_document(client)
