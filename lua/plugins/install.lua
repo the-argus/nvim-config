@@ -139,6 +139,14 @@ return packer.startup(function(use)
     -- treat lines as text objects (starting from after whitespace)
     use "kana/vim-textobj-user"
     use "kana/vim-textobj-line"
+
+    use {
+        "norcalli/nvim-colorizer.lua",
+        config = function()
+            local conf_set = require("plugin-config.nvim-colorizer")
+            require('colorizer').setup(conf_set.config, conf_set.defaults)
+        end
+    }
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then
