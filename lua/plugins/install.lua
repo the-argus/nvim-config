@@ -147,6 +147,12 @@ return packer.startup(function(use)
             require('colorizer').setup(conf_set.config, conf_set.defaults)
         end
     }
+
+    use {
+        'nvim-telescope/telescope.nvim', branch = '0.1.x',
+        requires = { { 'nvim-lua/plenary.nvim' }, { 'kyazdani42/nvim-web-devicons' } }
+    }
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then

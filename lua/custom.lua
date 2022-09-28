@@ -40,4 +40,14 @@ local function open_url(command_info)
     -- open the wget-ed file
 end
 
+local function find_files(command_info)
+    local is_okay, telescope = pcall(require, "telescope.builtin")
+    if not is_okay then
+        print("Telescope is not installed.")
+        return
+    end
+    telescope.find_files()
+end
+
 vim.api.nvim_create_user_command("Url", open_url, {})
+vim.api.nvim_create_user_command("Open", find_files, {})

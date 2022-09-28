@@ -2,6 +2,8 @@ local k = vim.keymap.set
 
 local opts = { silent = true }
 
+k("n", "<Leader>g", "<Cmd>Open<CR>", opts)
+
 -- k("n", "<C-h>", "<Cmd>wincmd h<CR>", opts)
 -- k("n", "<C-l>", "<Cmd>wincmd l<CR>", opts)
 
