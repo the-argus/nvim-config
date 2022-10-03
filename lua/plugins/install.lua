@@ -155,6 +155,9 @@ return packer.startup(function(use)
         requires = { { 'nvim-lua/plenary.nvim' }, { 'kyazdani42/nvim-web-devicons' } }
     }
 
+    -- generate dummy text
+    use "derektata/lorem.nvim"
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then
