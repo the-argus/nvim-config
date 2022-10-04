@@ -9,7 +9,6 @@ local install_path = vim.fn.stdpath("data") .. "/lsp_servers"
 
 local servers = { "sumneko_lua",
     "pyright",
-    "jsonls",
     "clangd",
     "rnix",
     -- "omnisharp",
