@@ -17,7 +17,7 @@ null_ls.setup({
         diagnostics.markdownlint,
         formatting.markdownlint,
         diagnostics.jsonlint,
-        formatting.fixjson,
+        -- formatting.fixjson,
 
         -- formatting.nixfmt,
         formatting.alejandra,
