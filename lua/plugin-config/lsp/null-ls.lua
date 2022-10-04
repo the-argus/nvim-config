@@ -22,9 +22,12 @@ null_ls.setup({
         -- formatting.nixfmt,
         formatting.alejandra,
         formatting.rustfmt,
-        formatting.prettier_d_slim.with({
+        formatting.prettier.with({
             filetypes = { "css" };
         }),
+        -- formatting.prettier_d_slim.with({
+        --     filetypes = { "css" };
+        -- }),
         -- formatting.rome,
         -- formatting.stylelint,
     },
