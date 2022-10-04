@@ -20,7 +20,8 @@ local servers = { "sumneko_lua",
     "rust_analyzer",
     "ansiblels",
     "cssls",
-    "html"
+    "html",
+    "emmet_ls"
 }
 
 lsp_installer.setup {
