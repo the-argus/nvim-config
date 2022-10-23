@@ -23,7 +23,7 @@ null_ls.setup({
         formatting.alejandra,
         formatting.rustfmt,
         formatting.prettier.with({
-            filetypes = { "css" };
+            filetypes = { "css", "html", "javascript", "js" };
         }),
         -- formatting.prettier_d_slim.with({
         --     filetypes = { "css" };
