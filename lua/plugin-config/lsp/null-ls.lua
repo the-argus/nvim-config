@@ -21,12 +21,28 @@ null_ls.setup({
 
         -- formatting.nixfmt,
         formatting.alejandra,
+	-- diagnostics.deadlint, -- cool but not packaged for nix, ill do that later
         formatting.rustfmt,
-        formatting.prettier.with({
-            filetypes = { "css", "html", "javascript", "js" };
-        }),
-        diagnostics.prettier.with({
-            filetypes = { "css", "html", "javascript", "js" };
+
+	diagnostics.eslint_d,
+        formatting.prettier_d_slim.with({
+            filetypes = { "javascript",
+	    		  "javascriptreact",
+			  "typescript",
+			  "typescriptreact",
+			  "vue",
+			  "css",
+			  "scss",
+			  "less",
+			  "html",
+			  "json",
+			  "jsonc",
+			  "yaml",
+			  "markdown",
+			  "markdown.mdx",
+			  "graphql",
+			  "handlebars"
+	    };
         }),
         -- formatting.prettier_d_slim.with({
         --     filetypes = { "css" };
