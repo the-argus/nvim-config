@@ -25,6 +25,9 @@ null_ls.setup({
         formatting.prettier.with({
             filetypes = { "css", "html", "javascript", "js" };
         }),
+        diagnostics.prettier.with({
+            filetypes = { "css", "html", "javascript", "js" };
+        }),
         -- formatting.prettier_d_slim.with({
         --     filetypes = { "css" };
         -- }),
