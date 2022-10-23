@@ -21,28 +21,41 @@ null_ls.setup({
 
         -- formatting.nixfmt,
         formatting.alejandra,
-	-- diagnostics.deadlint, -- cool but not packaged for nix, ill do that later
+        diagnostics.deadnix,
         formatting.rustfmt,
 
-	diagnostics.eslint_d,
+        diagnostics.eslint_d.with({
+            filetypes = {
+                "html",
+                "js",
+                "javascript",
+                "javascriptreact",
+                "typescript",
+                "typescriptreact",
+                "vue",
+                "json",
+                "jsonc",
+            };
+        }),
         formatting.prettier_d_slim.with({
-            filetypes = { "javascript",
-	    		  "javascriptreact",
-			  "typescript",
-			  "typescriptreact",
-			  "vue",
-			  "css",
-			  "scss",
-			  "less",
-			  "html",
-			  "json",
-			  "jsonc",
-			  "yaml",
-			  "markdown",
-			  "markdown.mdx",
-			  "graphql",
-			  "handlebars"
-	    };
+            filetypes = {
+                "javascript",
+                "javascriptreact",
+                "typescript",
+                "typescriptreact",
+                "vue",
+                "css",
+                "scss",
+                "less",
+                "html",
+                "json",
+                "jsonc",
+                "yaml",
+                "markdown",
+                "markdown.mdx",
+                "graphql",
+                "handlebars"
+            };
         }),
         -- formatting.prettier_d_slim.with({
         --     filetypes = { "css" };
