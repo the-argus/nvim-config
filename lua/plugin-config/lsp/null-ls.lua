@@ -24,19 +24,19 @@ null_ls.setup({
         diagnostics.deadnix,
         formatting.rustfmt,
 
-        diagnostics.eslint_d.with({
-            filetypes = {
-                "html",
-                "js",
-                "javascript",
-                "javascriptreact",
-                "typescript",
-                "typescriptreact",
-                "vue",
-                "json",
-                "jsonc",
-            };
-        }),
+        -- diagnostics.eslint_d.with({
+        --     filetypes = {
+        --         "html",
+        --         "js",
+        --         "javascript",
+        --         "javascriptreact",
+        --         "typescript",
+        --         "typescriptreact",
+        --         "vue",
+        --         "json",
+        --         "jsonc",
+        --     };
+        -- }),
         formatting.prettier_d_slim.with({
             filetypes = {
                 "javascript",
