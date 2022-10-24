@@ -47,7 +47,7 @@ null_ls.setup({
                 "css",
                 "scss",
                 "less",
-                "html",
+                -- "html",
                 "json",
                 "jsonc",
                 "yaml",
