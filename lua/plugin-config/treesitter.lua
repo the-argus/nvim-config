@@ -17,7 +17,8 @@ configs.setup {
         "html", "css", "json",
         "glsl", "make", "nix",
         -- "markdown" -- not currently supported
-        "rasi", "regex", "scss"
+        "rasi", "regex", "scss",
+        "gdscript"
     },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
