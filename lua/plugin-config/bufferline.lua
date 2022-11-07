@@ -5,6 +5,7 @@ if not status_ok then
 end
 
 local utils = require("utils.neovim")
+local palette = require("colors.palette")
 
 bufferline.setup {
   options = {
@@ -16,10 +17,10 @@ bufferline.setup {
     -- NOTE: this plugin is designed with this icon in mind,
     -- and so changing this is NOT recommended, this is intended
     -- as an escape hatch for people who cannot bear it for whatever reason
-    indicator_icon = {
+    indicator = {
         -- icon = "█",
         -- style = "icon",
-        style = "underline"
+        style = "none"
     },
     -- buffer_close_icon = "",
     buffer_close_icon = '',
@@ -41,7 +42,7 @@ bufferline.setup {
     max_name_length = 10,
     max_prefix_length = 30, -- prefix used when a buffer is de-duplicated
     tab_size = 21,
-    diagnostics = false, -- | "nvim_lsp" | "coc",
+    diagnostics = "nvim_lsp", -- | "nvim_lsp" | "coc",
     diagnostics_update_in_insert = false,
     -- diagnostics_indicator = function(count, level, diagnostics_dict, context)
     --   return "("..count..")"
@@ -66,11 +67,11 @@ bufferline.setup {
     show_buffer_icons = true,
     show_buffer_close_icons = false,
     show_close_icon = false,
-    show_tab_indicators = true,
+    show_tab_indicators = false,
     persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
     -- can also be a table containing 2 custom separators
     -- [focused and unfocused]. eg: { '|', '|' }
-    separator_style = "slant",
+    separator_style = {"",""},-- "thin",
     enforce_regular_tabs = true,
     always_show_bufferline = true,
     -- sort_by = 'id' | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
@@ -80,30 +81,34 @@ bufferline.setup {
   },
   highlights = {
     fill = {
+      -- this is the styling of the bufferline in the area where
+      -- there are no buffers
       fg = { attribute = "fg", highlight = "BufferLineText" },
-      bg = { attribute = "bg", highlight = "BufferLineBG" },
+      bg = { attribute = "bg", highlight = "BufferLineText" },
     },
     background = {
-      fg = { attribute = "fg", highlight = "BufferLineText" },
+      -- this is the styling of unselected buffers
+      fg = { attribute = "fg", highlight = "BufferLineBG" },
       bg = { attribute = "bg", highlight = "BufferLineBG" },
     },
 
     buffer_selected = {
-      fg = {attribute='fg',highlight='BufferLineTextSel'},
-      bg = {attribute='bg',highlight='BufferLineBGSel'},
+      fg = palette.gold,
+      -- controls the bg color of the buffer's devicon
+      bg = palette.surface,
     },
     buffer_visible = {
       fg = { attribute = "fg", highlight = "BufferLineText" },
-      bg = { attribute = "bg", highlight = "BufferLineBG" },
+      bg = { attribute = "bg", highlight = "BufferLineText" },
     },
 
     close_button = {
       fg = { attribute = "fg", highlight = "BufferLineText" },
-      bg = { attribute = "bg", highlight = "BufferLineBG" },
+      bg = { attribute = "bg", highlight = "BufferLineText" },
     },
     close_button_visible = {
       fg = { attribute = "fg", highlight = "BufferLineTextSel" },
-      bg = { attribute = "bg", highlight = "BufferLineBGSel" },
+      bg = { attribute = "bg", highlight = "BufferLineTextSel" },
     },
     -- close_button_selected = {
     --   fg = {attribute='fg',highlight='TabLineSel'},
@@ -161,10 +166,10 @@ bufferline.setup {
       fg = { attribute = "bg", highlight = "BufferLineSeparatorSel" },
       bg = { attribute = "bg", highlight = "BufferLineBGSel" },
     },
-    -- separator_visible = {
-    --   fg = {attribute='bg',highlight='TabLine'},
-    --   bg = {attribute='bg',highlight='TabLine'}
-    --   },
+    separator_visible = {
+      fg = {attribute='bg',highlight='TabLine'},
+      bg = {attribute='bg',highlight='TabLine'}
+    },
     indicator_selected = {
       fg = { attribute = "fg", highlight = "LspDiagnosticsDefaultHint" },
       bg = { attribute = "bg", highlight = "Normal" },

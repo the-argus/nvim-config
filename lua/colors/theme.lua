@@ -246,7 +246,7 @@ function M.get(config)
 		TSVariableBuiltin = { fg = p.love },
 
         -- bufferline
-        BufferLineTextSel = { fg = p.text, bg = p.base },
+        BufferLineTextSel = { fg = p.gold, bg = p.base },
         BufferLineText = { fg = p.highlight_high, bg = p.base },
         BufferLineBGSel = { bg = p.highlight_high },
         BufferLineBG = { bg = p.base },
