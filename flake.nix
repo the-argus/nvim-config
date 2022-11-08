@@ -30,15 +30,15 @@
         enableVimAlias = true;
 
         plugins = with pkgs.${system}.vimPlugins; [
-	  # the lua in this directory is a plugin in itself
-	  (pkgs.${system}.stdenv.mkDerivation {
-	    name = "nvim-config";
-	    src = ./lua;
-	    installPhase = ''
-	      mkdir -p $out/lua
-	      mv * $out/lua
-	    '';
-	  })
+          # the lua in this directory is a plugin in itself
+          (pkgs.${system}.stdenv.mkDerivation {
+            name = "nvim-config";
+            src = ./lua;
+            installPhase = ''
+              mkdir -p $out/lua
+              mv * $out/lua
+            '';
+          })
 
           nvim-base16
 
@@ -57,12 +57,13 @@
 
           nvim-lspconfig
           null-ls-nvim
-          
+
           nvim-treesitter
           nvim-ts-rainbow
 
-          nvim-tree-lua nvim-web-devicons
-            
+          nvim-tree-lua
+          nvim-web-devicons
+
           zen-mode-nvim
           twilight-nvim
 
@@ -87,8 +88,6 @@
           telescope-fzf-native-nvim
 
           # look into lorem.nvim
-
-
         ];
 
         lua = builtins.readFile ./init.lua;
