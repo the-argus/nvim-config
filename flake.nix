@@ -30,6 +30,16 @@
         enableVimAlias = true;
 
         plugins = with pkgs.${system}.vimPlugins; [
+	  # the lua in this directory is a plugin in itself
+	  (pkgs.${system}.stdenv.mkDerivation {
+	    name = "nvim-config";
+	    src = ./lua;
+	    installPhase = ''
+	      mkdir -p $out/lua
+	      mv * $out/lua
+	    '';
+	  })
+
           nvim-base16
 
           friendly-snippets
