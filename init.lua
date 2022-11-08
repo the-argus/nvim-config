@@ -1,6 +1,3 @@
--- useful functions
-require "utils"
-
 -- uncomment if not using nix
 -- require "install-plugins"
 
