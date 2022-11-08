@@ -1,8 +1,13 @@
 # nvim-config
+
 my neovim configuration
 
-# requirements
-``sudo pacman -S npm python-black python-flake8-black flake8 dotnet-sdk``
-``yay -S aur/omnisharp-roslyn``
-``dotnet tool install --global csharp-ls``
+## usage with nix
 
+Install the ``packages.default`` output of this flake instead of pkgs.nvim
+you'd normally use.
+
+## usage without nix
+
+See ``init.lua``, there's some lines you should uncomment before using
+this config in ~/.config/nvim

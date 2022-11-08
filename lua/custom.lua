@@ -1,9 +1,9 @@
 local util = require "utils"
 
 -- neovide specific config
-if vim.g.neovide ~= nil then
-    vim.cmd("hi normal guibg=#191724")
-end
+-- if vim.g.neovide ~= nil then
+--     vim.cmd("hi normal guibg=#191724")
+-- end
 
 local function open_url(command_info)
     -- string manipulation
