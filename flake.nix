@@ -51,7 +51,7 @@
           nvim-treesitter
           nvim-ts-rainbow
 
-          nvim-tree nvim-web-devicons
+          nvim-tree-lua nvim-web-devicons
             
           zen-mode-nvim
           twilight-nvim
