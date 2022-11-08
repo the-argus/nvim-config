@@ -1,3 +1,10 @@
+local okay, colorizer = pcall(require, 'colorizer')
+
+if not okay then
+    return
+end
+
+
 _M = {
     config = {
         "*",
@@ -17,4 +24,4 @@ _M = {
     }
 }
 
-return _M
+colorizer.setup(_M.config, _M.defaults)

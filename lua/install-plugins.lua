@@ -93,7 +93,7 @@ return packer.startup(function(use)
         end
     }
     use {
-        "the-argus/twilight.nvim",
+        "folke/twilight.nvim",
         config = function()
             require("twilight").setup(require("plugin-config.focus").twilight)
         end
