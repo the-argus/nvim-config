@@ -1,3 +1,9 @@
+local okay, gitsigns = pcall(require, 'gitsigns')
+
+if not okay then
+    return
+end
+
 local config = {
   signs = {
     add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
@@ -40,4 +46,4 @@ local config = {
   -- },
 }
 
-return config
+gitsigns.setup(config)

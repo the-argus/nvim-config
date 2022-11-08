@@ -1,3 +1,13 @@
+local zenmode_okay, zenmode = pcall(require, 'zen-mode')
+local twilight_okay, twilight = pcall(require, 'twilight')
+
+if not zenmode_okay then
+    return
+end
+if not twilight_okay then
+    return
+end
+
 local M = {
     zen = {
         window = {
@@ -82,4 +92,5 @@ local M = {
         exclude = {"zsh", "markdown", "help", "asciidoc", "conf", "sh", "vim"}, -- exclude these filetypes
     }
 }
-return M
+twilight.setup(M.twilight)
+zenmode.setup(M.zen)

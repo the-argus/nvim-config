@@ -6,6 +6,5 @@ require "plugin-config.bufferline"
 require "plugin-config.devicons"
 require "plugin-config.comment-nvim"
 require "plugin-config.substitute"
-
--- focus.lua not required
--- gitsign.lua not required
+require "plugin-config.focus"
+require "plugin-config.gitsign"

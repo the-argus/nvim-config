@@ -86,33 +86,10 @@ return packer.startup(function(use)
     }
 
     -- focus mode
-    use {
-        "folke/zen-mode.nvim",
-        config = function()
-            require("zen-mode").setup(require("plugin-config.focus").zen)
-        end
-    }
-    use {
-        "folke/twilight.nvim",
-        config = function()
-            require("twilight").setup(require("plugin-config.focus").twilight)
-        end
-    }
-    -- use "folke/twilight.nvim"
+    use "folke/zen-mode.nvim"
+    use "folke/twilight.nvim"
 
-    -- use({
-    --     'rose-pine/neovim',
-    --     as = 'rose-pine',
-    --     tag = 'v1.*'
-    -- })
-
-    use {
-        'lewis6991/gitsigns.nvim',
-        -- tag = 'release' -- To use the latest release
-        config = function()
-            require('gitsigns').setup(require("plugin-config.gitsign"))
-        end
-    }
+    use 'lewis6991/gitsigns.nvim'
 
     use {
         'akinsho/bufferline.nvim',
@@ -141,13 +118,7 @@ return packer.startup(function(use)
     use "kana/vim-textobj-user"
     use "kana/vim-textobj-line"
 
-    use {
-        "norcalli/nvim-colorizer.lua",
-        config = function()
-            local conf_set = require("plugin-config.nvim-colorizer")
-            require('colorizer').setup(conf_set.config, conf_set.defaults)
-        end
-    }
+    use "norcalli/nvim-colorizer.lua"
 
     -- use { 'nvim-telescope/telescope-fzf-native.nvim',
     --     run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
