@@ -104,6 +104,9 @@
           nvim-lspconfig
           null-ls-nvim
 
+          # (pkgs.${system}.vimPlugins.nvim-treesitter.withPlugins
+          #  (_: pkgs.${system}.tree-sitter.allGrammars))
+
           (nvim-treesitter.withPlugins (plugins:
             with plugins; [
               tree-sitter-yaml
