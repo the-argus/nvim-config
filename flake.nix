@@ -69,7 +69,7 @@
               palette =
                 if builtins.typeOf bannerPalette == "set"
                 then bannerPalette
-                else banner.lib.parsers.basicYamlToBanner palette;
+                else banner.lib.parsers.basicYamlToBanner bannerPalette;
               lualines =
                 pkgs.${system}.lib.attrsets.mapAttrsToList
                 (name: value: "${name} = \"${value}\",")
