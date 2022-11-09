@@ -9,5 +9,4 @@ you'd normally use.
 
 ## usage without nix
 
-See ``init.lua``, there's a line you should uncomment before using this config
-in ~/.config/nvim
+place this repository in ~/.config.nvim

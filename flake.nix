@@ -54,18 +54,16 @@
         ];
         inherit system;
       };
-    /*
-    pkgs = genSystems (system: mkPkgs system nixpkgs);
-    */
-    /*
-    pkgs-old = genSystems (system: mkPkgs system nixpkgs-old);
-    */
+    # pkgs = genSystems (system: mkPkgs system nixpkgs);
+    # pkgs-old = genSystems (system: mkPkgs system nixpkgs-old);
 
     pkgs = genSystems (system: mkPkgs system nixpkgs-old);
   in {
     packages = genSystems (system: let
       mkBuilderInputs = {bannerPalette, ...}: {
-        imports = []; # i do everything in lua
+        imports = [
+          ./modules/lsp.nix
+        ];
         enableViAlias = true;
         enableVimAlias = true;
 
@@ -98,21 +96,7 @@
 
           nvim-base16
 
-          friendly-snippets
-          popup-nvim
-          plenary-nvim
           comment-nvim
-          nvim-cmp
-          cmp-nvim-lsp
-          cmp-nvim-lua
-          cmp-path # cmp-fuzzy-path
-          cmp-buffer # cmp-fuzzy-buffer
-          cmp-cmdline # cmp-cmdline-history
-          cmp_luasnip
-          luasnip
-
-          nvim-lspconfig
-          null-ls-nvim
 
           # (pkgs.${system}.vimPlugins.nvim-treesitter.withPlugins
           #  (_: pkgs.${system}.tree-sitter.allGrammars))
@@ -176,7 +160,18 @@
           # look into lorem.nvim
         ];
 
-        lua = builtins.readFile ./init.lua;
+        lua =
+          builtins.replaceStrings
+          ["false"]
+          ["true"]
+          (builtins.readFile ./init.lua);
+
+        withNodeJs = true;
+        withPython3 = true;
+        extraPython3Packages = packages:
+          with packages; [
+            demjson3 # jsonlint
+          ];
       };
     in rec {
       mkNeovim = args: pkgs.${system}.neovimBuilder (mkBuilderInputs args);
