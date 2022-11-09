@@ -104,7 +104,33 @@
           nvim-lspconfig
           null-ls-nvim
 
-          nvim-treesitter
+          (nvim-treesitter.withPlugins (plugins:
+            with plugins; [
+              tree-sitter-yaml
+              tree-sitter-toml
+              tree-sitter-rust
+              tree-sitter-scss
+              tree-sitter-regex
+              tree-sitter-python
+              tree-sitter-nix
+              tree-sitter-markdown
+              tree-sitter-make
+              tree-sitter-lua
+              tree-sitter-json
+              tree-sitter-javascript
+              tree-sitter-java
+              tree-sitter-glsl
+              tree-sitter-godot-resource
+              tree-sitter-gdscript
+              tree-sitter-dockerfile
+              tree-sitter-css
+              tree-sitter-cpp
+              tree-sitter-comment
+              tree-sitter-cmake
+              tree-sitter-c
+              tree-sitter-c-sharp
+              tree-sitter-bash
+            ]))
           nvim-ts-rainbow
 
           nvim-tree-lua

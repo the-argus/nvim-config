@@ -5,7 +5,6 @@ if not base16_okay then
 	return
 end
 
-print(colors["base00"])
 if not override_palette then
 	colors = {
 		base00 = "#282828";

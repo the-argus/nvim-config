@@ -3,23 +3,9 @@ if not is_okay then
     return
 end
 
-local colors_okay, palette = pcall(require, 'colors.palette')
-if not colors_okay then
-    return
-end
-
 configs.setup {
     -- A list of parser names, or "all"
-    ensure_installed = {
-        "c", "cpp", "rust",
-        "c_sharp", "java", -- cringe
-        "bash", "python", "lua",
-        "html", "css", "json",
-        "glsl", "make", "nix",
-        -- "markdown" -- not currently supported
-        "rasi", "regex", "scss",
-        "gdscript"
-    },
+    ensure_installed = {},
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -48,14 +34,6 @@ configs.setup {
         max_file_lines = nil, -- Do not enable for files with more than n lines, int
         -- colors = {}, -- table of hex strings
         -- termcolors = {} -- table of colour name strings
-        colors = {
-            palette.alias.yellow,
-            palette.alias.blue,
-            palette.alias.orange,
-            palette.alias.purple,
-            palette.alias.green,
-            palette.alias.red,
-        }
     }
 }
 
