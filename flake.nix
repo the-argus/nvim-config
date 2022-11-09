@@ -69,7 +69,7 @@
               palette = banner.lib.parsers.basicYamlToBanner ./default-palette.yaml;
               lualines =
                 pkgs.${system}.lib.attrsets.mapAttrsToList
-                (name: value: "${name} = ${value},")
+                (name: value: "${name} = \"${value}\",")
                 (makeBase16 (removeMeta palette));
               color-lua = pkgs.${system}.writeText "color.lua" ''
                 color = {
@@ -77,9 +77,9 @@
                 }
               '';
             in ''
-                     mkdir -p $out/lua
-                     mv * $out/lua
-              cp ${color-lua} $out/lua/settings/color_palette.lua
+              mkdir -p $out/lua
+              mv * $out/lua
+              cp ${color-lua} $out/lua/settings/color-palette.lua
             '';
           })
 

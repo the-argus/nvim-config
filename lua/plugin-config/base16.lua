@@ -1,5 +1,5 @@
 local base16_okay, colorscheme = pcall(require, 'colorscheme')
-local coloroverride, color = pcall(require, 'settings.color_palette')
+local coloroverride, color = pcall(require, 'settings.color-palette')
 
 if not base16_okay then
 	return
