@@ -72,7 +72,7 @@
                 else banner.lib.parsers.basicYamlToBanner bannerPalette;
               lualines =
                 pkgs.${system}.lib.attrsets.mapAttrsToList
-                (name: value: "${name} = \"${value}\",")
+                (name: value: "${name} = \"#${value}\",")
                 (makeBase16 (removeMeta palette));
               color-lua = pkgs.${system}.writeText "color.lua" ''
                 return {
