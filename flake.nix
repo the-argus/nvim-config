@@ -72,7 +72,7 @@
                 (name: value: "${name} = \"${value}\",")
                 (makeBase16 (removeMeta palette));
               color-lua = pkgs.${system}.writeText "color.lua" ''
-                color = {
+                return {
                 	${builtins.concatStringsSep "\n" lualines}
                 }
               '';

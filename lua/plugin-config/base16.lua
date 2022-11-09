@@ -1,12 +1,12 @@
 local base16_okay, colorscheme = pcall(require, 'colorscheme')
-local coloroverride, color = pcall(require, 'settings.color-palette')
+local override_palette, colors = pcall(require, 'settings.color-palette')
 
 if not base16_okay then
 	return
 end
 
-if not coloroverride then
-	color = {
+if not override_palette then
+	colors = {
 		base00 = "282828";
 		base01 = "3c3836";
 		base02 = "504945";
@@ -26,4 +26,4 @@ if not coloroverride then
 	}
 end
 
-colorscheme.setup(color)
+colorscheme.setup(colors)
