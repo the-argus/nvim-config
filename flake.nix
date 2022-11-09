@@ -2,7 +2,8 @@
   description = "My neovim configuration, packaging managed by nix.";
 
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs?ref=nixos-22.05;
+    nixpkgs.url = github:NixOS/nixpkgs;
+    nixpkgs-old.url = github:NixOS/nixpkgs?ref=nixos-22.05;
     nix2vim.url = github:gytis-ivaskevicius/nix2vim;
     nix2vim.inputs.nixpkgs.follows = "nixpkgs";
     banner = {
@@ -14,6 +15,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-old,
     nix2vim,
     banner,
   }: let
@@ -22,8 +24,8 @@
       "aarch64-linux"
     ];
     genSystems = nixpkgs.lib.genAttrs supportedSystems;
-    pkgs = genSystems (system:
-      import nixpkgs {
+    mkPkgs = system: nixpkgSet:
+      import nixpkgSet {
         overlays = [
           nix2vim.overlay
           (_: super: {
@@ -51,7 +53,15 @@
           })
         ];
         inherit system;
-      });
+      };
+    /*
+    pkgs = genSystems (system: mkPkgs system nixpkgs);
+    */
+    /*
+    pkgs-old = genSystems (system: mkPkgs system nixpkgs-old);
+    */
+
+    pkgs = genSystems (system: mkPkgs system nixpkgs-old);
   in {
     packages = genSystems (system: let
       mkBuilderInputs = {bannerPalette, ...}: {
@@ -108,32 +118,33 @@
           #  (_: pkgs.${system}.tree-sitter.allGrammars))
 
           (nvim-treesitter.withPlugins (plugins:
-            with plugins; [
-              tree-sitter-yaml
-              tree-sitter-toml
-              tree-sitter-rust
-              tree-sitter-scss
-              tree-sitter-regex
-              tree-sitter-python
-              tree-sitter-nix
-              tree-sitter-markdown
-              tree-sitter-make
-              tree-sitter-lua
-              tree-sitter-json
-              tree-sitter-javascript
-              tree-sitter-java
-              tree-sitter-glsl
-              tree-sitter-godot-resource
-              tree-sitter-gdscript
-              tree-sitter-dockerfile
-              tree-sitter-css
-              tree-sitter-cpp
-              tree-sitter-comment
-              tree-sitter-cmake
-              tree-sitter-c
-              tree-sitter-c-sharp
-              tree-sitter-bash
-            ]))
+            # with pkgs-old.${system}.tree-sitter-grammars; [
+              with plugins; [
+                tree-sitter-yaml
+                tree-sitter-toml
+                tree-sitter-rust
+                tree-sitter-scss
+                tree-sitter-regex
+                tree-sitter-python
+                tree-sitter-nix
+                tree-sitter-markdown
+                tree-sitter-make
+                tree-sitter-lua
+                tree-sitter-json
+                tree-sitter-javascript
+                tree-sitter-java
+                tree-sitter-glsl
+                tree-sitter-godot-resource
+                tree-sitter-gdscript
+                tree-sitter-dockerfile
+                tree-sitter-css
+                tree-sitter-cpp
+                tree-sitter-comment
+                tree-sitter-cmake
+                tree-sitter-c
+                tree-sitter-c-sharp
+                tree-sitter-bash
+              ]))
           nvim-ts-rainbow
 
           nvim-tree-lua
