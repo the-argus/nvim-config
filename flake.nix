@@ -2,7 +2,7 @@
   description = "My neovim configuration, packaging managed by nix.";
 
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs;
+    nixpkgs.url = github:NixOS/nixpkgs?ref=nixos-22.05;
     nix2vim.url = github:gytis-ivaskevicius/nix2vim;
     nix2vim.inputs.nixpkgs.follows = "nixpkgs";
     banner = {
@@ -26,12 +26,12 @@
       import nixpkgs {
         overlays = [
           nix2vim.overlay
-          (self: super: {
+          (_: super: {
             vimPlugins =
               super.lib.trivial.mergeAttrs
               super.vimPlugins
               {
-                cmp-nvim-lsp = super.vimPlugins.cmp-nvim-lsp.overrideAttrs (oa: {
+                cmp-nvim-lsp = super.vimPlugins.cmp-nvim-lsp.overrideAttrs (_: {
                   version = "2022-11-08";
                   src = super.fetchgit {
                     url = "https://github.com/hrsh7th/cmp-nvim-lsp";
@@ -39,7 +39,7 @@
                     sha256 = "1gzn4v70wa61yyw9vfxb8m8kkabz0p35nja1l26cfhl71pnkqrka";
                   };
                 });
-                nvim-tree-lua = super.vimPlugins.nvim-tree-lua.overrideAttrs (oa: {
+                nvim-tree-lua = super.vimPlugins.nvim-tree-lua.overrideAttrs (_: {
                   version = "2022-11-08";
                   src = super.fetchgit {
                     url = "https://github.com/nvim-tree/nvim-tree.lua";

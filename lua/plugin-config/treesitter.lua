@@ -36,16 +36,3 @@ configs.setup {
         -- termcolors = {} -- table of colour name strings
     }
 }
-
--- add glsl filetypes
-vim.filetype.add({
-    pattern = {
-        ["*.vs;*.fs"] = "shader",
-    }
-})
-
--- add them to treesitter
-local ft_to_parser = require "nvim-treesitter.parsers".filetype_to_parsername
-
-ft_to_parser.vs = "glsl"
-ft_to_parser.fs = "glsl"
