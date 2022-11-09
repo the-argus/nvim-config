@@ -52,89 +52,97 @@
         ];
         inherit system;
       });
-  in {
-    packages = genSystems (system: {
-      default = pkgs.${system}.neovimBuilder {
-        imports = []; # i do everything in lua
-        enableViAlias = true;
-        enableVimAlias = true;
 
-        plugins = with pkgs.${system}.vimPlugins; [
-          # the lua in this directory is a plugin in itself
-          (pkgs.${system}.stdenv.mkDerivation {
-            name = "nvim-config";
-            src = ./lua;
-            installPhase = let
-              inherit (banner.lib.util) makeBase16 removeMeta;
-              palette = banner.lib.parsers.basicYamlToBanner ./default-palette.yaml;
-              lualines =
-                pkgs.${system}.lib.attrsets.mapAttrsToList
-                (name: value: "${name} = \"${value}\",")
-                (makeBase16 (removeMeta palette));
-              color-lua = pkgs.${system}.writeText "color.lua" ''
-                return {
-                	${builtins.concatStringsSep "\n" lualines}
-                }
-              '';
-            in ''
-              mkdir -p $out/lua
-              mv * $out/lua
-              cp ${color-lua} $out/lua/settings/color-palette.lua
+    mkBuilderInputs = {bannerPalette, ...}: {
+      imports = []; # i do everything in lua
+      enableViAlias = true;
+      enableVimAlias = true;
+
+      plugins = with pkgs.${system}.vimPlugins; [
+        # the lua in this directory is a plugin in itself
+        (pkgs.${system}.stdenv.mkDerivation {
+          name = "nvim-config";
+          src = ./lua;
+          installPhase = let
+            inherit (banner.lib.util) makeBase16 removeMeta;
+            palette =
+              if builtins.typeOf bannerPalette == "set"
+              then bannerPalette
+              else banner.lib.parsers.basicYamlToBanner palette;
+            lualines =
+              pkgs.${system}.lib.attrsets.mapAttrsToList
+              (name: value: "${name} = \"${value}\",")
+              (makeBase16 (removeMeta palette));
+            color-lua = pkgs.${system}.writeText "color.lua" ''
+              return {
+              	${builtins.concatStringsSep "\n" lualines}
+              }
             '';
-          })
+          in ''
+            mkdir -p $out/lua
+            mv * $out/lua
+            cp ${color-lua} $out/lua/settings/color-palette.lua
+          '';
+        })
 
-          nvim-base16
+        nvim-base16
 
-          friendly-snippets
-          popup-nvim
-          plenary-nvim
-          comment-nvim
-          nvim-cmp
-          cmp-nvim-lsp
-          cmp-nvim-lua
-          cmp-path # cmp-fuzzy-path
-          cmp-buffer # cmp-fuzzy-buffer
-          cmp-cmdline # cmp-cmdline-history
-          cmp_luasnip
-          luasnip
+        friendly-snippets
+        popup-nvim
+        plenary-nvim
+        comment-nvim
+        nvim-cmp
+        cmp-nvim-lsp
+        cmp-nvim-lua
+        cmp-path # cmp-fuzzy-path
+        cmp-buffer # cmp-fuzzy-buffer
+        cmp-cmdline # cmp-cmdline-history
+        cmp_luasnip
+        luasnip
 
-          nvim-lspconfig
-          null-ls-nvim
+        nvim-lspconfig
+        null-ls-nvim
 
-          nvim-treesitter
-          nvim-ts-rainbow
+        nvim-treesitter
+        nvim-ts-rainbow
 
-          nvim-tree-lua
-          nvim-web-devicons
+        nvim-tree-lua
+        nvim-web-devicons
 
-          zen-mode-nvim
-          twilight-nvim
+        zen-mode-nvim
+        twilight-nvim
 
-          gitsigns-nvim
+        gitsigns-nvim
 
-          bufferline-nvim
+        bufferline-nvim
 
-          editorconfig-nvim
+        editorconfig-nvim
 
-          vim-surround # surround-nvim is rewrite, figure that out
-          vim-indent-object
-          vim-repeat
-          # look into substitute.nvim
-          vim-textobj-comment
-          vim-textobj-entire
-          vim-textobj-function
-          vim-textobj-user
-          # look into vim-textobj-line
+        vim-surround # surround-nvim is rewrite, figure that out
+        vim-indent-object
+        vim-repeat
+        # look into substitute.nvim
+        vim-textobj-comment
+        vim-textobj-entire
+        vim-textobj-function
+        vim-textobj-user
+        # look into vim-textobj-line
 
-          nvim-colorizer-lua
+        nvim-colorizer-lua
 
-          telescope-fzf-native-nvim
+        telescope-fzf-native-nvim
 
-          # look into lorem.nvim
-        ];
+        # look into lorem.nvim
+      ];
 
-        lua = builtins.readFile ./init.lua;
-      };
+      lua = builtins.readFile ./init.lua;
+    };
+  in {
+    mkNeovim = mkBuilderInputs;
+    packages = genSystems (system: {
+      default = pkgs.${system}.neovimBuilder (mkBuilderInputs {
+        bannerPalette = ./default-palette.yaml;
+      });
     });
   };
 }
