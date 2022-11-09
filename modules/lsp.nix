@@ -69,7 +69,7 @@ with dsl; {
 
     cssls.setup = callWith {
       cmd = [
-        "${nodePackages.vscode-css-languageserver-bin}/bin/css-languageserver"
+        "${pkgs.nodePackages.vscode-css-languageserver-bin}/bin/css-languageserver"
         "--stdio"
       ];
     };
