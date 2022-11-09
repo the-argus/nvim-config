@@ -139,7 +139,7 @@
         lua = builtins.readFile ./init.lua;
       };
     in {
-      mkNeovim = mkBuilderInputs;
+      mkNeovim = args: pkgs.${system}.neovimBuilder (mkBuilderInputs args);
       default = pkgs.${system}.neovimBuilder (mkBuilderInputs {
         bannerPalette = ./default-palette.yaml;
       });
