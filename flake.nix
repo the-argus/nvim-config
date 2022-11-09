@@ -19,7 +19,32 @@
     genSystems = nixpkgs.lib.genAttrs supportedSystems;
     pkgs = genSystems (system:
       import nixpkgs {
-        overlays = [nix2vim.overlay];
+        overlays = [
+          nix2vim.overlay
+          (self: super: {
+            vimPlugins =
+              super.lib.trivial.mergeAttrs
+              super.vimPlugins
+              {
+                cmp-nvim-lsp = super.vimPlugins.cmp-nvim-lsp.overrideAttrs (oa: {
+                  version = "2022-11-08";
+                  src = super.fetchgit {
+                    url = "https://github.com/hrsh7th/cmp-nvim-lsp";
+                    rev = "78924d1d677b29b3d1fe429864185341724ee5a2";
+                    sha256 = "1gzn4v70wa61yyw9vfxb8m8kkabz0p35nja1l26cfhl71pnkqrka";
+                  };
+                });
+                nvim-tree-lua = super.vimPlugins.nvim-tree-lua.overrideAttrs (oa: {
+                  version = "2022-11-08";
+                  src = super.fetchgit {
+                    url = "https://github.com/nvim-tree/nvim-tree.lua";
+                    rev = "7e892767bdd9660b7880cf3627d454cfbc701e9b";
+                    sha256 = "0jl9vlwa9swlgmlr928d0y9h8vaj3nz3jha9nz94wwavjnb0iwcz";
+                  };
+                });
+              };
+          })
+        ];
         inherit system;
       });
   in {

@@ -5,7 +5,6 @@ if not status_ok then
 end
 
 local utils = require("utils.neovim")
-local palette = require("colors.palette")
 
 bufferline.setup {
   options = {
@@ -93,9 +92,9 @@ bufferline.setup {
     },
 
     buffer_selected = {
-      fg = palette.gold,
+      fg = { attribute = "fg", highlight = "BufferLineTextSel" },
       -- controls the bg color of the buffer's devicon
-      bg = palette.surface,
+      bg = { attribute = "fg", highlight = "BufferLineBG" },
     },
     buffer_visible = {
       fg = { attribute = "fg", highlight = "BufferLineText" },
