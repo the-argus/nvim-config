@@ -5,12 +5,17 @@
     nixpkgs.url = github:NixOS/nixpkgs;
     nix2vim.url = github:gytis-ivaskevicius/nix2vim;
     nix2vim.inputs.nixpkgs.follows = "nixpkgs";
+    banner = {
+      url = "github:the-argus/banner.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
     nix2vim,
+    banner,
   }: let
     supportedSystems = [
       "x86_64-linux"
@@ -59,9 +64,22 @@
           (pkgs.${system}.stdenv.mkDerivation {
             name = "nvim-config";
             src = ./lua;
-            installPhase = ''
-              mkdir -p $out/lua
-              mv * $out/lua
+            installPhase = let
+              inherit (banner.lib.util) makeBase16 removeMeta;
+              palette = banner.lib.parsers.basicYamlToBanner ./default-palette.yaml;
+              lualines =
+                pkgs.${system}.lib.attrsets.mapAttrsToList
+                (name: value: "${name} = ${value},")
+                (makeBase16 (removeMeta palette));
+              color-lua = pkgs.${system}.writeText "color.lua" ''
+                color = {
+                	${builtins.concatStringsSep "\n" lualines}
+                }
+              '';
+            in ''
+                     mkdir -p $out/lua
+                     mv * $out/lua
+              cp ${color-lua} $out/lua/settings/color_palette.lua
             '';
           })
 

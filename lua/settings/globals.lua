@@ -12,3 +12,5 @@ g.neovide_cursor_vfx_mode = "railgun"
 
 g.loaded_netrw = 1
 g.netrw_loaded_netrwPlugin = 1
+
+g.base16_transparent_background = 1
