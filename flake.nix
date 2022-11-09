@@ -53,7 +53,11 @@
         inherit system;
       });
 
-    mkBuilderInputs = {bannerPalette, ...}: {
+    mkBuilderInputs = {
+      system,
+      bannerPalette,
+      ...
+    }: {
       imports = []; # i do everything in lua
       enableViAlias = true;
       enableVimAlias = true;
@@ -138,10 +142,11 @@
       lua = builtins.readFile ./init.lua;
     };
   in {
-    mkNeovim = mkBuilderInputs;
     packages = genSystems (system: {
+      mkNeovim = args: mkBuilderInputs ({inherit system;} // args);
       default = pkgs.${system}.neovimBuilder (mkBuilderInputs {
         bannerPalette = ./default-palette.yaml;
+        inherit system;
       });
     });
   };
