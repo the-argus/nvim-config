@@ -168,17 +168,38 @@
 
         withNodeJs = true;
         withPython3 = true;
-        extraPython3Packages = packages:
-          with packages; [
-            demjson3 # jsonlint
-          ];
+        extraPython3Packages = packages: with packages; [];
       };
+
+      wrap = unwrapped-nvim:
+        pkgs.${system}.writeShellScriptBin "nvim" ''
+          #!${pkgs.${system}.bash}/bin/bash
+          export PATH=$PATH:${pkgs.${system}.nodePackages.eslint_d}/bin
+          export PATH=$PATH:${pkgs.${system}.nodePackages.markdownlint-cli}/bin
+          export PATH=$PATH:${pkgs.${system}.nodePackages.prettier_d_slim}/bin
+          export PATH=$PATH:${pkgs.${system}.nodePackages.fixjson}/bin
+          export PATH=$PATH:${pkgs.${system}.nodePackages.jsonlint}/bin
+          export PATH=$PATH:${pkgs.${system}.nodePackages.vscode-html-languageserver-bin}/bin
+          export PATH=$PATH:${pkgs.${system}.nodePackages.vscode-css-languageserver-bin}/bin
+          export PATH=$PATH:${pkgs.${system}.nodePackages.bash-language-server}/bin
+          export PATH=$PATH:${pkgs.${system}.deadnix}/bin
+          export PATH=$PATH:${pkgs.${system}.clang-tools}/bin
+          export PATH=$PATH:${pkgs.${system}.rnix-lsp}/bin
+          export PATH=$PATH:${pkgs.${system}.sumneko-lua-language-server}/bin
+          export PATH=$PATH:${pkgs.${system}.alejandra}/bin
+          export PATH=$PATH:${pkgs.${system}.python310Packages.demjson3}/bin
+          export PATH=$PATH:${pkgs.${system}.rustfmt}/bin
+          export PATH=$PATH:${pkgs.${system}.quick-lint-js}/bin
+          export PATH=$PATH:${pkgs.${system}.pyright}/bin
+          ${unwrapped}/bin/nvim $@
+        '';
     in rec {
-      mkNeovim = args: pkgs.${system}.neovimBuilder (mkBuilderInputs args);
-      default = pkgs.${system}.neovimBuilder (mkBuilderInputs {
+      mkNeovim = args: wrap (pkgs.${system}.neovimBuilder (mkBuilderInputs args));
+      defaultUnwrapped = pkgs.${system}.neovimBuilder (mkBuilderInputs {
         bannerPalette = ./default-palette.yaml;
       });
-      rosepine = mkNeovim {
+      default = wrap defaultUnwrapped;
+      rosepine = wrap (mkNeovim {
         bannerPalette = {
           base00 = "191724";
           base01 = "1f1d2e";
@@ -197,7 +218,7 @@
           base0E = "c4a7e7";
           base0F = "e5e5e5";
         };
-      };
+      });
     });
   };
 }

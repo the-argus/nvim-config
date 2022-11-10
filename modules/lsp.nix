@@ -22,6 +22,17 @@ with dsl; {
     plenary-nvim
   ];
 
+  # setup.null-ls = {
+  #   debug = false;
+  #   sources = let
+  #     formatting = parser: rawLua "require(\"null-ls\").builtins.formatting.${parser}";
+  #     diagnostics = parser: rawLua "require(\"null-ls\").builtins.diagnostics.${parser}";
+  #   in [
+  #     (formatting "alejandra")
+  #     (diagnostics "deadnix")
+  #   ];
+  # };
+
   use.lspconfig = let
     # this doesn't actually do anything at the moment...
     servers = [
@@ -32,8 +43,8 @@ with dsl; {
       "sumneko_lua"
       "bashls"
       "cssls"
-
       "quick_lint_js"
+
       "lemminx"
       "rust_analyzer"
       "ansiblels"
@@ -41,7 +52,7 @@ with dsl; {
     ];
   in {
     pyright.setup =
-      callWith {cmd = ["${pkgs.pyright}/bin/pyright-langserver" "--stdio"];};
+      callWith {cmd = ["pyright-langserver" "--stdio"];};
 
     rnix.setup = callWith {
       autostart = true;
@@ -51,32 +62,32 @@ with dsl; {
         "require('cmp_nvim_lsp').default_capabilities()";
     };
 
-    quick_lint_js.setup = callWith {
-      cmd = [
-        "${pkgs.quick-lint-js}/bin/quick-lint-js"
-      ];
-    };
+    # quick_lint_js.setup = callWith {
+    #   cmd = [
+    #     "quick-lint-js"
+    #   ];
+    # };
 
     clangd.setup =
-      callWith {cmd = ["${pkgs.clang-tools}/bin/clangd"];};
+      callWith {cmd = ["clangd"];};
 
     sumneko_lua.setup =
-      callWith {cmd = ["${pkgs.sumneko-lua-language-server}/bin/lua-language-server"];};
+      callWith {cmd = ["lua-language-server"];};
 
     bashls.setup = callWith {
-      cmd = ["${pkgs.nodePackages.bash-language-server}/bin/bash-language-server"];
+      cmd = ["bash-language-server"];
     };
 
     cssls.setup = callWith {
       cmd = [
-        "${pkgs.nodePackages.vscode-css-languageserver-bin}/bin/css-languageserver"
+        "css-languageserver"
         "--stdio"
       ];
     };
 
     html.setup = callWith {
       cmd = [
-        "${pkgs.nodePackages.vscode-html-languageserver-bin}/bin/html-languageserver"
+        "html-languageserver"
         "--stdio"
       ];
       init_options = {
