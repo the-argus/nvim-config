@@ -50,17 +50,25 @@ with dsl; {
       "ansiblels"
       "emmet_ls"
     ];
-  in {
-    pyright.setup =
-      callWith {cmd = ["pyright-langserver" "--stdio"];};
 
-    rnix.setup = callWith {
-      autostart = true;
-      cmd = ["${pkgs.rnix-lsp}/bin/rnix-lsp"];
-      capabilities =
-        rawLua
-        "require('cmp_nvim_lsp').default_capabilities()";
+    commmonSetup = {
+      on_attach = rawLua "require(\"plugin-config.lsp.handlers\").on_attach";
+      capabilities = rawLua "require(\"plugin-config.lsp.handlers\").capabilities";
     };
+  in {
+    pyright.setup = callWith ({
+        cmd = ["pyright-langserver" "--stdio"];
+      }
+      // commmonSetup);
+
+    rnix.setup = callWith ({
+        autostart = true;
+        cmd = ["${pkgs.rnix-lsp}/bin/rnix-lsp"];
+        capabilities =
+          rawLua
+          "require('cmp_nvim_lsp').default_capabilities()";
+      }
+      // commmonSetup);
 
     # quick_lint_js.setup = callWith {
     #   cmd = [
@@ -69,35 +77,38 @@ with dsl; {
     # };
 
     clangd.setup =
-      callWith {cmd = ["clangd"];};
+      callWith {cmd = ["clangd"];} // commmonSetup;
 
     sumneko_lua.setup =
-      callWith {cmd = ["lua-language-server"];};
+      callWith ({cmd = ["lua-language-server"];} // commmonSetup);
 
-    bashls.setup = callWith {
-      cmd = ["bash-language-server"];
-    };
+    bashls.setup = callWith ({
+        cmd = ["bash-language-server"];
+      }
+      // commmonSetup);
 
-    cssls.setup = callWith {
-      cmd = [
-        "css-languageserver"
-        "--stdio"
-      ];
-    };
+    cssls.setup = callWith ({
+        cmd = [
+          "css-languageserver"
+          "--stdio"
+        ];
+      }
+      // commmonSetup);
 
-    html.setup = callWith {
-      cmd = [
-        "html-languageserver"
-        "--stdio"
-      ];
-      init_options = {
-        configurationSection = ["html" "css" "javascript"];
-        embeddedLanguages = {
-          css = true;
-          javascript = true;
+    html.setup = callWith ({
+        cmd = [
+          "html-languageserver"
+          "--stdio"
+        ];
+        init_options = {
+          configurationSection = ["html" "css" "javascript"];
+          embeddedLanguages = {
+            css = true;
+            javascript = true;
+          };
+          provideFormatter = true;
         };
-        provideFormatter = true;
-      };
-    };
+      }
+      // commmonSetup);
   };
 }
