@@ -191,7 +191,7 @@
           export PATH=$PATH:${pkgs.${system}.rustfmt}/bin
           export PATH=$PATH:${pkgs.${system}.quick-lint-js}/bin
           export PATH=$PATH:${pkgs.${system}.pyright}/bin
-          ${unwrapped}/bin/nvim $@
+          ${unwrapped-nvim}/bin/nvim $@
         '';
     in rec {
       mkNeovim = args: wrap (pkgs.${system}.neovimBuilder (mkBuilderInputs args));
