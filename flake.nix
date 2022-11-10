@@ -182,6 +182,7 @@
           export PATH=$PATH:${pkgs.${system}.nodePackages.vscode-html-languageserver-bin}/bin
           export PATH=$PATH:${pkgs.${system}.nodePackages.vscode-css-languageserver-bin}/bin
           export PATH=$PATH:${pkgs.${system}.nodePackages.bash-language-server}/bin
+          export PATH=$PATH:${pkgs.${system}.nodePackages.cspell}/bin
           export PATH=$PATH:${pkgs.${system}.deadnix}/bin
           export PATH=$PATH:${pkgs.${system}.clang-tools}/bin
           export PATH=$PATH:${pkgs.${system}.rnix-lsp}/bin
@@ -191,6 +192,8 @@
           export PATH=$PATH:${pkgs.${system}.rustfmt}/bin
           export PATH=$PATH:${pkgs.${system}.quick-lint-js}/bin
           export PATH=$PATH:${pkgs.${system}.pyright}/bin
+          export PATH=$PATH:${pkgs.${system}.proselint}/bin
+          export PATH=$PATH:${pkgs.${system}.statix}/bin
           ${unwrapped-nvim}/bin/nvim $@
         '';
     in rec {

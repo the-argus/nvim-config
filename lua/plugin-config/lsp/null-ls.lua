@@ -7,6 +7,34 @@ end
 local formatting = null_ls.builtins.formatting
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
 local diagnostics = null_ls.builtins.diagnostics
+local code_actions = null_ls.builtins.code_actions
+
+local eslint_config = {
+    filetypes = {
+        -- "html",
+        "js",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "vue",
+    };
+    command = "eslint_d";
+    args = { "-f",
+        "json",
+        "--stdin",
+        "--stdin-filename",
+        "$FILENAME"
+    };
+}
+
+local spellchecking_settings = {
+    filetypes = {
+        "tex",
+        "text",
+        "markdown"
+    }
+};
 
 null_ls.setup({
     debug = false,
@@ -24,39 +52,17 @@ null_ls.setup({
         diagnostics.deadnix,
         formatting.rustfmt,
 
-        diagnostics.eslint_d.with({
-            filetypes = {
-                -- "html",
-                "js",
-                "javascript",
-                "javascriptreact",
-                "typescript",
-                "typescriptreact",
-                "vue",
-                "json",
-                "jsonc",
-            };
-        }),
-        formatting.prettier_d_slim.with({
-            filetypes = {
-                "javascript",
-                "javascriptreact",
-                "typescript",
-                "typescriptreact",
-                "vue",
-                "css",
-                "scss",
-                "less",
-                -- "html",
-                "json",
-                "jsonc",
-                "yaml",
-                "markdown",
-                "markdown.mdx",
-                "graphql",
-                "handlebars"
-            };
-        }),
+        diagnostics.eslint_d.with(eslint_config),
+        code_actions.eslint_d.with(eslint_config),
+
+        formatting.prettier_d_slim,
+
+        code_actions.statix,
+
+        diagnostics.cspell.with(spellchecking_settings),
+        code_actions.cspell.with(spellchecking_settings),
+        code_actions.proselint.with(spellchecking_settings),
+
         -- formatting.prettier_d_slim.with({
         --     filetypes = { "css" };
         -- }),
