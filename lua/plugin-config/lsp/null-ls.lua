@@ -36,6 +36,17 @@ local spellchecking_settings = {
     }
 };
 
+local cspell_config = {
+    filetypes = {
+        "python",
+        "javascript",
+        "html",
+        "css",
+        "cpp",
+        "c"
+    }
+}
+
 null_ls.setup({
     debug = false,
     sources = {
@@ -59,8 +70,8 @@ null_ls.setup({
 
         code_actions.statix,
 
-        diagnostics.cspell.with(spellchecking_settings),
-        code_actions.cspell.with(spellchecking_settings),
+        diagnostics.cspell.with(cspell_config),
+        code_actions.cspell.with(cspell_config),
         code_actions.proselint.with(spellchecking_settings),
 
         -- formatting.prettier_d_slim.with({
