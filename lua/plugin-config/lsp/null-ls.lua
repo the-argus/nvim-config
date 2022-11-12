@@ -57,21 +57,21 @@ null_ls.setup({
         formatting.markdownlint,
         diagnostics.jsonlint,
         formatting.fixjson,
+        formatting.rustfmt,
 
         -- formatting.nixfmt,
         formatting.alejandra,
+        code_actions.statix,
         diagnostics.deadnix,
-        formatting.rustfmt,
 
         diagnostics.eslint_d.with(eslint_config),
         code_actions.eslint_d.with(eslint_config),
 
-        formatting.prettier_d_slim,
+        formatting.prettier,
 
-        code_actions.statix,
 
-        diagnostics.cspell.with(cspell_config),
-        code_actions.cspell.with(cspell_config),
+        -- diagnostics.cspell.with(cspell_config),
+        -- code_actions.cspell.with(cspell_config),
         code_actions.proselint.with(spellchecking_settings),
 
         -- formatting.prettier_d_slim.with({

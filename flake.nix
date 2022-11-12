@@ -176,7 +176,7 @@
           #!${pkgs.${system}.bash}/bin/bash
           export PATH=$PATH:${pkgs.${system}.nodePackages.eslint_d}/bin
           export PATH=$PATH:${pkgs.${system}.nodePackages.markdownlint-cli}/bin
-          export PATH=$PATH:${pkgs.${system}.nodePackages.prettier_d_slim}/bin
+          export PATH=$PATH:${pkgs.${system}.nodePackages.prettier}/bin
           export PATH=$PATH:${pkgs.${system}.nodePackages.fixjson}/bin
           export PATH=$PATH:${pkgs.${system}.nodePackages.jsonlint}/bin
           export PATH=$PATH:${pkgs.${system}.nodePackages.vscode-html-languageserver-bin}/bin
