@@ -9,6 +9,33 @@
   globalBuildInputs ? [],
 }: let
   sources = {
+    "@emmetio/abbreviation-2.2.3" = {
+      name = "_at_emmetio_slash_abbreviation";
+      packageName = "@emmetio/abbreviation";
+      version = "2.2.3";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@emmetio/abbreviation/-/abbreviation-2.2.3.tgz";
+        sha512 = "87pltuCPt99aL+y9xS6GPZ+Wmmyhll2WXH73gG/xpGcQ84DRnptBsI2r0BeIQ0EB/SQTOe2ANPqFqj3Rj5FOGA==";
+      };
+    };
+    "@emmetio/css-abbreviation-2.1.4" = {
+      name = "_at_emmetio_slash_css-abbreviation";
+      packageName = "@emmetio/css-abbreviation";
+      version = "2.1.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@emmetio/css-abbreviation/-/css-abbreviation-2.1.4.tgz";
+        sha512 = "qk9L60Y+uRtM5CPbB0y+QNl/1XKE09mSO+AhhSauIfr2YOx/ta3NJw2d8RtCFxgzHeRqFRr8jgyzThbu+MZ4Uw==";
+      };
+    };
+    "@emmetio/scanner-1.0.0" = {
+      name = "_at_emmetio_slash_scanner";
+      packageName = "@emmetio/scanner";
+      version = "1.0.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@emmetio/scanner/-/scanner-1.0.0.tgz";
+        sha512 = "8HqW8EVqjnCmWXVpqAOZf+EGESdkR27odcMMMGefgKXtar00SoYNSryGv//TELI4T3QFsECo78p+0lmalk/CFA==";
+      };
+    };
     "@eslint/eslintrc-1.3.3" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
@@ -16,6 +43,15 @@
       src = fetchurl {
         url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.3.3.tgz";
         sha512 = "uj3pT6Mg+3t39fvLrj8iuCIJ38zKO9FpGtJ4BBJebJhEwjoT+KLVNCcHT5QC9NGRIEi7fZ0ZR8YRb884auB4Lg==";
+      };
+    };
+    "@flatten-js/interval-tree-1.0.19" = {
+      name = "_at_flatten-js_slash_interval-tree";
+      packageName = "@flatten-js/interval-tree";
+      version = "1.0.19";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@flatten-js/interval-tree/-/interval-tree-1.0.19.tgz";
+        sha512 = "E+uCpmzAP6EL1L0VDligIg2oUnwbzhSMRXts8Ct7OQ+i+dFEgefExcKnTwGFa+MUZGYAIKHBoUWo/f/lhqc1Ew==";
       };
     };
     "@humanwhocodes/config-array-0.11.7" = {
@@ -79,6 +115,15 @@
       src = fetchurl {
         url = "https://registry.npmjs.org/@types/json5/-/json5-0.0.29.tgz";
         sha512 = "dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==";
+      };
+    };
+    "@types/node-17.0.45" = {
+      name = "_at_types_slash_node";
+      packageName = "@types/node";
+      version = "17.0.45";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@types/node/-/node-17.0.45.tgz";
+        sha512 = "w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==";
       };
     };
     "acorn-8.8.1" = {
@@ -178,6 +223,15 @@
       src = fetchurl {
         url = "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz";
         sha512 = "iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==";
+      };
+    };
+    "brace-expansion-2.0.1" = {
+      name = "brace-expansion";
+      packageName = "brace-expansion";
+      version = "2.0.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/brace-expansion/-/brace-expansion-2.0.1.tgz";
+        sha512 = "XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==";
       };
     };
     "builtins-5.0.1" = {
@@ -313,6 +367,15 @@
       src = fetchurl {
         url = "https://registry.npmjs.org/doctrine/-/doctrine-3.0.0.tgz";
         sha512 = "yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==";
+      };
+    };
+    "emmet-2.3.6" = {
+      name = "emmet";
+      packageName = "emmet";
+      version = "2.3.6";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/emmet/-/emmet-2.3.6.tgz";
+        sha512 = "pLS4PBPDdxuUAmw7Me7+TcHbykTsBKN/S9XJbUOMFQrNv9MoshzyMFK/R57JBm94/6HSL4vHnDeEmxlC82NQ4A==";
       };
     };
     "error-ex-1.3.2" = {
@@ -702,6 +765,15 @@
         sha512 = "nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==";
       };
     };
+    "glob-8.0.3" = {
+      name = "glob";
+      packageName = "glob";
+      version = "8.0.3";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/glob/-/glob-8.0.3.tgz";
+        sha512 = "ull455NHSHI/Y1FqGaaYFaLGkNMMJbavMrEGFXG/PGrg6y7sutWHUHrz6gy6WEBH6akM1M414dWKCNs+IhKdiQ==";
+      };
+    };
     "glob-parent-6.0.2" = {
       name = "glob-parent";
       packageName = "glob-parent";
@@ -835,6 +907,15 @@
       src = fetchurl {
         url = "https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz";
         sha512 = "k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==";
+      };
+    };
+    "ini-3.0.1" = {
+      name = "ini";
+      packageName = "ini";
+      version = "3.0.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/ini/-/ini-3.0.1.tgz";
+        sha512 = "it4HyVAUTKBc6m8e1iXWvXSTdndF7HbdN713+kvLrymxTaU4AUBWrJ4vEooP+V7fexnVD3LKcBshjGGPefSMUQ==";
       };
     };
     "internal-slot-1.0.3" = {
@@ -1107,6 +1188,15 @@
         sha512 = "iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==";
       };
     };
+    "lodash-4.17.21" = {
+      name = "lodash";
+      packageName = "lodash";
+      version = "4.17.21";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz";
+        sha512 = "v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==";
+      };
+    };
     "lodash.merge-4.6.2" = {
       name = "lodash.merge";
       packageName = "lodash.merge";
@@ -1141,6 +1231,15 @@
       src = fetchurl {
         url = "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz";
         sha512 = "J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==";
+      };
+    };
+    "minimatch-5.1.0" = {
+      name = "minimatch";
+      packageName = "minimatch";
+      version = "5.1.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/minimatch/-/minimatch-5.1.0.tgz";
+        sha512 = "9TPBGGak4nHfGZsPBohm9AWg6NoT7QTCehS3BIJABslyZbzxfV78QM2Y6+i741OPZIafFAaiiEMh5OyIrJPgtg==";
       };
     };
     "minimist-1.2.7" = {
@@ -1692,6 +1791,15 @@
         sha512 = "cUGJnCdr4STbePCgqNFbpVNCepa+kAVohJs1sLhxzdH+gnEoOd8VhbYa7pD3zZYGiURWM2xzEII3fQcRizDkYQ==";
       };
     };
+    "typescript-4.8.4" = {
+      name = "typescript";
+      packageName = "typescript";
+      version = "4.8.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/typescript/-/typescript-4.8.4.tgz";
+        sha512 = "QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==";
+      };
+    };
     "unbox-primitive-1.0.2" = {
       name = "unbox-primitive";
       packageName = "unbox-primitive";
@@ -1708,6 +1816,69 @@
       src = fetchurl {
         url = "https://registry.npmjs.org/uri-js/-/uri-js-4.4.1.tgz";
         sha512 = "7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==";
+      };
+    };
+    "uuid-8.3.2" = {
+      name = "uuid";
+      packageName = "uuid";
+      version = "8.3.2";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz";
+        sha512 = "+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==";
+      };
+    };
+    "vscode-jsonrpc-6.0.0" = {
+      name = "vscode-jsonrpc";
+      packageName = "vscode-jsonrpc";
+      version = "6.0.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/vscode-jsonrpc/-/vscode-jsonrpc-6.0.0.tgz";
+        sha512 = "wnJA4BnEjOSyFMvjZdpiOwhSq9uDoK8e/kpRJDTaMYzwlkrhG1fwDIZI94CLsLzlCK5cIbMMtFlJlfR57Lavmg==";
+      };
+    };
+    "vscode-languageserver-7.0.0" = {
+      name = "vscode-languageserver";
+      packageName = "vscode-languageserver";
+      version = "7.0.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/vscode-languageserver/-/vscode-languageserver-7.0.0.tgz";
+        sha512 = "60HTx5ID+fLRcgdHfmz0LDZAXYEV68fzwG0JWwEPBode9NuMYTIxuYXPg4ngO8i8+Ou0lM7y6GzaYWbiDL0drw==";
+      };
+    };
+    "vscode-languageserver-protocol-3.16.0" = {
+      name = "vscode-languageserver-protocol";
+      packageName = "vscode-languageserver-protocol";
+      version = "3.16.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/vscode-languageserver-protocol/-/vscode-languageserver-protocol-3.16.0.tgz";
+        sha512 = "sdeUoAawceQdgIfTI+sdcwkiK2KU+2cbEYA0agzM2uqaUy2UpnnGHtWTHVEtS0ES4zHU0eMFRGN+oQgDxlD66A==";
+      };
+    };
+    "vscode-languageserver-textdocument-1.0.7" = {
+      name = "vscode-languageserver-textdocument";
+      packageName = "vscode-languageserver-textdocument";
+      version = "1.0.7";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/vscode-languageserver-textdocument/-/vscode-languageserver-textdocument-1.0.7.tgz";
+        sha512 = "bFJH7UQxlXT8kKeyiyu41r22jCZXG8kuuVVA33OEJn1diWOZK5n8zBSPZFHVBOu8kXZ6h0LIRhf5UnCo61J4Hg==";
+      };
+    };
+    "vscode-languageserver-types-3.16.0" = {
+      name = "vscode-languageserver-types";
+      packageName = "vscode-languageserver-types";
+      version = "3.16.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/vscode-languageserver-types/-/vscode-languageserver-types-3.16.0.tgz";
+        sha512 = "k8luDIWJWyenLc5ToFQQMaSrqCHiLwyKPHKPQZ5zz21vM+vIVUSvsRpcbiECH4WR88K2XZqc4ScRcZ7nk/jbeA==";
+      };
+    };
+    "vscode-uri-3.0.6" = {
+      name = "vscode-uri";
+      packageName = "vscode-uri";
+      version = "3.0.6";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/vscode-uri/-/vscode-uri-3.0.6.tgz";
+        sha512 = "fmL7V1eiDBFRRnu+gfRWTzyPpNIHJTc4mWnFkwBUmO9U3KPgJAmTx7oxi2bl/Rh6HLdU7+4C9wlj0k2E4AdKFQ==";
       };
     };
     "which-2.0.2" = {
@@ -1762,6 +1933,15 @@
       src = fetchurl {
         url = "https://registry.npmjs.org/yallist/-/yallist-4.0.0.tgz";
         sha512 = "3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==";
+      };
+    };
+    "yaml-1.10.2" = {
+      name = "yaml";
+      packageName = "yaml";
+      version = "1.10.2";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/yaml/-/yaml-1.10.2.tgz";
+        sha512 = "r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==";
       };
     };
     "yocto-queue-0.1.0" = {
@@ -2019,6 +2199,77 @@ in {
     meta = {
       description = "JavaScript Standard Style";
       homepage = "https://standardjs.com";
+      license = "MIT";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
+  emmet-ls = nodeEnv.buildNodePackage {
+    name = "emmet-ls";
+    packageName = "emmet-ls";
+    version = "0.3.1";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/emmet-ls/-/emmet-ls-0.3.1.tgz";
+      sha512 = "SbNxxpLHnkaT/lA8CpOnnu1fH+VMzEAniAoyqQV+CGVJ9BYwHbaDlOPRckoJFK/6czWCQqDWax1Gk5Pa+HrNmA==";
+    };
+    dependencies = [
+      sources."@emmetio/abbreviation-2.2.3"
+      sources."@emmetio/css-abbreviation-2.1.4"
+      sources."@emmetio/scanner-1.0.0"
+      sources."@types/node-17.0.45"
+      sources."emmet-2.3.6"
+      sources."typescript-4.8.4"
+      sources."vscode-jsonrpc-6.0.0"
+      sources."vscode-languageserver-7.0.0"
+      sources."vscode-languageserver-protocol-3.16.0"
+      sources."vscode-languageserver-textdocument-1.0.7"
+      sources."vscode-languageserver-types-3.16.0"
+    ];
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "emmet support by LSP";
+      homepage = "https://github.com/aca/emmet-ls#readme";
+      license = "MIT";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
+  "@ansible/ansible-language-server" = nodeEnv.buildNodePackage {
+    name = "_at_ansible_slash_ansible-language-server";
+    packageName = "@ansible/ansible-language-server";
+    version = "1.0.2";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/@ansible/ansible-language-server/-/ansible-language-server-1.0.2.tgz";
+      sha512 = "z23uIaj9IAdqiB6xHYNOUSrBXJQwQjywMLhKOoejuC7AECXmqLPjYm4cMgiPG3SjO6nmSIe08nq/Qfhu2Bm5ww==";
+    };
+    dependencies = [
+      sources."@flatten-js/interval-tree-1.0.19"
+      sources."balanced-match-1.0.2"
+      sources."brace-expansion-2.0.1"
+      sources."fs.realpath-1.0.0"
+      sources."glob-8.0.3"
+      sources."inflight-1.0.6"
+      sources."inherits-2.0.4"
+      sources."ini-3.0.1"
+      sources."lodash-4.17.21"
+      sources."minimatch-5.1.0"
+      sources."once-1.4.0"
+      sources."uuid-8.3.2"
+      sources."vscode-jsonrpc-6.0.0"
+      sources."vscode-languageserver-7.0.0"
+      sources."vscode-languageserver-protocol-3.16.0"
+      sources."vscode-languageserver-textdocument-1.0.7"
+      sources."vscode-languageserver-types-3.16.0"
+      sources."vscode-uri-3.0.6"
+      sources."wrappy-1.0.2"
+      sources."yaml-1.10.2"
+    ];
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "Ansible language server";
+      homepage = "https://github.com/ansible/ansible-language-server#readme";
       license = "MIT";
     };
     production = true;

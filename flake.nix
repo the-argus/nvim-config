@@ -62,7 +62,7 @@
     packages = genSystems (system: let
       mkBuilderInputs = {bannerPalette, ...}: {
         imports = [
-          ./modules/lsp.nix
+          # ./modules/lsp.nix
         ];
         enableViAlias = true;
         enableVimAlias = true;
@@ -158,6 +158,22 @@
           telescope-fzf-native-nvim
 
           # look into lorem.nvim
+
+          nvim-cmp
+          cmp-nvim-lsp
+          cmp-nvim-lua
+          cmp-path # cmp-fuzzy-path
+          cmp-buffer # cmp-fuzzy-buffer
+          cmp-cmdline # cmp-cmdline-history
+          cmp_luasnip
+          luasnip
+
+          nvim-lspconfig
+          null-ls-nvim
+
+          friendly-snippets
+          popup-nvim
+          plenary-nvim
         ];
 
         lua =
@@ -174,6 +190,7 @@
       wrap = let
         inherit
           (pkgs.${system})
+          black
           writeShellScriptBin
           bash
           nodePackages
@@ -182,39 +199,49 @@
           rnix-lsp
           sumneko-lua-language-server
           alejandra
-          python310Packages
           rustfmt
-          quick-lint-js
           pyright
           proselint
           statix
+          yamllint
+          rust-analyzer
           ;
         myNodePackages = pkgs.${system}.callPackage ./packages/nodePackages {};
       in
         unwrapped-nvim:
           writeShellScriptBin "nvim" ''
             #!${bash}/bin/bash
-            export PATH=$PATH:${nodePackages.eslint_d}/bin
-            export PATH=$PATH:${nodePackages.markdownlint-cli}/bin
-            export PATH=$PATH:${nodePackages.prettier}/bin
-            export PATH=$PATH:${nodePackages.fixjson}/bin
-            export PATH=$PATH:${nodePackages.jsonlint}/bin
-            export PATH=$PATH:${nodePackages.vscode-html-languageserver-bin}/bin
-            export PATH=$PATH:${nodePackages.vscode-css-languageserver-bin}/bin
-            export PATH=$PATH:${nodePackages.bash-language-server}/bin
-            # export PATH=$PATH:$\{nodePackages.cspell}/bin
-            export PATH=$PATH:${deadnix}/bin
+
+            # LSPs used by lspconfig
             export PATH=$PATH:${clang-tools}/bin
             export PATH=$PATH:${rnix-lsp}/bin
             export PATH=$PATH:${sumneko-lua-language-server}/bin
-            export PATH=$PATH:${alejandra}/bin
-            export PATH=$PATH:${python310Packages.demjson3}/bin
-            export PATH=$PATH:${rustfmt}/bin
-            export PATH=$PATH:${quick-lint-js}/bin
             export PATH=$PATH:${pyright}/bin
-            export PATH=$PATH:${proselint}/bin
+            export PATH=$PATH:${nodePackages.vscode-html-languageserver-bin}/bin
+            export PATH=$PATH:${nodePackages.vscode-css-languageserver-bin}/bin
+            export PATH=$PATH:${nodePackages.bash-language-server}/bin
+            export PATH=$PATH:${myNodePackages.emmet-ls}/bin
+            export PATH=$PATH:${myNodePackages.ansiblels}/bin
+            export PATH=$PATH:${yamllint}/bin
+            export PATH=$PATH:${rust-analyzer}/bin
+
+            # LSPs used by null-ls
+            export PATH=$PATH:${black}/bin
+            export PATH=$PATH:${nodePackages.markdownlint-cli}/bin
+            export PATH=$PATH:${nodePackages.fixjson}/bin
+            export PATH=$PATH:${nodePackages.jsonlint}/bin
+            export PATH=$PATH:${rustfmt}/bin
+            export PATH=$PATH:${alejandra}/bin
             export PATH=$PATH:${statix}/bin
-            export PATH=$PATH:${myNodePackages.standard-bin}/bin
+            export PATH=$PATH:${deadnix}/bin
+            export PATH=$PATH:${myNodePackages.standard}/bin
+            export PATH=$PATH:${nodePackages.prettier}/bin
+            export PATH=$PATH:${proselint}/bin
+            
+            # export PATH=$PATH:$\{nodePackages.cspell}/bin
+            # export PATH=$PATH:$\{python310Packages.demjson3}/bin
+            # export PATH=$PATH:$\{quick-lint-js}/bin
+            # export PATH=$PATH:$\{nodePackages.eslint_d}/bin
             ${unwrapped-nvim}/bin/nvim $@
           '';
     in rec {

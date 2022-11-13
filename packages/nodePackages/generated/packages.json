@@ -1,3 +1,5 @@
 [
-    "standard"
+    "standard",
+    "emmet-ls",
+    "@ansible/ansible-language-server"
 ]

@@ -56,31 +56,28 @@ local standardjs_config = {
 null_ls.setup({
     debug = false,
     sources = {
-        formatting.black.with({ extra_args = { "--fast" } }),
         -- formatting.stylua,
         -- diagnostics.flake8,
+        formatting.black.with({ extra_args = { "--fast" } }),
         diagnostics.markdownlint,
         formatting.markdownlint,
         diagnostics.jsonlint,
         formatting.fixjson,
         formatting.rustfmt,
-
-        -- formatting.nixfmt,
         formatting.alejandra,
         code_actions.statix,
         diagnostics.deadnix,
+        diagnostics.standardjs.with(standardjs_config),
+        formatting.standardjs.with(standardjs_config),
+        formatting.prettier,
+        code_actions.proselint.with(spellchecking_settings),
 
         -- diagnostics.eslint_d.with(eslint_config),
         -- code_actions.eslint_d.with(eslint_config),
-        diagnostics.standardjs.with(standardjs_config),
-        formatting.standardjs.with(standardjs_config),
-
-        formatting.prettier,
 
 
         -- diagnostics.cspell,
         -- code_actions.cspell,
-        code_actions.proselint.with(spellchecking_settings),
 
         -- formatting.prettier_d_slim.with({
         --     filetypes = { "css" };

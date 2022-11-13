@@ -5,16 +5,31 @@
 }: let
   nodePackages =
     callPackage ./generated {};
-  overrides = rec {
-    standard = nodePackages.standard.override {
-      dontNpmInstall = true;
-    };
-    standard-bin = stdenv.mkDerivation {
-      name = "standardjs-wrapper";
-      src = standard;
+
+  mkNodeWrapper = {
+    pkgName,
+    extraInstall ? "",
+  }:
+    stdenv.mkDerivation {
+      name = "${pkgName}-wrapper";
+      src = nodePackages.${pkgName}.override {
+        dontNpmInstall = true;
+      };
       installPhase = ''
-        mv lib/node_modules/standard/bin/cmd.js lib/node_modules/standard/bin/standard.js
+        ${extraInstall}
         mv lib/node_modules/standard $out
+      '';
+    };
+
+  overrides = rec {
+    emmet-ls = mkNodeWrapper {pkgName = "emmet-ls";};
+
+    ansiblels = mkNodeWrapper {pkgName = "@ansible/ansible-language-server";};
+
+    standard = mkNodeWrapper {
+      pkgName = "standard";
+      extraInstall = ''
+        mv lib/node_modules/standard/bin/cmd.js lib/node_modules/standard/bin/standard.js
       '';
     };
   };
