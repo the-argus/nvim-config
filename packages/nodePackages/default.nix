@@ -17,7 +17,7 @@
       };
       installPhase = ''
         ${extraInstall}
-        mv lib/node_modules/standard $out
+        mv lib/node_modules/${pkgName} $out
       '';
     };
 
