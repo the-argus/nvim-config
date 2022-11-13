@@ -13,7 +13,7 @@
       name = "standardjs-wrapper";
       src = standard;
       installPhase = ''
-        mv lib/node_modules/standard/bin/cmd.js lib/node_modules/standard/bin/standard
+        mv lib/node_modules/standard/bin/cmd.js lib/node_modules/standard/bin/standard.js
         mv lib/node_modules/standard $out
       '';
     };

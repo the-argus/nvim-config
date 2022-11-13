@@ -47,6 +47,12 @@ local cspell_config = {
     }
 }
 
+local standardjs_config = {
+    filetypes = { "javascript", "javascriptreact" },
+    command = "standard.js",
+    args = { "--stdin" }
+}
+
 null_ls.setup({
     debug = false,
     sources = {
@@ -66,8 +72,8 @@ null_ls.setup({
 
         -- diagnostics.eslint_d.with(eslint_config),
         -- code_actions.eslint_d.with(eslint_config),
-        diagnostics.standardjs,
-        formatting.standardjs,
+        diagnostics.standardjs.with(standardjs_config),
+        formatting.standardjs.with(standardjs_config),
 
         formatting.prettier,
 
