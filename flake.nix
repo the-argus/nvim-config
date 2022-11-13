@@ -171,31 +171,52 @@
         extraPython3Packages = packages: with packages; [];
       };
 
-      wrap = unwrapped-nvim:
-        pkgs.${system}.writeShellScriptBin "nvim" ''
-          #!${pkgs.${system}.bash}/bin/bash
-          export PATH=$PATH:${pkgs.${system}.nodePackages.eslint_d}/bin
-          export PATH=$PATH:${pkgs.${system}.nodePackages.markdownlint-cli}/bin
-          export PATH=$PATH:${pkgs.${system}.nodePackages.prettier}/bin
-          export PATH=$PATH:${pkgs.${system}.nodePackages.fixjson}/bin
-          export PATH=$PATH:${pkgs.${system}.nodePackages.jsonlint}/bin
-          export PATH=$PATH:${pkgs.${system}.nodePackages.vscode-html-languageserver-bin}/bin
-          export PATH=$PATH:${pkgs.${system}.nodePackages.vscode-css-languageserver-bin}/bin
-          export PATH=$PATH:${pkgs.${system}.nodePackages.bash-language-server}/bin
-          export PATH=$PATH:${pkgs.${system}.nodePackages.cspell}/bin
-          export PATH=$PATH:${pkgs.${system}.deadnix}/bin
-          export PATH=$PATH:${pkgs.${system}.clang-tools}/bin
-          export PATH=$PATH:${pkgs.${system}.rnix-lsp}/bin
-          export PATH=$PATH:${pkgs.${system}.sumneko-lua-language-server}/bin
-          export PATH=$PATH:${pkgs.${system}.alejandra}/bin
-          export PATH=$PATH:${pkgs.${system}.python310Packages.demjson3}/bin
-          export PATH=$PATH:${pkgs.${system}.rustfmt}/bin
-          export PATH=$PATH:${pkgs.${system}.quick-lint-js}/bin
-          export PATH=$PATH:${pkgs.${system}.pyright}/bin
-          export PATH=$PATH:${pkgs.${system}.proselint}/bin
-          export PATH=$PATH:${pkgs.${system}.statix}/bin
-          ${unwrapped-nvim}/bin/nvim $@
-        '';
+      wrap = let
+        inherit
+          (pkgs.${system})
+          writeShellScriptBin
+          bash
+          nodePackages
+          deadnix
+          clang-tools
+          rnix-lsp
+          sumneko-lua-language-server
+          alejandra
+          python310Packages
+          rustfmt
+          quick-lint-js
+          pyright
+          proselint
+          statix
+          ;
+        myNodePackages = pkgs.${system}.callPackage ./packages/nodePackages {};
+      in
+        unwrapped-nvim:
+          writeShellScriptBin "nvim" ''
+            #!${bash}/bin/bash
+            export PATH=$PATH:${nodePackages.eslint_d}/bin
+            export PATH=$PATH:${nodePackages.markdownlint-cli}/bin
+            export PATH=$PATH:${nodePackages.prettier}/bin
+            export PATH=$PATH:${nodePackages.fixjson}/bin
+            export PATH=$PATH:${nodePackages.jsonlint}/bin
+            export PATH=$PATH:${nodePackages.vscode-html-languageserver-bin}/bin
+            export PATH=$PATH:${nodePackages.vscode-css-languageserver-bin}/bin
+            export PATH=$PATH:${nodePackages.bash-language-server}/bin
+            export PATH=$PATH:${nodePackages.cspell}/bin
+            export PATH=$PATH:${deadnix}/bin
+            export PATH=$PATH:${clang-tools}/bin
+            export PATH=$PATH:${rnix-lsp}/bin
+            export PATH=$PATH:${sumneko-lua-language-server}/bin
+            export PATH=$PATH:${alejandra}/bin
+            export PATH=$PATH:${python310Packages.demjson3}/bin
+            export PATH=$PATH:${rustfmt}/bin
+            export PATH=$PATH:${quick-lint-js}/bin
+            export PATH=$PATH:${pyright}/bin
+            export PATH=$PATH:${proselint}/bin
+            export PATH=$PATH:${statix}/bin
+            export PATH=$PATH:${myNodePackages.standard-bin}/bin
+            ${unwrapped-nvim}/bin/nvim $@
+          '';
     in rec {
       mkNeovim = args: wrap (pkgs.${system}.neovimBuilder (mkBuilderInputs args));
       defaultUnwrapped = pkgs.${system}.neovimBuilder (mkBuilderInputs {

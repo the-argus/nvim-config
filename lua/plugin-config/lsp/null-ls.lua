@@ -64,14 +64,16 @@ null_ls.setup({
         code_actions.statix,
         diagnostics.deadnix,
 
-        diagnostics.eslint_d.with(eslint_config),
-        code_actions.eslint_d.with(eslint_config),
+        -- diagnostics.eslint_d.with(eslint_config),
+        -- code_actions.eslint_d.with(eslint_config),
+        diagnostics.standardjs,
+        formatting.standardjs,
 
         formatting.prettier,
 
 
-        -- diagnostics.cspell.with(cspell_config),
-        -- code_actions.cspell.with(cspell_config),
+        diagnostics.cspell,
+        code_actions.cspell,
         code_actions.proselint.with(spellchecking_settings),
 
         -- formatting.prettier_d_slim.with({
