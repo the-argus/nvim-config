@@ -202,7 +202,7 @@
             export PATH=$PATH:${nodePackages.vscode-html-languageserver-bin}/bin
             export PATH=$PATH:${nodePackages.vscode-css-languageserver-bin}/bin
             export PATH=$PATH:${nodePackages.bash-language-server}/bin
-            export PATH=$PATH:${nodePackages.cspell}/bin
+            # export PATH=$PATH:$\{nodePackages.cspell}/bin
             export PATH=$PATH:${deadnix}/bin
             export PATH=$PATH:${clang-tools}/bin
             export PATH=$PATH:${rnix-lsp}/bin

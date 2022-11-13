@@ -72,8 +72,8 @@ null_ls.setup({
         formatting.prettier,
 
 
-        diagnostics.cspell,
-        code_actions.cspell,
+        -- diagnostics.cspell,
+        -- code_actions.cspell,
         code_actions.proselint.with(spellchecking_settings),
 
         -- formatting.prettier_d_slim.with({
