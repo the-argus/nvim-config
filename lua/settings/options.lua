@@ -50,7 +50,7 @@ cmd("hi Comment gui=italic")
 -- misc
 -- o.cc = "80" -- 80 char width column for coding style
 local columnRange = {}
-for i=80,999 do
+for i=81,999 do
     table.insert(columnRange, i)
 end
 o.cc = columnRange
