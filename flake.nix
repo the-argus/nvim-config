@@ -239,6 +239,7 @@
             export PATH=$PATH:${nodePackages.prettier}/bin
             export PATH=$PATH:${proselint}/bin
             export PATH=$PATH:${nodePackages.typescript-language-server}/bin
+            export PATH=$PATH:${nodePackages.typescript}/bin
             
             # export PATH=$PATH:$\{nodePackages.cspell}/bin
             # export PATH=$PATH:$\{python310Packages.demjson3}/bin
