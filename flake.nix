@@ -225,6 +225,8 @@
             export PATH=$PATH:${myNodePackages.ansiblels}/bin
             export PATH=$PATH:${yamllint}/bin
             export PATH=$PATH:${rust-analyzer}/bin
+            export PATH=$PATH:${nodePackages.typescript-language-server}/bin
+            export PATH=$PATH:${nodePackages.typescript}/lib/node_modules/typescript/bin
 
             # LSPs used by null-ls
             export PATH=$PATH:${black}/bin
@@ -238,8 +240,6 @@
             export PATH=$PATH:${myNodePackages.standard}/bin
             export PATH=$PATH:${nodePackages.prettier}/bin
             export PATH=$PATH:${proselint}/bin
-            export PATH=$PATH:${nodePackages.typescript-language-server}/bin
-            export PATH=$PATH:${nodePackages.typescript}/bin
             
             # export PATH=$PATH:$\{nodePackages.cspell}/bin
             # export PATH=$PATH:$\{python310Packages.demjson3}/bin
