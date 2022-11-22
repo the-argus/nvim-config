@@ -207,6 +207,14 @@
           rust-analyzer
           ;
         myNodePackages = pkgs.${system}.callPackage ./packages/nodePackages {};
+
+        tsls = nodePackages.typescript-language-server.override {
+          nativeBuildInputs = [pkgs.${system}.buildPackages.makeWrapper];
+          postInstall = ''
+            wrapProgram "$out/bin/typescript-language-server" \
+              --prefix NODE_PATH : ${nodePackages.typescript}/lib/node_modules
+          '';
+        };
       in
         unwrapped-nvim:
           writeShellScriptBin "nvim" ''
@@ -223,7 +231,7 @@
             export PATH=$PATH:${nodePackages.bash-language-server}/bin
             export PATH=$PATH:${myNodePackages.emmet-ls}/bin
             export PATH=$PATH:${myNodePackages.ansiblels}/bin
-            export PATH=$PATH:${myNodePackages.typescript-language-server}/bin
+            export PATH=$PATH:${tsls}/bin
             export PATH=$PATH:${yamllint}/bin
             export PATH=$PATH:${rust-analyzer}/bin
 

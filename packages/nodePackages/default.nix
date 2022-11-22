@@ -2,6 +2,7 @@
   callPackage,
   stdenv,
   coreutils-full,
+  findutils,
   ...
 }: let
   nodePackages =
@@ -20,7 +21,7 @@
         ${extraInstall}
         mkdir -p $out
         for file in lib/node_modules/${pkgName}/*; do
-          ln -sf $file $out/$(${coreutils-full}/bin/basename $file)
+          cp -r $file $out/$(${coreutils-full}/bin/basename $file)
         done
       '';
     };
@@ -37,7 +38,12 @@
 
     ansiblels = mkNodeWrapper {pkgName = "@ansible/ansible-language-server";};
 
-    typescript-language-server = mkNodeWrapper {pkgName = "typescript-language-server";};
+    typescript-language-server = mkNodeWrapper rec {
+      pkgName = "typescript-language-server";
+      extraInstall = ''
+        mv lib/node_modules/${pkgName}/node_modules/.bin lib/node_modules/${pkgName}/bin
+      '';
+    };
 
     standard = mkNodeWrapper {
       pkgName = "standard";
