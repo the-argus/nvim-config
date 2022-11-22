@@ -1,5 +1,6 @@
 [
     "standard",
     "emmet-ls",
-    "@ansible/ansible-language-server"
+    "@ansible/ansible-language-server",
+    "typescript-language-server"
 ]

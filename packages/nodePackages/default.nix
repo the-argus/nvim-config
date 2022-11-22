@@ -18,7 +18,10 @@
       };
       installPhase = ''
         ${extraInstall}
-        mv lib/node_modules/${pkgName} $out
+        mkdir -p $out
+        for file in lib/node_modules/${pkgName}/*; do
+          ln -sf $file $out/$(${coreutils-full}/bin/basename $file)
+        done
       '';
     };
 
@@ -33,6 +36,8 @@
     };
 
     ansiblels = mkNodeWrapper {pkgName = "@ansible/ansible-language-server";};
+
+    typescript-language-server = mkNodeWrapper {pkgName = "typescript-language-server";};
 
     standard = mkNodeWrapper {
       pkgName = "standard";
