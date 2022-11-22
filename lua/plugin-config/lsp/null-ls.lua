@@ -47,11 +47,17 @@ local cspell_config = {
     }
 }
 
-local standardjs_config = {
-    filetypes = { "javascript", "javascriptreact" },
-    command = "standard.js",
-    args = { "--stdin" }
-}
+local make_standardjs_config = function(is_formatter)
+    local args = { "--stdin" }
+    if is_formatter then
+        args = { "--fix", table.unpack(args) }
+    end
+    return {
+        filetypes = { "javascript", "javascriptreact" },
+        command = "standard.js",
+        args,
+    }
+end
 
 null_ls.setup({
     debug = false,
@@ -67,8 +73,8 @@ null_ls.setup({
         formatting.alejandra,
         code_actions.statix,
         diagnostics.deadnix,
-        diagnostics.standardjs.with(standardjs_config),
-        formatting.standardjs.with(standardjs_config),
+        diagnostics.standardjs.with(make_standardjs_config(false)),
+        formatting.standardjs.with(make_standardjs_config(true)),
         formatting.prettier.with({
             filetypes = {
                 -- "javascript",
