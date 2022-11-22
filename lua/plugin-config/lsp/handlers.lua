@@ -65,7 +65,21 @@ local lsp_keymap_config = require("settings.keymap.lsp")
 M.on_attach = function(client, bufnr)
     -- fix overrides
     -- disable formatting for a lang server
-    if client.name == "rnix" or client.name == "cssls" or client.name == "html" then
+    local disabled_formatting = {
+        "rnix",
+        "cssls",
+        "html",
+        "tsserver"
+    }
+    local is_disabled = function(name)
+        for _, value in pairs(disabled_formatting) do -- For all the values/"items" in the list, do this:
+            if value == name then
+                return true
+            end
+        end
+        return false
+    end
+    if is_disabled(client.name) then
         client.resolved_capabilities.document_formatting = false
     end
     lsp_keymap_config.create_keymaps(bufnr)
