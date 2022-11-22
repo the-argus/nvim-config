@@ -69,7 +69,26 @@ null_ls.setup({
         diagnostics.deadnix,
         diagnostics.standardjs.with(standardjs_config),
         formatting.standardjs.with(standardjs_config),
-        formatting.prettier,
+        formatting.prettier.with({
+            filetypes = {
+                -- "javascript",
+                -- "javascriptreact",
+                -- "typescript",
+                -- "typescriptreact",
+                "vue",
+                "css",
+                "scss",
+                "less",
+                "html",
+                "json",
+                "jsonc",
+                "yaml",
+                "markdown",
+                "markdown.mdx",
+                "graphql",
+                "handlebars"
+            }
+        }),
         code_actions.proselint.with(spellchecking_settings),
 
         -- diagnostics.eslint_d.with(eslint_config),
