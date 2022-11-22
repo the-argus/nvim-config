@@ -188,24 +188,7 @@
       };
 
       wrap = let
-        inherit
-          (pkgs.${system})
-          black
-          writeShellScriptBin
-          bash
-          nodePackages
-          deadnix
-          clang-tools
-          rnix-lsp
-          sumneko-lua-language-server
-          alejandra
-          rustfmt
-          pyright
-          proselint
-          statix
-          yamllint
-          rust-analyzer
-          ;
+        inherit (pkgs.${system}) nodePackages;
         myNodePackages = pkgs.${system}.callPackage ./packages/nodePackages {};
 
         tsls = nodePackages.typescript-language-server.override {
@@ -216,44 +199,68 @@
           '';
         };
       in
-        unwrapped-nvim:
-          writeShellScriptBin "nvim" ''
-            #!${bash}/bin/bash
+        unwrapped-nvim: let
+          inherit
+            (pkgs.${system})
+            bash
+            buildPackages
+            stdenv
+            coreutils-full
+            lib
+            ;
 
-            # LSPs used by lspconfig
-            export PATH=$PATH:${clang-tools}/bin
-            export PATH=$PATH:${rnix-lsp}/bin
-            export PATH=$PATH:${sumneko-lua-language-server}/bin
-            export PATH=$PATH:${pyright}/bin
-            # vscode-html-languageserver-bin provides a binary not called "vscode-html-language-server" which is the default
-            export PATH=$PATH:${nodePackages.vscode-html-languageserver-bin}/bin
-            export PATH=$PATH:${nodePackages.vscode-css-languageserver-bin}/bin
-            export PATH=$PATH:${nodePackages.bash-language-server}/bin
-            export PATH=$PATH:${myNodePackages.emmet-ls}/bin
-            export PATH=$PATH:${myNodePackages.ansiblels}/bin
-            export PATH=$PATH:${tsls}/bin
-            export PATH=$PATH:${yamllint}/bin
-            export PATH=$PATH:${rust-analyzer}/bin
+          binPath = lib.makeBinPath ((with pkgs.${system}; [
+              black
+              deadnix
+              clang-tools
+              rnix-lsp
+              sumneko-lua-language-server
+              alejandra
+              rustfmt
+              pyright
+              proselint
+              statix
+              yamllint
+              rust-analyzer
+            ])
+            ++ (with nodePackages; [
+              vscode-html-languageserver-bin
+              vscode-css-languageserver-bin
+              bash-language-server
+              fixjson
+              jsonlint
+              markdownlint-cli
+            ])
+            ++ (with myNodePackages; [
+              emmet-ls
+              ansiblels
+              standard
+            ])
+            ++ [
+              tsls
+            ]);
+        in
+          stdenv.mkDerivation {
+            name = "configure-nvim";
+            src = unwrapped-nvim;
+            nativeBuildInputs = [
+              buildPackages.makeWrapper
+            ];
+            installPhase = ''
+              runHook preInstall
+              cp -r $src $out
+              ${coreutils-full}/bin/chmod +w+r $out/bin -R
+              runHook postInstall
+            '';
+            postInstall = ''
+              #!${bash}/bin/bash
 
-            # LSPs used by null-ls
-            export PATH=$PATH:${black}/bin
-            export PATH=$PATH:${nodePackages.markdownlint-cli}/bin
-            export PATH=$PATH:${nodePackages.fixjson}/bin
-            export PATH=$PATH:${nodePackages.jsonlint}/bin
-            export PATH=$PATH:${rustfmt}/bin
-            export PATH=$PATH:${alejandra}/bin
-            export PATH=$PATH:${statix}/bin
-            export PATH=$PATH:${deadnix}/bin
-            export PATH=$PATH:${myNodePackages.standard}/bin
-            export PATH=$PATH:${nodePackages.prettier}/bin
-            export PATH=$PATH:${proselint}/bin
-
-            # export PATH=$PATH:$\{nodePackages.cspell}/bin
-            # export PATH=$PATH:$\{python310Packages.demjson3}/bin
-            # export PATH=$PATH:$\{quick-lint-js}/bin
-            # export PATH=$PATH:$\{nodePackages.eslint_d}/bin
-            ${unwrapped-nvim}/bin/nvim $@
-          '';
+              for bin in $out/bin/*; do
+                wrapProgram "$bin" \
+                  --suffix PATH : ${binPath}
+              done
+            '';
+          };
     in rec {
       mkNeovim = args: wrap (pkgs.${system}.neovimBuilder (mkBuilderInputs args));
       defaultUnwrapped = pkgs.${system}.neovimBuilder (mkBuilderInputs {
