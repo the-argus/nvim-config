@@ -50,7 +50,7 @@ local cspell_config = {
 local make_standardjs_config = function(is_formatter)
     local args = { "--stdin" }
     if is_formatter then
-        args = { "--fix", table.unpack(args) }
+        args = { "--fix", "--stdin" }
     end
     return {
         filetypes = { "javascript", "javascriptreact" },
