@@ -42,4 +42,9 @@ if not override_palette then
 	}
 end
 
-colorscheme.setup(colors, {})
+local M = {
+    setup = function () colorscheme.setup(colors, {}) end,
+    colors = colors
+}
+
+return M

@@ -8,4 +8,4 @@ require "plugin-config.comment-nvim"
 require "plugin-config.substitute"
 require "plugin-config.focus"
 require "plugin-config.gitsign"
-require "plugin-config.base16"
+require("plugin-config.base16").setup()
