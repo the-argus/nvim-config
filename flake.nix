@@ -45,8 +45,8 @@
                   version = "2022-11-08";
                   src = super.fetchgit {
                     url = "https://github.com/nvim-tree/nvim-tree.lua";
-                    rev = "7e892767bdd9660b7880cf3627d454cfbc701e9b";
-                    sha256 = "0jl9vlwa9swlgmlr928d0y9h8vaj3nz3jha9nz94wwavjnb0iwcz";
+                    rev = "3cc0c4c59885f235e51fce9d51e5f0c5622ea93d";
+                    sha256 = "18dc5znisyyqi2qvjr70apqzg3lgd739ackmd8wgnzbhlqrk19li";
                   };
                 });
                 nvim-base16 = super.vimPlugins.nvim-base16.overrideAttrs (_: {
@@ -276,22 +276,38 @@
       default = wrap defaultUnwrapped;
       rosepine = wrap (mkNeovim {
         bannerPalette = {
-          base00 = "191724";
-          base01 = "1f1d2e";
-          base02 = "26233a";
-          base03 = "555169";
-          base04 = "6e6a86";
-          base05 = "e0def4";
-          base06 = "f0f0f3";
-          base07 = "c5c3ce";
-          base08 = "e2e1e7";
-          base09 = "eb6f92";
-          base0A = "f6c177";
-          base0B = "ebbcba";
-          base0C = "31748f";
-          base0D = "9ccfd8";
-          base0E = "c4a7e7";
-          base0F = "e5e5e5";
+          base00 = "#191724";
+          base01 = "#1f1d2e";
+          base02 = "#26233a";
+          base03 = "#555169";
+          base04 = "#6e6a86";
+          base05 = "#e0def4";
+          base06 = "#f0f0f3";
+          base07 = "#c5c3ce";
+          base08 = "#e2e1e7";
+          base09 = "#eb6f92";
+          base0A = "#f6c177";
+          base0B = "#ebbcba";
+          base0C = "#31748f";
+          base0D = "#9ccfd8";
+          base0E = "#c4a7e7";
+          base0F = "#e5e5e5";
+          confirm = "#31748f";
+          warn = "#f6c177";
+          urgent = "#eb6f92";
+          link = "#9ccfd8";
+          highlight = "#c4a7e7";
+          hialt0 = "#f6c177";
+          hialt1 = "#c4a7e7";
+          hialt2 = "#f6c177";
+          pfg_confirm = "#f0f0f3";
+          pfg_warn = "#191724";
+          pfg_urgent = "#191724";
+          pfg_link = "#191724";
+          pfg_highlight = "#191724";
+          pfg_hialt0 = "#191724";
+          pfg_hialt1 = "#191724";
+          pfg_hialt2 = "#191724";
         };
       });
     });

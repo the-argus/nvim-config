@@ -23,6 +23,22 @@ if not override_palette then
 		base0D = "#83a598";
 		base0E = "#d3869b";
 		base0F = "#d65d0e";
+        confirm = "#b8bb26";
+        warn = "#fabd2f";
+        urgent = "#fb4934";
+        link = "#8ec07c";
+        highlight = "#8ec07c";
+        hialt0 = "#83a598";
+        hialt1 = "#8ec07c";
+        hialt2 = "#83a598";
+        pfg_confirm = "#282828";
+        pfg_warn = "#282828";
+        pfg_urgent = "#fbf1c7";
+        pfg_link = "#282828";
+        pfg_highlight = "#282828";
+        pfg_hialt0 = "#282828";
+        pfg_hialt1 = "#282828";
+        pfg_hialt2 = "#282828";
 	}
 end
 
