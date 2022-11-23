@@ -45,15 +45,15 @@
                   version = "2022-11-08";
                   src = super.fetchgit {
                     url = "https://github.com/nvim-tree/nvim-tree.lua";
-                    rev = "3cc0c4c59885f235e51fce9d51e5f0c5622ea93d";
-                    sha256 = "18dc5znisyyqi2qvjr70apqzg3lgd739ackmd8wgnzbhlqrk19li";
+                    rev = "7e892767bdd9660b7880cf3627d454cfbc701e9b";
+                    sha256 = "0jl9vlwa9swlgmlr928d0y9h8vaj3nz3jha9nz94wwavjnb0iwcz";
                   };
                 });
                 nvim-base16 = super.vimPlugins.nvim-base16.overrideAttrs (_: {
                   src = super.fetchgit {
                     url = "https://github.com/the-argus/banner.nvim";
-                    rev = "70fe3102158b2765d5bba46f398bd4213997936f";
-                    sha256 = "0p53l747hnjrz7wzcyh08vnx3pfdk5gbqmb9vpf4hq2x3lyx1a57";
+                    rev = "3cc0c4c59885f235e51fce9d51e5f0c5622ea93d";
+                    sha256 = "18dc5znisyyqi2qvjr70apqzg3lgd739ackmd8wgnzbhlqrk19li";
                   };
                 });
               };
