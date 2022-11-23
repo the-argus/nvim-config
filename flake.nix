@@ -80,14 +80,15 @@
             name = "nvim-config";
             src = ./lua;
             installPhase = let
-              inherit (banner.lib.util) makeBase16 removeMeta;
+              inherit (banner.lib.util) removeMeta;
+              inherit (pkgs.${system}.lib) attrsets;
               palette =
                 if builtins.typeOf bannerPalette == "set"
                 then bannerPalette
                 else banner.lib.parsers.basicYamlToBanner bannerPalette;
               lualines =
-                pkgs.${system}.lib.attrsets.mapAttrsToList
-                (name: value: "${name} = \"#${value}\",")
+                attrsets.mapAttrsToList
+                (name: value: "${builtins.replaceStrings ["-"] ["_"] name} = \"#${value}\",")
                 (removeMeta palette);
               color-lua = pkgs.${system}.writeText "color.lua" ''
                 return {
@@ -300,14 +301,14 @@
           hialt0 = "f6c177";
           hialt1 = "c4a7e7";
           hialt2 = "f6c177";
-          pfg_confirm = "f0f0f3";
-          pfg_warn = "191724";
-          pfg_urgent = "191724";
-          pfg_link = "191724";
-          pfg_highlight = "191724";
-          pfg_hialt0 = "191724";
-          pfg_hialt1 = "191724";
-          pfg_hialt2 = "191724";
+          pfg-confirm = "f0f0f3";
+          pfg-warn = "191724";
+          pfg-urgent = "191724";
+          pfg-link = "191724";
+          pfg-highlight = "191724";
+          pfg-hialt0 = "191724";
+          pfg-hialt1 = "191724";
+          pfg-hialt2 = "191724";
         };
       });
     });
