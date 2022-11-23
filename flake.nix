@@ -52,8 +52,8 @@
                 nvim-base16 = super.vimPlugins.nvim-base16.overrideAttrs (_: {
                   src = super.fetchgit {
                     url = "https://github.com/the-argus/banner.nvim";
-                    rev = "ffeddea1877434086fd7406ea6d3eeef5dcb94e3";
-                    sha256 = "0afp2mcfs613lhyhlk45rgl8h4s48vvwiac5aprklvjfqjdf2i8j";
+                    rev = "561fafabf1a5583caf59fa1f693c1d1ed910b189";
+                    sha256 = "0ylxpczlahnibhpaxjw6a09zgyyi72hnaxn2bqs372vngbga1m0v";
                   };
                 });
               };
@@ -88,7 +88,7 @@
               lualines =
                 pkgs.${system}.lib.attrsets.mapAttrsToList
                 (name: value: "${name} = \"#${value}\",")
-                (makeBase16 (removeMeta palette));
+                (removeMeta palette);
               color-lua = pkgs.${system}.writeText "color.lua" ''
                 return {
                 	${builtins.concatStringsSep "\n" lualines}
