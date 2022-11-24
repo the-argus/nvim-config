@@ -52,8 +52,8 @@
                 nvim-base16 = super.vimPlugins.nvim-base16.overrideAttrs (_: {
                   src = super.fetchgit {
                     url = "https://github.com/the-argus/banner.nvim";
-                    rev = "42365ac011af48a736d87b31ca52af0051b3a7a0";
-                    sha256 = "0afp2mcfs613lhyhlk45rgl8h4s48vvwiac5aprklvjfqjdf2i8j";
+                    rev = "75cd119cdc1703052257d117502ad02c45c35a2a";
+                    sha256 = "06wsd6v43fwn4wxjbp4vyz72ja9i2mz83dyp684qp144h5anxmac";
                   };
                 });
               };
