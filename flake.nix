@@ -182,6 +182,13 @@
           friendly-snippets
           popup-nvim
           plenary-nvim
+
+          # writing plugins
+          thesaurus_query-vim
+          vim-table-mode
+
+          # color scheme dev
+          lush-nvim
         ];
 
         lua =
