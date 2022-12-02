@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs?rev=e12211201092f08c24d710c1697cca16afae3a4c;
-    nixpkgs-old.url = github:NixOS/nixpkgs?ref=nixos-22.11;
+    nixpkgs-old.url = github:NixOS/nixpkgs?ref=nixos-22.05;
     nix2vim.url = github:gytis-ivaskevicius/nix2vim;
     nix2vim.inputs.nixpkgs.follows = "nixpkgs";
     banner = {
@@ -191,7 +191,6 @@
           vim-table-mode
 
           orgmode
-          # neorg # only works with 0.8.0
 
           # color scheme dev
           lush-nvim
@@ -251,7 +250,6 @@
               fixjson
               jsonlint
               markdownlint-cli
-              prettier
             ])
             ++ (with myNodePackages; [
               emmet-ls
