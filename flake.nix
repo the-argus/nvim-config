@@ -250,6 +250,7 @@
               fixjson
               jsonlint
               markdownlint-cli
+              prettier
             ])
             ++ (with myNodePackages; [
               emmet-ls
