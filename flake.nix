@@ -56,6 +56,15 @@
                     sha256 = "0z62d7dykv9zaz95nrry5j8a2218d7vx3qnpnwfcic9g97kcyip6";
                   };
                 });
+                # override of base16 because that's also a lua plugin...
+                # hoping no problems arise because of that
+                nvim-orgmode = super.vimPlugins.nvim-base16.overrideAttrs (_: {
+                  src = super.fetchgit {
+                    url = "https://github.com/nvim-orgmode/orgmode";
+                    rev = "fc9bb0f5823d01e4008e4b86663772d4148aa9ce";
+                    sha256 = "1vb0x89qr2kk5ma8syw4l56c6j2b7y2advyjykdli8psn6i7gsyf";
+                  };
+                });
               };
           })
         ];
@@ -186,6 +195,8 @@
           # writing plugins
           thesaurus_query-vim
           vim-table-mode
+
+          nvim-orgmode
 
           # color scheme dev
           lush-nvim
