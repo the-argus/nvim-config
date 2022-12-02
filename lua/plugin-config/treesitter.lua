@@ -5,7 +5,7 @@ end
 
 configs.setup {
     -- A list of parser names, or "all"
-    ensure_installed = { "org" },
+    ensure_installed = { },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,

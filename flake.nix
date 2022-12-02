@@ -136,6 +136,9 @@
                 tree-sitter-c
                 tree-sitter-c-sharp
                 tree-sitter-bash
+
+                tree-sitter-norg
+                tree-sitter-org-nvim
               ]))
           nvim-ts-rainbow
 
