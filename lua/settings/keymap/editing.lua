@@ -14,3 +14,6 @@ k('n', 'gb', '<Plug>(comment_toggle_blockwise)')
 -- Toggle in VISUAL mode
 k('x', 'gc', '<Plug>(comment_toggle_linewise_visual)')
 k('x', 'gb', '<Plug>(comment_toggle_blockwise_visual)')
+
+-- Keybind to bring indentation in to the indent of the previous line
+k('i', '<C-t>', [[<Esc>:call setline(".",substitute(getline(line(".")),'^\s*',matchstr(getline(line(".")-1),'^\s*'),''))<CR>I]])
