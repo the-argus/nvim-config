@@ -194,6 +194,9 @@
 
           # color scheme dev
           lush-nvim
+
+          # helps nesting to look better
+          indent-blankline-nvim
         ];
 
         lua =
