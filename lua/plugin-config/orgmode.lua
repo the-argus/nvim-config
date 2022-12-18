@@ -10,8 +10,8 @@ M = {
     end,
     final = function()
         orgmode.setup({
-            org_agenda_files = { '~/Dropbox/org/*', '~/my-orgs/**/*' },
-            org_default_notes_file = '~/Documents/Notes/refile.org',
+            org_agenda_files = { '~/NextcloudSync/org/*', '~/my-orgs/**/*' },
+            org_default_notes_file = '~/NextcloudSync/org/refile.org',
         })
     end
 }
