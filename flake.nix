@@ -213,6 +213,10 @@
       wrap = let
         inherit (pkgs.${system}) nodePackages;
         myNodePackages = pkgs.${system}.callPackage ./packages/nodePackages {};
+        ical2org = pkgs.${system}.callPackage ./packages/ical2org {
+          author = "Ian McFarlane";
+          email = "i.mcfarlane2002@gmail.com";
+        };
 
         tsls = nodePackages.typescript-language-server.override {
           nativeBuildInputs = [pkgs.${system}.buildPackages.makeWrapper];
@@ -262,6 +266,7 @@
             ])
             ++ [
               tsls
+              ical2org
             ]);
         in
           stdenv.mkDerivation {
