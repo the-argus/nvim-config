@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs?rev=e12211201092f08c24d710c1697cca16afae3a4c;
     nixpkgs-old.url = github:NixOS/nixpkgs?ref=nixos-22.05;
+    nixpkgs-unstable.url = github:NixOS/nixpkgs?ref=nixos-unstable;
     nix2vim.url = github:gytis-ivaskevicius/nix2vim;
     nix2vim.inputs.nixpkgs.follows = "nixpkgs";
     banner = {
@@ -16,6 +17,7 @@
     self,
     nixpkgs,
     nixpkgs-old,
+    nixpkgs-unstable,
     nix2vim,
     banner,
   }: let
@@ -65,6 +67,7 @@
     # pkgs-old = genSystems (system: mkPkgs system nixpkgs-old);
 
     pkgs = genSystems (system: mkPkgs system nixpkgs-old);
+    unstable = genSystems (system: mkPkgs system nixpkgs-unstable);
   in {
     packages = genSystems (system: let
       mkBuilderInputs = {bannerPalette, ...}: {
@@ -197,6 +200,8 @@
 
           # helps nesting to look better
           indent-blankline-nvim
+
+          unstable.${system}.vimPlugins.yuck-vim
         ];
 
         lua =
