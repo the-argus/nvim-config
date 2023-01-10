@@ -31,7 +31,7 @@ local function open_url(command_info)
         if not wget_worked then
             print(
                 string.format("W3M and Wget failed to retrieve %s", url)
-                )
+            )
         else
             print("W3M failed, defaulting to wget.")
             vim.cmd(string.format(":vs|view %s", path))
@@ -49,5 +49,8 @@ local function find_files(command_info)
     telescope.find_files()
 end
 
+dvorak_functions = require("settings.keymap.dvorak-overrides")
+
 vim.api.nvim_create_user_command("Url", open_url, {})
 vim.api.nvim_create_user_command("Open", find_files, {})
+vim.api.nvim_create_user_command("ToggleDvorak", dvorak_functions.toggle_dvorak, {})

@@ -1,7 +1,7 @@
 -- this will be replaced with "true" by the nix derivation
 InNix = false
 
-UsingDvorak = true
+UsingDvorak = false
 
 if not InNix then
     require "install-plugins"
