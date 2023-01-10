@@ -22,13 +22,6 @@ k("n", "<A-j>", "<C-w>j", opts)
 k("n", "<A-k>", "<C-w>k", opts)
 k("n", "<A-l>", "<C-w>l", opts)
 
--- open new window with leader
-k("n", "<Leader>l", "<Cmd>vsplit<CR>", opts)
-k("n", "<Leader>h", "<Cmd>vsplit<CR><C-w>h", opts)
-
-k("n", "<Leader>j", "<Cmd>split<CR>", opts)
-k("n", "<Leader>k", "<Cmd>split<CR><C-w>k", opts)
-
 -- resize window with ctrl
 k("n", "<C-h>", "<C-w><", opts)
 k("n", "<C-l>", "<C-w>>", opts)
