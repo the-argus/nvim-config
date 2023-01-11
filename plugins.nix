@@ -116,6 +116,9 @@ with vimPlugins; [
   nvim-lspconfig
   null-ls-nvim
 
+  # nice way of displaying multiple diagnostics on a single line
+  lsp_lines-nvim
+
   friendly-snippets
   popup-nvim
   plenary-nvim
