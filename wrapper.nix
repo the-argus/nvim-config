@@ -43,86 +43,68 @@
     else abort "Invalid type for \"lua\" argument: ${builtins.typeOf lua}. Expected \"set\" or \"path\". Ensure lua is a derivation or a path to one.";
 
   vimConfig = ''luafile ${luaFile}'';
+
+  binPath = lib.makeBinPath ((with pkgs; [
+      black
+      deadnix
+      clang-tools
+      rnix-lsp
+      sumneko-lua-language-server
+      alejandra
+      rustfmt
+      pyright
+      proselint
+      statix
+      yamllint
+      rust-analyzer
+    ])
+    ++ (with nodePackages; [
+      vscode-html-languageserver-bin
+      vscode-css-languageserver-bin
+      bash-language-server
+      fixjson
+      jsonlint
+      markdownlint-cli
+      prettier
+    ])
+    ++ (with myNodePackages; [
+      emmet-ls
+      ansiblels
+      standard
+    ])
+    ++ [
+      tsls
+      ical2org
+    ]);
+
+  neovimConfig = neovimUtils.makeNeovimConfig {
+    inherit plugins extraPython3Packages withPython3 withRuby viAlias vimAlias;
+    customRC = vimConfig;
+  };
+
+  # this bit is stolen from https://github.com/nix-community/home-manager/blob/master/modules/programs/neovim.nix
+  luaPackages = unwrappedTarget.lua.pkgs;
+  resolvedExtraLuaPackages = extraLuaPackages luaPackages;
+
+  makeWrapperArgsFromPackages = op:
+    lib.lists.foldr
+    (next: prev: prev ++ [";" (op next)]) []
+    resolvedExtraLuaPackages;
+
+  extraMakeWrapperLuaCArgs =
+    lib.optionals (resolvedExtraLuaPackages != [])
+    (["--suffix" "LUA_CPATH" ";"]
+      ++ (makeWrapperArgsFromPackages luaPackages.getLuaCPath));
+  extraMakeWrapperLuaArgs =
+    lib.optionals (resolvedExtraLuaPackages != [])
+    (["--suffix" "LUA_PATH" ";"]
+      ++ (makeWrapperArgsFromPackages luaPackages.getLuaPath));
+
+  wrapperArgs =
+    neovimConfig.wrapperArgs
+    ++ extraMakeWrapperLuaArgs
+    ++ extraMakeWrapperLuaCArgs
+    ++ ["--suffix" "PATH" ":" "${binPath}"];
 in
-  unwrapped-nvim: let
-    binPath = lib.makeBinPath ((with pkgs; [
-        black
-        deadnix
-        clang-tools
-        rnix-lsp
-        sumneko-lua-language-server
-        alejandra
-        rustfmt
-        pyright
-        proselint
-        statix
-        yamllint
-        rust-analyzer
-      ])
-      ++ (with nodePackages; [
-        vscode-html-languageserver-bin
-        vscode-css-languageserver-bin
-        bash-language-server
-        fixjson
-        jsonlint
-        markdownlint-cli
-        prettier
-      ])
-      ++ (with myNodePackages; [
-        emmet-ls
-        ansiblels
-        standard
-      ])
-      ++ [
-        tsls
-        ical2org
-      ]);
-
-    neovimConfig = neovimUtils.makeNeovimConfig {
-      inherit plugins extraPython3Packages withPython3 withRuby viAlias vimAlias;
-      customRC = vimConfig;
-    };
-
-    # this bit is stolen from https://github.com/nix-community/home-manager/blob/master/modules/programs/neovim.nix
-    luaPackages = unwrappedTarget.lua.pkgs;
-    resolvedExtraLuaPackages = extraLuaPackages luaPackages;
-    extraMakeWrapperLuaCArgs = lib.optionalString (resolvedExtraLuaPackages != []) ''
-      --suffix LUA_CPATH ";" "${
-        lib.concatMapStringsSep ";" luaPackages.getLuaCPath
-        resolvedExtraLuaPackages
-      }"'';
-    extraMakeWrapperLuaArgs =
-      lib.optionalString (resolvedExtraLuaPackages != [])
-      ''
-        --suffix LUA_PATH ";" "${
-          lib.concatMapStringsSep ";" luaPackages.getLuaPath
-          resolvedExtraLuaPackages
-        }"'';
-
-    myWrappedNvim = stdenv.mkDerivation {
-      name = "configure-nvim";
-      src = unwrappedTarget;
-      nativeBuildInputs = [
-        buildPackages.makeWrapper
-      ];
-      installPhase = ''
-        runHook preInstall
-        cp -r $src $out
-        ${coreutils-full}/bin/chmod +w+r $out/bin -R
-        runHook postInstall
-      '';
-      postInstall = ''
-        for bin in $out/bin/*; do
-          wrapProgram "$bin" \
-            --suffix PATH : ${binPath} \
-            ${extraMakeWrapperLuaArgs} \
-            ${extraMakeWrapperLuaCArgs}
-        done
-      '';
-    };
-  in
-    wrapNeovimUnstable myWrappedNvim (neovimConfig
-      // {
-        wrapperArgs =
-          lib.escapeShellArgs neovimConfig.wrapperArgs;
-      })
+  wrapNeovimUnstable unwrappedTarget (neovimConfig
+    // {inherit wrapperArgs;})
