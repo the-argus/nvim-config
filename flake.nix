@@ -84,66 +84,65 @@
         };
 
       wrapNeovim = args: pkgs.${system}.callPackage ./wrapper.nix args;
-    in rec {
-      mkNeovim = args: (
-        wrapNeovim ({
-            plugins = getPlugins args;
-          }
-          // (
-            if builtins.hasAttr "wrapperArgs" args
-            then args.wrapperArgs
-            else {}
-          ))
-      );
-      default = mkNeovim {
-        bannerPalette = ./default-palette.yaml;
-        wrapperArgs = {
-          lua = luaFile;
-          unwrappedTarget = pkgs.${system}.neovim-unwrapped;
-          viAlias = true;
-          vimAlias = true;
-        };
+
+      defaultWrapperArgs = {
+        lua = luaFile;
+        unwrappedTarget = pkgs.${system}.neovim-unwrapped;
       };
+    in rec {
+      mkNeovim = {
+        pluginsArgs ? {bannerPalette = ./default-palette.yaml;},
+        wrapperArgs ? defaultWrapperArgs,
+        ...
+      }: (
+        wrapNeovim ({
+            plugins = getPlugins pluginsArgs;
+          }
+          // wrapperArgs)
+      );
+
+      default = mkNeovim {};
+
       rosepine = mkNeovim {
         wrapperArgs = {
-          lua = luaFile;
-          unwrappedTarget = pkgs.${system}.neovim-unwrapped;
           viAlias = true;
           vimAlias = true;
         };
-        bannerPalette = {
-          base00 = "191724";
-          base01 = "1f1d2e";
-          base02 = "26233a";
-          base03 = "555169";
-          base04 = "6e6a86";
-          base05 = "e0def4";
-          base06 = "f0f0f3";
-          base07 = "c5c3ce";
-          base08 = "e2e1e7";
-          base09 = "eb6f92";
-          base0A = "f6c177";
-          base0B = "ebbcba";
-          base0C = "31748f";
-          base0D = "9ccfd8";
-          base0E = "c4a7e7";
-          base0F = "e5e5e5";
-          confirm = "31748f";
-          warn = "f6c177";
-          urgent = "eb6f92";
-          link = "9ccfd8";
-          highlight = "c4a7e7";
-          hialt0 = "f6c177";
-          hialt1 = "c4a7e7";
-          hialt2 = "f6c177";
-          pfg-confirm = "f0f0f3";
-          pfg-warn = "191724";
-          pfg-urgent = "191724";
-          pfg-link = "191724";
-          pfg-highlight = "191724";
-          pfg-hialt0 = "191724";
-          pfg-hialt1 = "191724";
-          pfg-hialt2 = "191724";
+        pluginsArgs = {
+          bannerPalette = {
+            base00 = "191724";
+            base01 = "1f1d2e";
+            base02 = "26233a";
+            base03 = "555169";
+            base04 = "6e6a86";
+            base05 = "e0def4";
+            base06 = "f0f0f3";
+            base07 = "c5c3ce";
+            base08 = "e2e1e7";
+            base09 = "eb6f92";
+            base0A = "f6c177";
+            base0B = "ebbcba";
+            base0C = "31748f";
+            base0D = "9ccfd8";
+            base0E = "c4a7e7";
+            base0F = "e5e5e5";
+            confirm = "31748f";
+            warn = "f6c177";
+            urgent = "eb6f92";
+            link = "9ccfd8";
+            highlight = "c4a7e7";
+            hialt0 = "f6c177";
+            hialt1 = "c4a7e7";
+            hialt2 = "f6c177";
+            pfg-confirm = "f0f0f3";
+            pfg-warn = "191724";
+            pfg-urgent = "191724";
+            pfg-link = "191724";
+            pfg-highlight = "191724";
+            pfg-hialt0 = "191724";
+            pfg-hialt1 = "191724";
+            pfg-hialt2 = "191724";
+          };
         };
       };
     });
