@@ -4,7 +4,9 @@
   callPackage,
   buildPackages,
   coreutils-full,
+  writeText,
   lib,
+  # sorry about using this but I want to only specify LSPs once
   pkgs,
   plugins ? [],
   lua ? "",
@@ -27,9 +29,11 @@
   luaFile =
     if builtins.typeOf lua == "path"
     then lua
-    else if builtins.typeOf lua == "string"
-    then builtins.toFile "init.lua" lua
-    else abort "Invalid type for \"lua\" argument: ${builtins.typeOf lua}. Expected \"set\" or \"path\"";
+    else if builtins.typeOf lua == "set"
+    then lua
+    else abort "Invalid type for \"lua\" argument: ${builtins.typeOf lua}. Expected \"set\" or \"path\". Ensure lua is a derivation or a path to one.";
+
+  vimFile = writeText "init.vim" ''luafile ${luaFile}'';
 in
   unwrapped-nvim: let
     binPath = lib.makeBinPath ((with pkgs; [
@@ -80,7 +84,8 @@ in
       postInstall = ''
         for bin in $out/bin/*; do
           wrapProgram "$bin" \
-            --suffix PATH : ${binPath}
+            --suffix PATH : ${binPath} \
+            --add-flags "-u ${vimFile}"
         done
       '';
     }
