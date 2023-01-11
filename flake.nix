@@ -83,22 +83,34 @@
           '';
         };
 
-      wrap = args: pkgs.${system}.callPackage ./wrapper.nix args;
+      wrapNeovim = args: pkgs.${system}.callPackage ./wrapper.nix args;
     in rec {
-      mkNeovim = neovimPackage: args:
-        (wrap {
-          plugins = getPlugins args;
-          lua =
-            if builtins.hasAttr "lua" args
-            then args.lua
-            else luaFile;
-        })
-        neovimPackage;
-      default = mkNeovim pkgs.${system}.neovim-unwrapped {
+      mkNeovim = args: (
+        wrapNeovim ({
+            plugins = getPlugins args;
+          }
+          // (
+            if builtins.hasAttr "wrapperArgs" args
+            then args.wrapperArgs
+            else {}
+          ))
+      );
+      default = mkNeovim {
         bannerPalette = ./default-palette.yaml;
-        lua = luaFile;
+        wrapperArgs = {
+          lua = luaFile;
+          unwrappedTarget = pkgs.${system}.neovim-unwrapped;
+          viAlias = true;
+          vimAlias = true;
+        };
       };
-      rosepine = mkNeovim pkgs.${system}.neovim-unwrapped {
+      rosepine = mkNeovim {
+        wrapperArgs = {
+          lua = luaFile;
+          unwrappedTarget = pkgs.${system}.neovim-unwrapped;
+          viAlias = true;
+          vimAlias = true;
+        };
         bannerPalette = {
           base00 = "191724";
           base01 = "1f1d2e";
