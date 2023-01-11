@@ -120,7 +120,7 @@ cmp.setup {
     { name = "nvim_lsp" },
     { name = "buffer" },
     { name = "path" },
-    { name = "orgmode" },
+    { name = "neorg" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,

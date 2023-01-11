@@ -6,10 +6,11 @@ end
 neorg.setup({
     load = {
         ["core.defaults"] = {},
+        ["core.norg.completion"] = { config = { engine = "nvim-cmp" } },
         ["core.norg.dirman"] = {
             config = {
                 workspaces = {
-                    org = "~/NextcloudSync/org/",
+                    org = "~/NextcloudSync/norg/",
                 }
             }
         }
