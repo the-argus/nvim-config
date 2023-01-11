@@ -3,10 +3,11 @@
 
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs?rev=e12211201092f08c24d710c1697cca16afae3a4c;
-    nixpkgs-old.url = github:NixOS/nixpkgs?ref=nixos-22.05;
+    nixpkgs-old.url = github:NixOS/nixpkgs?ref=nixos-22.11;
     nixpkgs-unstable.url = github:NixOS/nixpkgs?ref=nixos-unstable;
     nix2vim.url = github:gytis-ivaskevicius/nix2vim;
     nix2vim.inputs.nixpkgs.follows = "nixpkgs";
+    neorg-overlay.url = github:nvim-neorg/nixpkgs-neorg-overlay;
     banner = {
       url = "github:the-argus/banner.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,6 +20,7 @@
     nixpkgs-old,
     nixpkgs-unstable,
     nix2vim,
+    neorg-overlay,
     banner,
   }: let
     supportedSystems = [
@@ -29,36 +31,34 @@
     mkPkgs = system: nixpkgSet:
       import nixpkgSet {
         overlays = [
+          neorg-overlay.overlays.default
           nix2vim.overlay
           (_: super: {
-            vimPlugins =
-              super.lib.trivial.mergeAttrs
-              super.vimPlugins
-              {
-                cmp-nvim-lsp = super.vimPlugins.cmp-nvim-lsp.overrideAttrs (_: {
-                  version = "2022-11-08";
-                  src = super.fetchgit {
-                    url = "https://github.com/hrsh7th/cmp-nvim-lsp";
-                    rev = "78924d1d677b29b3d1fe429864185341724ee5a2";
-                    sha256 = "1gzn4v70wa61yyw9vfxb8m8kkabz0p35nja1l26cfhl71pnkqrka";
-                  };
-                });
-                nvim-tree-lua = super.vimPlugins.nvim-tree-lua.overrideAttrs (_: {
-                  version = "2022-11-08";
-                  src = super.fetchgit {
-                    url = "https://github.com/nvim-tree/nvim-tree.lua";
-                    rev = "7e892767bdd9660b7880cf3627d454cfbc701e9b";
-                    sha256 = "0jl9vlwa9swlgmlr928d0y9h8vaj3nz3jha9nz94wwavjnb0iwcz";
-                  };
-                });
-                nvim-base16 = super.vimPlugins.nvim-base16.overrideAttrs (_: {
-                  src = super.fetchgit {
-                    url = "https://github.com/the-argus/banner.nvim";
-                    rev = "fd78195b411c103f05eddfc055a743df2de10d63";
-                    sha256 = "0z62d7dykv9zaz95nrry5j8a2218d7vx3qnpnwfcic9g97kcyip6";
-                  };
-                });
-              };
+            vimPlugins = super.vimPlugins.extend (_: superVimPlugins: {
+              cmp-nvim-lsp = superVimPlugins.cmp-nvim-lsp.overrideAttrs (_: {
+                version = "2022-11-08";
+                src = super.fetchgit {
+                  url = "https://github.com/hrsh7th/cmp-nvim-lsp";
+                  rev = "78924d1d677b29b3d1fe429864185341724ee5a2";
+                  sha256 = "1gzn4v70wa61yyw9vfxb8m8kkabz0p35nja1l26cfhl71pnkqrka";
+                };
+              });
+              nvim-tree-lua = superVimPlugins.nvim-tree-lua.overrideAttrs (_: {
+                version = "2022-11-08";
+                src = super.fetchgit {
+                  url = "https://github.com/nvim-tree/nvim-tree.lua";
+                  rev = "7e892767bdd9660b7880cf3627d454cfbc701e9b";
+                  sha256 = "0jl9vlwa9swlgmlr928d0y9h8vaj3nz3jha9nz94wwavjnb0iwcz";
+                };
+              });
+              nvim-base16 = superVimPlugins.nvim-base16.overrideAttrs (_: {
+                src = super.fetchgit {
+                  url = "https://github.com/the-argus/banner.nvim";
+                  rev = "fd78195b411c103f05eddfc055a743df2de10d63";
+                  sha256 = "0z62d7dykv9zaz95nrry5j8a2218d7vx3qnpnwfcic9g97kcyip6";
+                };
+              });
+            });
           })
         ];
         inherit system;
@@ -66,8 +66,9 @@
     # pkgs = genSystems (system: mkPkgs system nixpkgs);
     # pkgs-old = genSystems (system: mkPkgs system nixpkgs-old);
 
-    pkgs = genSystems (system: mkPkgs system nixpkgs-old);
+    # pkgs = genSystems (system: mkPkgs system nixpkgs-old);
     unstable = genSystems (system: mkPkgs system nixpkgs-unstable);
+    pkgs = unstable;
   in {
     packages = genSystems (system: let
       mkBuilderInputs = {bannerPalette, ...}: {
@@ -141,7 +142,7 @@
                 tree-sitter-bash
 
                 tree-sitter-norg
-                tree-sitter-org-nvim
+                # tree-sitter-org-nvim
               ]))
           nvim-ts-rainbow
 
@@ -193,7 +194,9 @@
           thesaurus_query-vim
           vim-table-mode
 
-          orgmode
+          # orgmode
+          neorg
+          neorg-telescope
 
           # color scheme dev
           lush-nvim
