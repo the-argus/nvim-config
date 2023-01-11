@@ -89,7 +89,7 @@
         lua = luaFile;
         unwrappedTarget = pkgs.${system}.neovim-unwrapped;
       };
-    in rec {
+
       mkNeovim = {
         pluginsArgs ? {bannerPalette = ./default-palette.yaml;},
         wrapperArgs ? defaultWrapperArgs,
@@ -100,6 +100,8 @@
           }
           // wrapperArgs)
       );
+    in {
+      inherit mkNeovim;
 
       default = mkNeovim {};
 
