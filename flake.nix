@@ -5,8 +5,6 @@
     nixpkgs.url = github:NixOS/nixpkgs?rev=e12211201092f08c24d710c1697cca16afae3a4c;
     nixpkgs-old.url = github:NixOS/nixpkgs?ref=nixos-22.11;
     nixpkgs-unstable.url = github:NixOS/nixpkgs?ref=nixos-unstable;
-    nix2vim.url = github:gytis-ivaskevicius/nix2vim;
-    nix2vim.inputs.nixpkgs.follows = "nixpkgs";
     neorg-overlay.url = github:nvim-neorg/nixpkgs-neorg-overlay;
     banner = {
       url = "github:the-argus/banner.nix";
@@ -19,7 +17,6 @@
     nixpkgs,
     nixpkgs-old,
     nixpkgs-unstable,
-    nix2vim,
     neorg-overlay,
     banner,
   }: let
@@ -32,34 +29,7 @@
       import nixpkgSet {
         overlays = [
           neorg-overlay.overlays.default
-          nix2vim.overlay
-          (_: super: {
-            vimPlugins = super.vimPlugins.extend (_: superVimPlugins: {
-              cmp-nvim-lsp = superVimPlugins.cmp-nvim-lsp.overrideAttrs (_: {
-                version = "2022-11-08";
-                src = super.fetchgit {
-                  url = "https://github.com/hrsh7th/cmp-nvim-lsp";
-                  rev = "78924d1d677b29b3d1fe429864185341724ee5a2";
-                  sha256 = "1gzn4v70wa61yyw9vfxb8m8kkabz0p35nja1l26cfhl71pnkqrka";
-                };
-              });
-              nvim-tree-lua = superVimPlugins.nvim-tree-lua.overrideAttrs (_: {
-                version = "2022-11-08";
-                src = super.fetchgit {
-                  url = "https://github.com/nvim-tree/nvim-tree.lua";
-                  rev = "7e892767bdd9660b7880cf3627d454cfbc701e9b";
-                  sha256 = "0jl9vlwa9swlgmlr928d0y9h8vaj3nz3jha9nz94wwavjnb0iwcz";
-                };
-              });
-              nvim-base16 = superVimPlugins.nvim-base16.overrideAttrs (_: {
-                src = super.fetchgit {
-                  url = "https://github.com/the-argus/banner.nvim";
-                  rev = "fd78195b411c103f05eddfc055a743df2de10d63";
-                  sha256 = "0z62d7dykv9zaz95nrry5j8a2218d7vx3qnpnwfcic9g97kcyip6";
-                };
-              });
-            });
-          })
+          (import ./overlays.nix)
         ];
         inherit system;
       };
@@ -71,271 +41,64 @@
     pkgs = unstable;
   in {
     packages = genSystems (system: let
-      mkBuilderInputs = {bannerPalette, ...}: {
-        imports = [
-          # ./modules/lsp.nix
-        ];
-        enableViAlias = true;
-        enableVimAlias = true;
+      getPlugins = args:
+        pkgs.callPackage ./plugins.nix ({
+            unstable = unstable.${system};
+            inherit banner;
+          }
+          // args);
 
-        plugins = with pkgs.${system}.vimPlugins; [
-          # the lua in this directory is a plugin in itself
-          (pkgs.${system}.stdenv.mkDerivation {
-            name = "nvim-config";
-            src = ./lua;
-            installPhase = let
-              inherit (banner.lib.util) removeMeta;
-              inherit (pkgs.${system}.lib) attrsets;
-              palette =
-                if builtins.typeOf bannerPalette == "set"
-                then bannerPalette
-                else banner.lib.parsers.basicYamlToBanner bannerPalette;
-              lualines =
-                attrsets.mapAttrsToList
-                (name: value: "${builtins.replaceStrings ["-"] ["_"] name} = \"#${value}\",")
-                (removeMeta palette);
-              color-lua = pkgs.${system}.writeText "color.lua" ''
-                return {
-                	${builtins.concatStringsSep "\n" lualines}
-                }
-              '';
-            in ''
-              mkdir -p $out/lua
-              mv * $out/lua
-              cp ${color-lua} $out/lua/settings/color-palette.lua
-            '';
-          })
-
-          nvim-base16
-
-          comment-nvim
-
-          # (pkgs.${system}.vimPlugins.nvim-treesitter.withPlugins
-          #  (_: pkgs.${system}.tree-sitter.allGrammars))
-
-          (nvim-treesitter.withPlugins (plugins:
-            # with pkgs-old.${system}.tree-sitter-grammars; [
-              with plugins; [
-                tree-sitter-yaml
-                tree-sitter-toml
-                tree-sitter-rust
-                tree-sitter-scss
-                tree-sitter-regex
-                tree-sitter-python
-                tree-sitter-nix
-                tree-sitter-markdown
-                tree-sitter-make
-                tree-sitter-lua
-                tree-sitter-json
-                tree-sitter-javascript
-                tree-sitter-java
-                tree-sitter-glsl
-                tree-sitter-godot-resource
-                tree-sitter-gdscript
-                tree-sitter-dockerfile
-                tree-sitter-css
-                tree-sitter-cpp
-                tree-sitter-comment
-                tree-sitter-cmake
-                tree-sitter-c
-                tree-sitter-c-sharp
-                tree-sitter-bash
-
-                tree-sitter-norg
-                # tree-sitter-org-nvim
-              ]))
-          nvim-ts-rainbow
-
-          nvim-tree-lua
-          nvim-web-devicons
-
-          zen-mode-nvim
-          twilight-nvim
-
-          gitsigns-nvim
-
-          bufferline-nvim
-
-          editorconfig-nvim
-
-          vim-surround # surround-nvim is rewrite, figure that out
-          vim-indent-object
-          vim-repeat
-          # look into substitute.nvim
-          vim-textobj-comment
-          vim-textobj-entire
-          vim-textobj-function
-          vim-textobj-user
-          # look into vim-textobj-line
-
-          nvim-colorizer-lua
-
-          telescope-fzf-native-nvim
-
-          # look into lorem.nvim
-
-          nvim-cmp
-          cmp-nvim-lsp
-          cmp-nvim-lua
-          cmp-path # cmp-fuzzy-path
-          cmp-buffer # cmp-fuzzy-buffer
-          cmp-cmdline # cmp-cmdline-history
-          cmp_luasnip
-          luasnip
-
-          nvim-lspconfig
-          null-ls-nvim
-
-          friendly-snippets
-          popup-nvim
-          plenary-nvim
-
-          # writing plugins
-          thesaurus_query-vim
-          vim-table-mode
-
-          # orgmode
-          neorg
-          neorg-telescope
-
-          # color scheme dev
-          lush-nvim
-
-          # helps nesting to look better
-          indent-blankline-nvim
-
-          unstable.${system}.vimPlugins.yuck-vim
-        ];
-
-        lua = let
-          luaBooleans = {
-            InNix = true;
-            UsingDvorak = false;
-          };
-
-          boolToStr = bool:
-            if bool
-            then "true"
-            else "false";
-
-          booleanSedCommands =
-            pkgs.${system}.lib.attrsets.mapAttrsToList
-            (name: value: ''sed -i "s/\(${name}.*\)\(true\|false\)/\1${boolToStr value}/" init.lua'')
-            luaBooleans;
-
-          # lua as a string
-          rawLua = builtins.readFile ./init.lua;
-          # lua in the nix store
-          nixStoreLua = builtins.toFile "init.lua" rawLua;
-
-          builtLua = pkgs.${system}.stdenv.mkDerivation {
-            name = "configure-lua-init-lua";
-            src = nixStoreLua;
-            dontUnpack = true;
-            buildPhase = ''
-              cp $src init.lua
-              # change booleans to match lua values
-              ${builtins.concatStringsSep "\n" booleanSedCommands}
-            '';
-            installPhase = ''
-              mv init.lua $out
-            '';
-          };
-        in
-          builtins.readFile builtLua;
-
-        withNodeJs = true;
-        withPython3 = true;
-        extraPython3Packages = packages: with packages; [];
-      };
-
-      wrap = let
-        inherit (pkgs.${system}) nodePackages;
-        myNodePackages = pkgs.${system}.callPackage ./packages/nodePackages {};
-        ical2org = pkgs.${system}.callPackage ./packages/ical2org {
-          author = "Ian McFarlane";
-          email = "i.mcfarlane2002@gmail.com";
+      luaFile = let
+        luaBooleans = {
+          InNix = true;
+          UsingDvorak = false;
         };
 
-        tsls = nodePackages.typescript-language-server.override {
-          nativeBuildInputs = [pkgs.${system}.buildPackages.makeWrapper];
-          postInstall = ''
-            wrapProgram "$out/bin/typescript-language-server" \
-              --prefix NODE_PATH : ${nodePackages.typescript}/lib/node_modules
+        boolToStr = bool:
+          if bool
+          then "true"
+          else "false";
+
+        booleanSedCommands =
+          pkgs.${system}.lib.attrsets.mapAttrsToList
+          (name: value: ''sed -i "s/\(${name}.*\)\(true\|false\)/\1${boolToStr value}/" init.lua'')
+          luaBooleans;
+
+        # lua as a string
+        rawLua = builtins.readFile ./init.lua;
+        # lua in the nix store
+        nixStoreLua = builtins.toFile "init.lua" rawLua;
+      in
+        pkgs.${system}.stdenv.mkDerivation {
+          name = "configure-lua-init-lua";
+          src = nixStoreLua;
+          dontUnpack = true;
+          buildPhase = ''
+            cp $src init.lua
+            # change booleans to match lua values
+            ${builtins.concatStringsSep "\n" booleanSedCommands}
+          '';
+          installPhase = ''
+            mv init.lua $out
           '';
         };
-      in
-        unwrapped-nvim: let
-          inherit
-            (pkgs.${system})
-            bash
-            buildPackages
-            stdenv
-            coreutils-full
-            lib
-            ;
 
-          binPath = lib.makeBinPath ((with pkgs.${system}; [
-              black
-              deadnix
-              clang-tools
-              rnix-lsp
-              sumneko-lua-language-server
-              alejandra
-              rustfmt
-              pyright
-              proselint
-              statix
-              yamllint
-              rust-analyzer
-            ])
-            ++ (with nodePackages; [
-              vscode-html-languageserver-bin
-              vscode-css-languageserver-bin
-              bash-language-server
-              fixjson
-              jsonlint
-              markdownlint-cli
-              prettier
-            ])
-            ++ (with myNodePackages; [
-              emmet-ls
-              ansiblels
-              standard
-            ])
-            ++ [
-              tsls
-              ical2org
-            ]);
-        in
-          stdenv.mkDerivation {
-            name = "configure-nvim";
-            src = unwrapped-nvim;
-            nativeBuildInputs = [
-              buildPackages.makeWrapper
-            ];
-            installPhase = ''
-              runHook preInstall
-              cp -r $src $out
-              ${coreutils-full}/bin/chmod +w+r $out/bin -R
-              runHook postInstall
-            '';
-            postInstall = ''
-              #!${bash}/bin/bash
-
-              for bin in $out/bin/*; do
-                wrapProgram "$bin" \
-                  --suffix PATH : ${binPath}
-              done
-            '';
-          };
+      wrap = args: pkgs.${system}.callPackage ./wrapper.nix args;
     in rec {
-      mkNeovim = args: wrap (pkgs.${system}.neovimBuilder (mkBuilderInputs args));
-      defaultUnwrapped = pkgs.${system}.neovimBuilder (mkBuilderInputs {
+      mkNeovim = neovimPackage: args:
+        (wrap {
+          plugins = getPlugins args;
+          lua =
+            if builtins.hasAttr "lua" args
+            then args.lua
+            else luaFile;
+        })
+        neovimPackage;
+      default = mkNeovim pkgs.${system}.neovim-unwrapped {
         bannerPalette = ./default-palette.yaml;
-      });
-      default = wrap defaultUnwrapped;
-      rosepine = wrap (mkNeovim {
+        lua = luaFile;
+      };
+      rosepine = mkNeovim pkgs.${system}.neovim-unwrapped {
         bannerPalette = {
           base00 = "191724";
           base01 = "1f1d2e";
@@ -370,7 +133,7 @@
           pfg-hialt1 = "191724";
           pfg-hialt2 = "191724";
         };
-      });
+      };
     });
   };
 }

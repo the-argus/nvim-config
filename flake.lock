@@ -97,21 +97,6 @@
         "type": "github"
       }
     },
-    "flake-utils_4": {
-      "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "neorg": {
       "flake": false,
       "locked": {
@@ -164,27 +149,6 @@
       "original": {
         "owner": "nvim-neorg",
         "repo": "neorg-telescope",
-        "type": "github"
-      }
-    },
-    "nix2vim": {
-      "inputs": {
-        "flake-utils": "flake-utils_4",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1672738555,
-        "narHash": "sha256-owqLS8zro0IPjVta/gtdLTFX1Uluzp4uucLbQ4e1M2I=",
-        "owner": "gytis-ivaskevicius",
-        "repo": "nix2vim",
-        "rev": "8d41475663f9e1209540d8c146c5a75ff4b3092a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "gytis-ivaskevicius",
-        "repo": "nix2vim",
         "type": "github"
       }
     },
@@ -329,7 +293,6 @@
       "inputs": {
         "banner": "banner",
         "neorg-overlay": "neorg-overlay",
-        "nix2vim": "nix2vim",
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-unstable": "nixpkgs-unstable"
