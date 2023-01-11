@@ -4,12 +4,21 @@
   callPackage,
   buildPackages,
   coreutils-full,
-  writeText,
+  wrapNeovimUnstable,
+  neovimUtils,
   lib,
   # sorry about using this but I want to only specify LSPs once
   pkgs,
   plugins ? [],
   lua ? "",
+  neovim-unwrapped,
+  unwrappedTarget ? neovim-unwrapped,
+  extraLuaPackages ? (_: []),
+  extraPython3Packages ? (_: []),
+  withPython3 ? true,
+  withRuby ? false,
+  viAlias ? false,
+  vimAlias ? false,
   ...
 }: let
   myNodePackages = callPackage ./packages/nodePackages {};
@@ -33,7 +42,7 @@
     then lua
     else abort "Invalid type for \"lua\" argument: ${builtins.typeOf lua}. Expected \"set\" or \"path\". Ensure lua is a derivation or a path to one.";
 
-  vimFile = writeText "init.vim" ''luafile ${luaFile}'';
+  vimConfig = ''luafile ${luaFile}'';
 in
   unwrapped-nvim: let
     binPath = lib.makeBinPath ((with pkgs; [
@@ -68,10 +77,31 @@ in
         tsls
         ical2org
       ]);
-  in
-    stdenv.mkDerivation {
+
+    neovimConfig = neovimUtils.makeNeovimConfig {
+      inherit plugins extraPython3Packages withPython3 withRuby viAlias vimAlias;
+      customRC = vimConfig;
+    };
+
+    # this bit is stolen from https://github.com/nix-community/home-manager/blob/master/modules/programs/neovim.nix
+    luaPackages = unwrappedTarget.lua.pkgs;
+    resolvedExtraLuaPackages = extraLuaPackages luaPackages;
+    extraMakeWrapperLuaCArgs = lib.optionalString (resolvedExtraLuaPackages != []) ''
+      --suffix LUA_CPATH ";" "${
+        lib.concatMapStringsSep ";" luaPackages.getLuaCPath
+        resolvedExtraLuaPackages
+      }"'';
+    extraMakeWrapperLuaArgs =
+      lib.optionalString (resolvedExtraLuaPackages != [])
+      ''
+        --suffix LUA_PATH ";" "${
+          lib.concatMapStringsSep ";" luaPackages.getLuaPath
+          resolvedExtraLuaPackages
+        }"'';
+
+    myWrappedNvim = stdenv.mkDerivation {
       name = "configure-nvim";
-      src = unwrapped-nvim;
+      src = unwrappedTarget;
       nativeBuildInputs = [
         buildPackages.makeWrapper
       ];
@@ -85,7 +115,14 @@ in
         for bin in $out/bin/*; do
           wrapProgram "$bin" \
             --suffix PATH : ${binPath} \
-            --add-flags "-u ${vimFile}"
+            ${extraMakeWrapperLuaArgs} \
+            ${extraMakeWrapperLuaCArgs}
         done
       '';
-    }
+    };
+  in
+    wrapNeovimUnstable myWrappedNvim (neovimConfig
+      // {
+        wrapperArgs =
+          lib.escapeShellArgs neovimConfig.wrapperArgs;
+      })

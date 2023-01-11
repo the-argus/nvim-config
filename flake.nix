@@ -42,7 +42,7 @@
   in {
     packages = genSystems (system: let
       getPlugins = args:
-        pkgs.callPackage ./plugins.nix ({
+        pkgs.${system}.callPackage ./plugins.nix ({
             unstable = unstable.${system};
             inherit banner;
           }
