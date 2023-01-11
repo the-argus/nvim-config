@@ -42,12 +42,12 @@
             inherit banner;
           }
           // args);
-      
+
       # turns init.lua into a /nix/store file, plus some settings
       luaFile = pkgs.${system}.callPackage ./lua.nix {UsingDvorak = false;};
 
       wrapNeovim = args: pkgs.${system}.callPackage ./wrapper.nix args;
-    
+
       # function that combines luaFile, getPlugins, and the wrappers
       defaultWrapperArgs = {lua = luaFile;};
       defaultPluginsArgs = {bannerPalette = ./default-palette.yaml;};
@@ -59,6 +59,7 @@
         wrapNeovim ({
             plugins = getPlugins pluginsArgs;
           }
+          // defaultWrapperArgs
           // wrapperArgs)
       );
     in {
