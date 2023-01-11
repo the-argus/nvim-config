@@ -2,9 +2,8 @@
   description = "My neovim configuration, packaging managed by nix.";
 
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs?rev=e12211201092f08c24d710c1697cca16afae3a4c;
-    nixpkgs-old.url = github:NixOS/nixpkgs?ref=nixos-22.11;
-    nixpkgs-unstable.url = github:NixOS/nixpkgs?ref=nixos-unstable;
+    # nixpkgs.url = github:NixOS/nixpkgs?rev=e12211201092f08c24d710c1697cca16afae3a4c;
+    nixpkgs.url = github:NixOS/nixpkgs?ref=nixos-unstable;
     neorg-overlay.url = github:nvim-neorg/nixpkgs-neorg-overlay;
     banner = {
       url = "github:the-argus/banner.nix";
@@ -15,8 +14,6 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-old,
-    nixpkgs-unstable,
     neorg-overlay,
     banner,
   }: let
@@ -33,11 +30,8 @@
         ];
         inherit system;
       };
-    # pkgs = genSystems (system: mkPkgs system nixpkgs);
-    # pkgs-old = genSystems (system: mkPkgs system nixpkgs-old);
-
-    # pkgs = genSystems (system: mkPkgs system nixpkgs-old);
-    unstable = genSystems (system: mkPkgs system nixpkgs-unstable);
+    # unstable and pkgs are the same thing as of now.
+    unstable = genSystems (system: mkPkgs system nixpkgs);
     pkgs = unstable;
   in {
     packages = genSystems (system: let
