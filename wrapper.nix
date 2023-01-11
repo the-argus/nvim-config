@@ -1,16 +1,15 @@
 {
-  stdenv,
   nodePackages,
   callPackage,
   buildPackages,
-  coreutils-full,
   wrapNeovimUnstable,
   neovimUtils,
   lib,
   # sorry about using this but I want to only specify LSPs once
   pkgs,
+  writeText,
   plugins ? [],
-  lua ? "",
+  lua ? (writeText "init.lua" ""),
   neovim-unwrapped,
   unwrappedTarget ? neovim-unwrapped,
   extraLuaPackages ? (_: []),

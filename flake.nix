@@ -35,57 +35,24 @@
     pkgs = unstable;
   in {
     packages = genSystems (system: let
+      # function to get plugins based on inputs
       getPlugins = args:
         pkgs.${system}.callPackage ./plugins.nix ({
             unstable = unstable.${system};
             inherit banner;
           }
           // args);
-
-      luaFile = let
-        luaBooleans = {
-          InNix = true;
-          UsingDvorak = false;
-        };
-
-        boolToStr = bool:
-          if bool
-          then "true"
-          else "false";
-
-        booleanSedCommands =
-          pkgs.${system}.lib.attrsets.mapAttrsToList
-          (name: value: ''sed -i "s/\(${name}.*\)\(true\|false\)/\1${boolToStr value}/" init.lua'')
-          luaBooleans;
-
-        # lua as a string
-        rawLua = builtins.readFile ./init.lua;
-        # lua in the nix store
-        nixStoreLua = builtins.toFile "init.lua" rawLua;
-      in
-        pkgs.${system}.stdenv.mkDerivation {
-          name = "configure-lua-init-lua";
-          src = nixStoreLua;
-          dontUnpack = true;
-          buildPhase = ''
-            cp $src init.lua
-            # change booleans to match lua values
-            ${builtins.concatStringsSep "\n" booleanSedCommands}
-          '';
-          installPhase = ''
-            mv init.lua $out
-          '';
-        };
+      
+      # turns init.lua into a /nix/store file, plus some settings
+      luaFile = pkgs.${system}.callPackage ./lua.nix {UsingDvorak = false;};
 
       wrapNeovim = args: pkgs.${system}.callPackage ./wrapper.nix args;
-
-      defaultWrapperArgs = {
-        lua = luaFile;
-        unwrappedTarget = pkgs.${system}.neovim-unwrapped;
-      };
-
+    
+      # function that combines luaFile, getPlugins, and the wrappers
+      defaultWrapperArgs = {lua = luaFile;};
+      defaultPluginsArgs = {bannerPalette = ./default-palette.yaml;};
       mkNeovim = {
-        pluginsArgs ? {bannerPalette = ./default-palette.yaml;},
+        pluginsArgs ? defaultPluginsArgs,
         wrapperArgs ? defaultWrapperArgs,
         ...
       }: (
