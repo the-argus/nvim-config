@@ -134,6 +134,9 @@ with vimPlugins; [
   # color scheme dev
   lush-nvim
 
+  # nim
+  nim-vim
+
   # helps nesting to look better
   indent-blankline-nvim
 
