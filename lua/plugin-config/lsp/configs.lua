@@ -10,7 +10,8 @@ local servers = {
     "bashls",
     "ansiblels",
     "emmet_ls",
-    "rust_analyzer"
+    "rust_analyzer",
+    "nimls"
 
     -- using standardjs in null-ls instead of these
     -- "quick_lint_js",

@@ -56,6 +56,7 @@
       statix
       yamllint
       rust-analyzer
+      nimlsp
     ])
     ++ (with nodePackages; [
       vscode-html-languageserver-bin
