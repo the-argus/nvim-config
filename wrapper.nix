@@ -29,15 +29,13 @@
   tsls = nodePackages.typescript-language-server.override {
     nativeBuildInputs = [buildPackages.makeWrapper];
     postInstall = ''
-      wrapProgram "$out/bin/typescript-language-server" \
-        --prefix NODE_PATH : ${nodePackages.typescript}/lib/node_modules
+      mkdir -p $out/node_modules/
+      ln -sf ${nodePackages.typescript}/lib/node_modules/typescript $out/node_modules/typescript
     '';
   };
 
   luaFile =
-    if builtins.typeOf lua == "path"
-    then lua
-    else if builtins.typeOf lua == "set"
+    if builtins.typeOf lua == "path" || builtins.typeOf lua == "set"
     then lua
     else abort "Invalid type for \"lua\" argument: ${builtins.typeOf lua}. Expected \"set\" or \"path\". Ensure lua is a derivation or a path to one.";
 
