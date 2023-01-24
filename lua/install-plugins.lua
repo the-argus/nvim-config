@@ -77,6 +77,9 @@ return packer.startup(function(use)
     -- r'ainbow brackets
     use "p00f/nvim-ts-rainbow"
 
+    -- banner  colorscheme
+    use "the-argus/banner.nvim"
+
     -- file tree
     use {
         'kyazdani42/nvim-tree.lua',
