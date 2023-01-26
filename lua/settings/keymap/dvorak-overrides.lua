@@ -36,7 +36,8 @@ local query_dvorak = function()
     print_table(current_normal_mappings)
     -- confirm all keymaps are set correctly
     for key, rebindings in pairs(normal_mappings) do
-        print(string.format("mapping for %s: \n\tDVORAK: %s\n\tCURRENT: %s", key, rebindings.dvorak, current_normal_mappings[key]))
+        print(string.format("mapping for %s: \n\tDVORAK: %s\n\tCURRENT: %s", key, rebindings.dvorak,
+            current_normal_mappings[key]))
         if current_normal_mappings[key] ~= rebindings.dvorak then
             return false
         end

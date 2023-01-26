@@ -1,4 +1,3 @@
-
 local utils = require("utils.neovim")
 local k = vim.keymap.set
 

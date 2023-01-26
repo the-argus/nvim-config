@@ -6,12 +6,12 @@ local neovim = require "utils.neovim"
 local autocmd = neovim.autocmd
 
 autocmd("TextYankPost", function()
-  vim.highlight.on_yank {
-    higroup = "YankFeed",
-    on_macro = true,
-    on_visual = true,
-    timeout = 150,
-  }
+    vim.highlight.on_yank {
+        higroup = "YankFeed",
+        on_macro = true,
+        on_visual = true,
+        timeout = 150,
+    }
 end, { desc = "Provide a visual color feedback on yanking." })
 
 -- remember cursor position

@@ -89,7 +89,7 @@ local M = {
             "table",
             "if_statement",
         },
-        exclude = {"zsh", "markdown", "help", "asciidoc", "conf", "sh", "vim"}, -- exclude these filetypes
+        exclude = { "zsh", "markdown", "help", "asciidoc", "conf", "sh", "vim" }, -- exclude these filetypes
     }
 }
 twilight.setup(M.twilight)
