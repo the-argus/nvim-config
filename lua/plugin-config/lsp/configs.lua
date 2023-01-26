@@ -3,15 +3,16 @@ local servers = {
     "clangd",
     "rnix",
     "sumneko_lua",
-    "pyright",
-    "html",
-    "cssls",
-    "tsserver",
-    "bashls",
-    "ansiblels",
-    "emmet_ls",
-    "rust_analyzer",
-    "nimls"
+    -- "rust_analyzer",
+    
+    -- "pyright",
+    -- "html",
+    -- "cssls",
+    -- "tsserver",
+    -- "bashls",
+    -- "ansiblels",
+    -- "emmet_ls",
+    -- "nimls"
 
     -- using standardjs in null-ls instead of these
     -- "quick_lint_js",
