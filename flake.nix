@@ -12,10 +12,10 @@
   };
 
   outputs = {
-    self,
     nixpkgs,
     neorg-overlay,
     banner,
+    ...
   }: let
     supportedSystems = [
       "x86_64-linux"
