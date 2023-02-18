@@ -1,18 +1,22 @@
 local lspconfig = require("lspconfig")
+local servers_to_install_nonnix = {
+    "clangd",
+    "rnix",
+    "sumneko_lua"
+}
 local servers = {
     "clangd",
     "rnix",
     "sumneko_lua",
-    -- "rust_analyzer",
-    
-    -- "pyright",
-    -- "html",
-    -- "cssls",
-    -- "tsserver",
-    -- "bashls",
-    -- "ansiblels",
-    -- "emmet_ls",
-    -- "nimls"
+    "rust_analyzer",
+    "pyright",
+    "html",
+    "cssls",
+    "tsserver",
+    "bashls",
+    "ansiblels",
+    "emmet_ls",
+    "nimls"
 
     -- using standardjs in null-ls instead of these
     -- "quick_lint_js",
@@ -34,9 +38,9 @@ if not InNix then
     end
     local install_path = vim.fn.stdpath("data") .. "/lsp_servers"
     lsp_installer.setup {
-        ensure_installed = servers,
+        ensure_installed = servers_to_install_nonnix,
 
-        automatic_installation = false,
+        automatic_installation = true,
         -- The directory in which to install all servers.
         install_root_dir = install_path
     }
