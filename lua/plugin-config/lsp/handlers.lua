@@ -82,10 +82,16 @@ M.on_attach = function(client, bufnr)
     if is_disabled(client.name) then
         client.server_capabilities.document_formatting = false
     end
-    lsp_keymap_config.create_keymaps(bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     lsp_highlight_document(client)
 end
+
+-- this is run for every LSP, used to create keymaps
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+        lsp_keymap_config.create_keymaps(args.buf, args)
+    end,
+})
 
 local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if not status_ok then

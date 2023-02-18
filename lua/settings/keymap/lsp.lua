@@ -1,9 +1,17 @@
 local M = {}
 
-M.create_keymaps = function(bufnr)
+M.create_keymaps = function(bufnr, attachment_args)
+    local client = vim.lsp.get_client_by_id(attachment_args.data.client_id)
     local opts = { noremap = true, silent = true }
-    vim.cmd [[ command! Format execute 'lua vim.lsp.buf.format({async = true})' ]]
-    vim.cmd [[ command! Action execute 'lua vim.lsp.buf.code_action()' ]]
+
+    -- run ":lua =vim.lsp.get_active_clients()[1].server_capabilities" to see what the "attachment_args" set looks like
+
+    if client.server_capabilities.documentFormattingProvider then
+        vim.cmd [[ command! Format execute 'lua vim.lsp.buf.format({async = true})' ]]
+    end
+    if client.server_capabilities.codeActionProvider then
+        vim.cmd [[ command! Action execute 'lua vim.lsp.buf.code_action()' ]]
+    end
     vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "gk", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
