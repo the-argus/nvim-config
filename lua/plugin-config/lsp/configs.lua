@@ -2,12 +2,12 @@ local lspconfig = require("lspconfig")
 local servers_to_install_nonnix = {
     "clangd",
     "rnix",
-    "sumneko_lua"
+    "lua_ls"
 }
 local servers = {
     "clangd",
     "rnix",
-    "sumneko_lua",
+    "lua_ls",
     "rust_analyzer",
     "pyright",
     "html",
