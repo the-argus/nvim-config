@@ -1,8 +1,7 @@
 local lspconfig = require("lspconfig")
-local servers_to_install_nonnix = {
+local minimal_servers = {
     "clangd",
-    "rnix",
-    "lua_ls"
+    "rnix"
 }
 local servers = {
     "clangd",
@@ -30,6 +29,11 @@ local servers = {
     -- "csharp_ls",
 }
 
+local s = servers
+if Minimal then
+    s = minimal_servers
+end
+
 -- LSP installer stuff if not using nix to manage LSPs
 if not InNix then
     local status_ok, lsp_installer = pcall(require, "nvim-lsp-installer")
@@ -38,7 +42,7 @@ if not InNix then
     end
     local install_path = vim.fn.stdpath("data") .. "/lsp_servers"
     lsp_installer.setup {
-        ensure_installed = servers_to_install_nonnix,
+        ensure_installed = s,
 
         automatic_installation = true,
         -- The directory in which to install all servers.
@@ -46,7 +50,7 @@ if not InNix then
     }
 end
 
-for _, server in pairs(servers) do
+for _, server in pairs(s) do
     local opts = {
         on_attach = require("plugin-config.lsp.handlers").on_attach,
         capabilities = require("plugin-config.lsp.handlers").capabilities,

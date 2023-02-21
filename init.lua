@@ -3,6 +3,8 @@ InNix = false
 
 UsingDvorak = false
 
+Minimal = true
+
 if not InNix then
     require "install-plugins"
 end

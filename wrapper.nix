@@ -18,6 +18,7 @@
   withRuby ? false,
   viAlias ? false,
   vimAlias ? false,
+  minimal,
   ...
 }: let
   myNodePackages = callPackage ./packages/nodePackages {};
@@ -41,7 +42,14 @@
 
   vimConfig = ''luafile ${luaFile}'';
 
-  binPath = lib.makeBinPath ((with pkgs; [
+  minimalBinPath = lib.makeBinPath (with pkgs; [
+    clang-tools
+    rnix-lsp
+    alejandra
+    nodePackages.bash-language-server
+  ]);
+
+  maximalBinPath = lib.makeBinPath ((with pkgs; [
       black
       deadnix
       clang-tools
@@ -55,7 +63,7 @@
       yamllint
       rust-analyzer
       nimlsp
-      nim
+      # nim
     ])
     ++ (with nodePackages; [
       vscode-html-languageserver-bin
@@ -75,6 +83,11 @@
       tsls
       ical2org
     ]);
+
+  binPath =
+    if minimal
+    then minimalBinPath
+    else maximalBinPath;
 
   neovimConfig = neovimUtils.makeNeovimConfig {
     inherit plugins extraPython3Packages withPython3 withRuby viAlias vimAlias;

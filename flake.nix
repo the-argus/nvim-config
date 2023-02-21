@@ -44,28 +44,40 @@
           // args);
 
       # turns init.lua into a /nix/store file, plus some settings
-      luaFile = pkgs.${system}.callPackage ./lua.nix {UsingDvorak = false;};
+      luaFile = args: pkgs.${system}.callPackage ./lua.nix args;
 
       wrapNeovim = args: pkgs.${system}.callPackage ./wrapper.nix args;
 
       # function that combines luaFile, getPlugins, and the wrappers
-      defaultWrapperArgs = {lua = luaFile;};
+      defaultWrapperArgs = {
+        minimal,
+        UsingDvorak,
+      }: {lua = luaFile {inherit minimal UsingDvorak;};};
+
       defaultPluginsArgs = {bannerPalette = ./default-palette.yaml;};
+
       mkNeovim = {
         pluginsArgs ? defaultPluginsArgs,
-        wrapperArgs ? defaultWrapperArgs,
+        minimal ? false,
+        UsingDvorak ? false,
+        wrapperArgs ? defaultWrapperArgs {inherit minimal UsingDvorak;},
         ...
-      }: (
+      }: let
+        defaultWrapperArgsEvaluated = defaultWrapperArgs {inherit minimal UsingDvorak;};
+      in (
         wrapNeovim ({
-            plugins = getPlugins pluginsArgs;
+            inherit minimal;
+            plugins = getPlugins (pluginsArgs // {inherit minimal;});
           }
-          // defaultWrapperArgs
+          // defaultWrapperArgsEvaluated
           // wrapperArgs)
       );
     in {
       inherit mkNeovim;
 
       default = mkNeovim {};
+
+      minimal = mkNeovim {minimal = true;};
 
       rosepine = mkNeovim {
         wrapperArgs = {

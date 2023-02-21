@@ -2,11 +2,13 @@
   stdenv,
   lib,
   UsingDvorak ? false,
+  minimal,
   ...
 }: let
   luaBooleans = {
     InNix = true;
     inherit UsingDvorak;
+    Minimal = minimal;
   };
 
   boolToStr = bool:

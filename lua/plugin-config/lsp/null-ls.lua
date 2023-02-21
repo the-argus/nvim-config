@@ -18,14 +18,14 @@ local eslint_config = {
         "typescript",
         "typescriptreact",
         "vue",
-    };
-    command = "eslint_d";
+    },
+    command = "eslint_d",
     args = { "-f",
         "json",
         "--stdin",
         "--stdin-filename",
         "$FILENAME"
-    };
+    },
 }
 
 local spellchecking_settings = {
@@ -59,55 +59,70 @@ local make_standardjs_config = function(is_formatter)
     }
 end
 
+local minimal_sources = {
+    diagnostics.markdownlint,
+    formatting.markdownlint,
+    diagnostics.jsonlint,
+    formatting.fixjson,
+    formatting.alejandra,
+}
+
+local maximum_sources = {
+    -- formatting.stylua,
+    -- diagnostics.flake8,
+    formatting.black.with({ extra_args = { "--fast" } }),
+    diagnostics.markdownlint,
+    formatting.markdownlint,
+    diagnostics.jsonlint,
+    formatting.fixjson,
+    formatting.rustfmt,
+    formatting.alejandra,
+    code_actions.statix,
+    diagnostics.deadnix,
+    diagnostics.standardjs.with(make_standardjs_config(false)),
+    formatting.standardjs.with(make_standardjs_config(true)),
+    formatting.prettier.with({
+        filetypes = {
+            -- "javascript",
+            -- "javascriptreact",
+            -- "typescript",
+            -- "typescriptreact",
+            "vue",
+            "css",
+            "scss",
+            "less",
+            "html",
+            "json",
+            "jsonc",
+            "yaml",
+            "markdown",
+            "markdown.mdx",
+            "graphql",
+            "handlebars"
+        }
+    }),
+    code_actions.proselint.with(spellchecking_settings),
+
+    -- diagnostics.eslint_d.with(eslint_config),
+    -- code_actions.eslint_d.with(eslint_config),
+
+
+    -- diagnostics.cspell,
+    -- code_actions.cspell,
+
+    -- formatting.prettier_d_slim.with({
+    --     filetypes = { "css" };
+    -- }),
+    -- formatting.rome,
+    -- formatting.stylelint,
+}
+
+local s = minimal_sources
+if not Minimal then
+    s = maximum_sources
+end
+
 null_ls.setup({
     debug = false,
-    sources = {
-        -- formatting.stylua,
-        -- diagnostics.flake8,
-        formatting.black.with({ extra_args = { "--fast" } }),
-        diagnostics.markdownlint,
-        formatting.markdownlint,
-        diagnostics.jsonlint,
-        formatting.fixjson,
-        formatting.rustfmt,
-        formatting.alejandra,
-        code_actions.statix,
-        diagnostics.deadnix,
-        diagnostics.standardjs.with(make_standardjs_config(false)),
-        formatting.standardjs.with(make_standardjs_config(true)),
-        formatting.prettier.with({
-            filetypes = {
-                -- "javascript",
-                -- "javascriptreact",
-                -- "typescript",
-                -- "typescriptreact",
-                "vue",
-                "css",
-                "scss",
-                "less",
-                "html",
-                "json",
-                "jsonc",
-                "yaml",
-                "markdown",
-                "markdown.mdx",
-                "graphql",
-                "handlebars"
-            }
-        }),
-        code_actions.proselint.with(spellchecking_settings),
-
-        -- diagnostics.eslint_d.with(eslint_config),
-        -- code_actions.eslint_d.with(eslint_config),
-
-
-        -- diagnostics.cspell,
-        -- code_actions.cspell,
-
-        -- formatting.prettier_d_slim.with({
-        --     filetypes = { "css" };
-        -- }),
-        -- formatting.rome,
-        -- formatting.stylelint,
-    },
+    sources = s,
 })
