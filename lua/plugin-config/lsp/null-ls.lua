@@ -62,6 +62,7 @@ end
 local minimal_sources = {
     diagnostics.markdownlint,
     formatting.markdownlint,
+    diagnostics.yamllint,
     diagnostics.jsonlint,
     formatting.fixjson,
     formatting.alejandra,
@@ -72,6 +73,7 @@ local maximum_sources = {
     -- diagnostics.flake8,
     formatting.black.with({ extra_args = { "--fast" } }),
     diagnostics.markdownlint,
+    diagnostics.yamllint,
     formatting.markdownlint,
     diagnostics.jsonlint,
     formatting.fixjson,

@@ -49,6 +49,8 @@
     nodePackages.bash-language-server
     nodePackages.jsonlint
     nodePackages.markdownlint-cli
+    nodePackages.prettier
+    yamllint
   ]);
 
   maximalBinPath = lib.makeBinPath ((with pkgs; [
