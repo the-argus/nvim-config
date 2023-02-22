@@ -47,6 +47,8 @@
     rnix-lsp
     alejandra
     nodePackages.bash-language-server
+    nodePackages.jsonlint
+    nodePackages.markdownlint-cli
   ]);
 
   maximalBinPath = lib.makeBinPath ((with pkgs; [
