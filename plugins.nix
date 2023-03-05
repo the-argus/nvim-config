@@ -144,4 +144,6 @@
 
     # nim
     nim-vim
+
+    nvim-gdb
   ])))
