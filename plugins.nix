@@ -41,6 +41,8 @@
 
     comment-nvim
 
+    todo-comments-nvim
+
     # (pkgs.${system}.vimPlugins.nvim-treesitter.withPlugins
     #  (_: pkgs.${system}.tree-sitter.allGrammars))
 
