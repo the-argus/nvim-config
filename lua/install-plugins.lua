@@ -48,6 +48,7 @@ return packer.startup(function(use)
 
     -- helpful for commenting out selection
     use "numToStr/Comment.nvim"
+    use "folke/todo-comments.nvim"
     -- use {
     --     "numToStr/Comment.nvim",
     --     config = function()
