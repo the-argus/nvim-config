@@ -44,7 +44,7 @@
 
   minimalBinPath = lib.makeBinPath (with pkgs; [
     clang-tools
-    rnix-lsp
+    nil
     alejandra
     nodePackages.bash-language-server
     nodePackages.jsonlint
@@ -57,7 +57,7 @@
       black
       deadnix
       clang-tools
-      rnix-lsp
+      nil
       sumneko-lua-language-server
       alejandra
       rustfmt

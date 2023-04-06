@@ -1,11 +1,11 @@
 local lspconfig = require("lspconfig")
 local minimal_servers = {
     "clangd",
-    "rnix"
+    "nil_ls"
 }
 local servers = {
     "clangd",
-    "rnix",
+    "nil_ls",
     "lua_ls",
     "rust_analyzer",
     "pyright",
