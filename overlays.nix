@@ -23,5 +23,16 @@
         sha256 = "0z62d7dykv9zaz95nrry5j8a2218d7vx3qnpnwfcic9g97kcyip6";
       };
     });
+
+    filetype-nvim = superVimPlugins.BetterLua-vim.overrideAttrs (_: {
+      pname = "filetype-nvim";
+      version = "2023-06-02";
+      src = super.fetchFromGitHub {
+        owner = "nathom";
+        repo = "filetype.nvim";
+        rev = "b522628a45a17d58fc0073ffd64f9dc9530a8027";
+        sha256 = "sha256-B+VvgQj8akiKe+MX/dV2/mdaaqF8s2INW3phdPJ5TFA=";
+      };
+    });
   });
 })

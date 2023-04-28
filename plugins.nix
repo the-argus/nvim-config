@@ -81,6 +81,8 @@
         ])))))
     nvim-ts-rainbow
 
+    vim-glsl
+
     nvim-tree-lua
     nvim-web-devicons
 
@@ -114,6 +116,8 @@
 
     nvim-lspconfig
     null-ls-nvim
+
+    filetype-nvim
 
     friendly-snippets
     popup-nvim
