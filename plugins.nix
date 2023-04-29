@@ -117,8 +117,6 @@
     nvim-lspconfig
     null-ls-nvim
 
-    filetype-nvim
-
     friendly-snippets
     popup-nvim
     plenary-nvim

@@ -123,8 +123,6 @@ return packer.startup(function(use)
     use "kana/vim-textobj-line"
 
     use "norcalli/nvim-colorizer.lua"
-
-    use "nathom/filetype.nvim"
     use "tikhomirov/vim-glsl"
 
     -- use { 'nvim-telescope/telescope-fzf-native.nvim',
