@@ -42,7 +42,8 @@
 
   vimConfig = ''luafile ${luaFile}'';
 
-  minimalBinPath = lib.makeBinPath ((with pkgs; [
+  minimalBinPath =
+    (with pkgs; [
       clang-tools
       rnix-lsp
       alejandra
@@ -53,41 +54,45 @@
       jsonlint
       markdownlint-cli
       prettier
-    ]));
+    ]);
 
-  maximalBinPath = lib.makeBinPath (((with pkgs; [
-      black
-      deadnix
-      sumneko-lua-language-server
-      rustfmt
-      pyright
-      proselint
-      statix
-      rust-analyzer
-      nimlsp
-      nim
-      zls
-    ])
-    ++ (with nodePackages; [
-      vscode-html-languageserver-bin
-      vscode-css-languageserver-bin
-      fixjson
-    ])
-    ++ (with myNodePackages; [
-      emmet-ls
-      ansiblels
-      standard
-    ])
-    ++ [
-      tsls
-      ical2org
-    ])
-  ++ minimalBinPath);
+  maximalBinPath =
+    ((with pkgs; [
+        black
+        deadnix
+        sumneko-lua-language-server
+        rustfmt
+        pyright
+        proselint
+        statix
+        rust-analyzer
+        nimlsp
+        nim
+        zls
+      ])
+      ++ (with nodePackages; [
+        vscode-html-languageserver-bin
+        vscode-css-languageserver-bin
+        fixjson
+      ])
+      ++ (with myNodePackages; [
+        emmet-ls
+        ansiblels
+        standard
+      ])
+      ++ [
+        tsls
+        ical2org
+      ])
+    ++ minimalBinPath;
 
   binPath =
-    if minimal
-    then minimalBinPath
-    else maximalBinPath;
+    lib.makeBinPath
+    (
+      if minimal
+      then minimalBinPath
+      else maximalBinPath
+    );
 
   neovimConfig = neovimUtils.makeNeovimConfig {
     inherit plugins extraPython3Packages withPython3 withRuby viAlias vimAlias;
