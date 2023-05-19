@@ -42,41 +42,36 @@
 
   vimConfig = ''luafile ${luaFile}'';
 
-  minimalBinPath = lib.makeBinPath (with pkgs; [
-    clang-tools
-    rnix-lsp
-    alejandra
-    nodePackages.bash-language-server
-    nodePackages.jsonlint
-    nodePackages.markdownlint-cli
-    nodePackages.prettier
-    yamllint
-  ]);
-
-  maximalBinPath = lib.makeBinPath ((with pkgs; [
-      black
-      deadnix
+  minimalBinPath = lib.makeBinPath ((with pkgs; [
       clang-tools
       rnix-lsp
-      sumneko-lua-language-server
       alejandra
+      yamllint
+    ])
+    ++ (with nodePackages; [
+      bash-language-server
+      jsonlint
+      markdownlint-cli
+      prettier
+    ]));
+
+  maximalBinPath = lib.makeBinPath (((with pkgs; [
+      black
+      deadnix
+      sumneko-lua-language-server
       rustfmt
       pyright
       proselint
       statix
-      yamllint
       rust-analyzer
       nimlsp
       nim
+      zls
     ])
     ++ (with nodePackages; [
       vscode-html-languageserver-bin
       vscode-css-languageserver-bin
-      bash-language-server
       fixjson
-      jsonlint
-      markdownlint-cli
-      prettier
     ])
     ++ (with myNodePackages; [
       emmet-ls
@@ -86,7 +81,8 @@
     ++ [
       tsls
       ical2org
-    ]);
+    ])
+  ++ minimalBinPath);
 
   binPath =
     if minimal
