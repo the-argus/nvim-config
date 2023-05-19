@@ -1,21 +1,21 @@
 local lspconfig = require("lspconfig")
 local minimal_servers = {
     "clangd",
-    "rnix"
+    "rnix",
+    "bashls"
 }
 local servers = {
-    "clangd",
-    "rnix",
     "lua_ls",
     "rust_analyzer",
     "pyright",
     "html",
     "cssls",
     "tsserver",
-    "bashls",
     "ansiblels",
     "emmet_ls",
-    "nimls"
+    "nimls",
+    "zls",
+    table.unpack(minimal_servers)
 
     -- using standardjs in null-ls instead of these
     -- "quick_lint_js",
