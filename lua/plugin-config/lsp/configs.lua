@@ -15,7 +15,7 @@ local servers = {
     "emmet_ls",
     "nimls",
     "zls",
-    table.unpack(minimal_servers)
+    unpack(minimal_servers)
 
     -- using standardjs in null-ls instead of these
     -- "quick_lint_js",
