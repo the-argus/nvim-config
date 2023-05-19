@@ -78,6 +78,7 @@
           tree-sitter-c-sharp
           tree-sitter-norg
           # tree-sitter-org-nvim
+          tree-sitter-zig
         ])))))
     nvim-ts-rainbow
 
