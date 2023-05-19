@@ -89,6 +89,15 @@ return packer.startup(function(use)
         }
     }
 
+    -- better file navigator
+    use {
+        "nvim-telescope/telescope-file-browser.nvim",
+        requires = {
+            "nvim-telescope/telescope.nvim",
+            "nvim-lua/plenary.nvim"
+        }
+    }
+
     -- focus mode
     use "folke/zen-mode.nvim"
     use "folke/twilight.nvim"

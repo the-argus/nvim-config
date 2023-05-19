@@ -84,6 +84,7 @@
     vim-glsl
 
     nvim-tree-lua
+    telescope-file-browser-nvim
     nvim-web-devicons
 
     gitsigns-nvim
