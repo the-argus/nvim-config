@@ -92,6 +92,8 @@
 
     bufferline-nvim
 
+    vim-qml
+
     editorconfig-nvim
 
     vim-surround # surround-nvim is rewrite, figure that out
