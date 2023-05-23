@@ -88,11 +88,6 @@
     telescope-file-browser-nvim
     nvim-web-devicons
 
-    # qt qml
-    nvim-treesitter-parsers.qmldir
-    nvim-treesitter-parsers.qmljs
-    # vim-qml
-
     gitsigns-nvim
 
     bufferline-nvim
