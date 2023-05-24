@@ -79,6 +79,8 @@
 
       minimal = mkNeovim {minimal = true;};
 
+      qmlls = pkgs.${system}.callPackage ./packages/qmlls {};
+
       rosepine = mkNeovim {
         wrapperArgs = {
           viAlias = true;
