@@ -4,6 +4,7 @@
   inputs = {
     # nixpkgs.url = github:NixOS/nixpkgs?rev=e12211201092f08c24d710c1697cca16afae3a4c;
     nixpkgs.url = github:NixOS/nixpkgs?ref=nixos-unstable;
+    nixpkgs-pinned.url = github:NixOS/nixpkgs?ref=nixos-unstable;
     neorg-overlay.url = github:nvim-neorg/nixpkgs-neorg-overlay;
     banner = {
       url = "github:the-argus/banner.nix";
@@ -13,6 +14,7 @@
 
   outputs = {
     nixpkgs,
+    nixpkgs-pinned,
     neorg-overlay,
     banner,
     ...
@@ -32,6 +34,7 @@
       };
     # unstable and pkgs are the same thing as of now.
     unstable = genSystems (system: mkPkgs system nixpkgs);
+    pinned = genSystems (system: mkPkgs system nixpkgs-pinned);
     pkgs = unstable;
   in {
     packages = genSystems (system: let
@@ -79,7 +82,7 @@
 
       minimal = mkNeovim {minimal = true;};
 
-      qmlls = pkgs.${system}.callPackage ./packages/qmlls {};
+      qmlls = pinned.${system}.callPackage ./packages/qmlls {};
 
       rosepine = mkNeovim {
         wrapperArgs = {
