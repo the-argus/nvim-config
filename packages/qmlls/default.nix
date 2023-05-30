@@ -1,26 +1,42 @@
-{qt6, ...}: let
-  cmakeBegin = builtins.toFile "cmakeMiddle" ''
-    cmake_minimum_required(VERSION 3.16)
-    project(QtDeclarative # special case
-        VERSION "${"$\{QT_REPO_MODULE_VERSION}"}"
-        DESCRIPTION "Qt Declarative Libraries" # special case
-        HOMEPAGE_URL "https://qt.io/"
-        LANGUAGES CXX C
-    )
-    # list all the deps for qmlls here
-    find_package(Qt6 ${"$\{PROJECT_VERSION}"} CONFIG REQUIRED COMPONENTS BuildInternals Core)
-    find_package(Qt6 ${"$\{PROJECT_VERSION}"} QUIET CONFIG OPTIONAL_COMPONENTS Gui Network Widgets OpenGL OpenGLWidgets Sql Concurrent Test LanguageServerPrivate LinguistTools)
-  '';
-in
-  qt6.qtdeclarative.overrideAttrs (_: {
-    postPatch = ''
-      QMLCMAKEFILE=tools/qmlls/CMakeLists.txt
-      TEMP=temp.cmake
-      cp $QMLCMAKEFILE $TEMP
-      cat .cmake.conf > $QMLCMAKEFILE # wipe the original file
-      cat ${cmakeBegin} >> $QMLCMAKEFILE
-      cat $TEMP >> $QMLCMAKEFILE # bring back the contents of the original file
+{
+  stdenv,
+  fetchgit,
+  openssl,
+  python3,
+  qtbase,
+  qtlanguageserver,
+  qtshadertools,
+  ...
+}:
+stdenv.mkDerivation rec {
+  pname = "qtdeclarative";
+  version = "6.5.1";
 
-      cd tools/qmlls
-    '';
-  })
+  src = fetchgit {
+    url = "git://code.qt.io/qt/qtdeclarative.git";
+    rev = "65651dc1d333e2aded18b0d6f0b71c35e5b40c1c";
+    sha256 = "";
+  };
+
+  nativeBuildInputs =
+    [cmake ninja perl]
+    ++ lib.optionals stdenv.isDarwin [moveBuildTree];
+
+  moveToDev = false;
+
+  outputs = args.outputs or ["out" "dev"];
+
+  propagatedBuildInputs = [
+    openssl
+    python3
+    qtbase
+    qtlanguageserver
+    qtshadertools
+  ];
+
+  cmakeFlags = ["-DQT_BUILD_SINGLE_TARGET_SET=Qt::LanguageServerPrivate"];
+
+  # there is a patch on nixpkgs but its in the jsruntime/qvengine.cpp file which
+  # I don't think is related to this.
+  patches = [];
+}
