@@ -9,6 +9,7 @@
   cmake,
   ninja,
   perl,
+  patchelf,
   qt6,
   qtbase ? qt6.qtbase,
   qtlanguageserver ? qt6.qtlanguageserver,
@@ -16,7 +17,7 @@
   ...
 }:
 stdenv.mkDerivation rec {
-  pname = "qtdeclarative";
+  pname = "qmlls";
   version = "6.5.1";
 
   src = fetchgit {
@@ -25,12 +26,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gOgHMfbAGyW0pHLMp0Y9MKy3ljXu0fpVHxqq6Ww7guo=";
   };
 
-  nativeBuildInputs = [cmake ninja perl];
+  nativeBuildInputs = [cmake ninja perl patchelf];
 
-  moveToDev = false;
   dontWrapQtApps = true;
-
-  outputs = ["out" "dev"];
 
   propagatedBuildInputs = [
     openssl
@@ -40,10 +38,39 @@ stdenv.mkDerivation rec {
     qtshadertools
   ];
 
+  configurePhase = ''
+    runHook preConfigure
+
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$out
+
+    runHook postConfigure
+  '';
+
   buildPhase = ''
     runHook preBuild
-    cmake --build . --target qmlls -- -j$NIX_BUILD_CORES
+    local flagsArray=(SHELL=$SHELL)
+
+    cmake --build build/ --target qmlls -- "${"$\{flagsArray[@]}"}" -j$NIX_BUILD_CORES
+    unset flagsArray
+
     runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out
+    # manually install because cmake --install doesnt work when building only
+    # one target
+    # TODO: use out/dev outputs
+    cd build
+    mv lib/ $out/lib
+    mv bin/ $out/bin
+    mv libexec/ $out/libexec
+    mv include/ $out/include
+    cd ..
+
+    runHook postInstall
   '';
 
   # there is a patch on nixpkgs but its in the jsruntime/qvengine.cpp file which
