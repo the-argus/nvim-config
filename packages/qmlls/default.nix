@@ -1,3 +1,6 @@
+# TODO: make this an override of qt6.qtdeclarative. At the moment it does not
+# match the qt version on the system.
+# or maybe a better solution would be to just provide qmlls per-environment?
 {
   stdenv,
   fetchgit,
