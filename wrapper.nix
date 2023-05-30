@@ -7,6 +7,7 @@
   lib,
   # sorry about using this but I want to only specify LSPs once
   pkgs,
+  useQmlls,
   writeText,
   plugins ? [],
   lua ? (writeText "init.lua" ""),
@@ -84,6 +85,9 @@
         tsls
         ical2org
       ])
+    ++ (lib.lists.optionals useQmlls [
+      pkgs.qmlls
+    ])
     ++ minimalBinPath;
 
   binPath =

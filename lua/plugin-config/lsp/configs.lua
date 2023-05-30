@@ -15,6 +15,7 @@ local servers = {
     "emmet_ls",
     "nimls",
     "zls",
+    "qmlls",
     unpack(minimal_servers)
 
     -- using standardjs in null-ls instead of these

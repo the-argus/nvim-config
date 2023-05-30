@@ -13,6 +13,7 @@
   };
 
   outputs = {
+    self,
     nixpkgs,
     nixpkgs-pinned,
     neorg-overlay,
@@ -29,6 +30,7 @@
         overlays = [
           neorg-overlay.overlays.default
           (import ./overlays.nix)
+          (_: _: {qmlls = self.packages.${system}.qmlls;})
         ];
         inherit system;
       };
@@ -64,12 +66,13 @@
         minimal ? false,
         UsingDvorak ? false,
         wrapperArgs ? defaultWrapperArgs {inherit minimal UsingDvorak;},
+        useQmlls ? false,
         ...
       }: let
         defaultWrapperArgsEvaluated = defaultWrapperArgs {inherit minimal UsingDvorak;};
       in (
         wrapNeovim ({
-            inherit minimal;
+            inherit minimal useQmlls;
             plugins = getPlugins (pluginsArgs // {inherit minimal;});
           }
           // defaultWrapperArgsEvaluated
@@ -78,7 +81,9 @@
     in {
       inherit mkNeovim;
 
-      default = mkNeovim {};
+      default = mkNeovim {
+        useQmlls = true;
+      };
 
       minimal = mkNeovim {minimal = true;};
 
