@@ -9,7 +9,6 @@
   cmake,
   ninja,
   perl,
-  patchelf,
   qt6,
   qtbase ? qt6.qtbase,
   qtlanguageserver ? qt6.qtlanguageserver,
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gOgHMfbAGyW0pHLMp0Y9MKy3ljXu0fpVHxqq6Ww7guo=";
   };
 
-  nativeBuildInputs = [cmake ninja perl patchelf];
+  nativeBuildInputs = [cmake ninja perl];
 
   dontWrapQtApps = true;
 
