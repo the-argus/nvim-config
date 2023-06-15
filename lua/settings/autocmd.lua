@@ -5,6 +5,8 @@ local line = api.line
 local neovim = require "utils.neovim"
 local autocmd = neovim.autocmd
 
+vim.cmd [[ autocmd BufRead,BufNewFile *.slint set filetype=slint ]]
+
 autocmd("TextYankPost", function()
     vim.highlight.on_yank {
         higroup = "YankFeed",

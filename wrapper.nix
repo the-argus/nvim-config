@@ -64,12 +64,13 @@
         sumneko-lua-language-server
         rustfmt
         pyright
-        proselint
+        # proselint # i dont have this set up properly
         statix
         rust-analyzer
         nimlsp
         nim
         zls
+        slint-lsp
       ])
       ++ (with nodePackages; [
         vscode-html-languageserver-bin

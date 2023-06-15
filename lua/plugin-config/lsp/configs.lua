@@ -16,6 +16,7 @@ local servers = {
     "nimls",
     "zls",
     "qmlls",
+    "slint_lsp",
     unpack(minimal_servers)
 
     -- using standardjs in null-ls instead of these
