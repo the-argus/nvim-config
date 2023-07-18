@@ -15,7 +15,7 @@ local servers = {
     "emmet_ls",
     "nimls",
     "zls",
-    "qmlls",
+    -- "qmlls",
     "slint_lsp",
     unpack(minimal_servers)
 
