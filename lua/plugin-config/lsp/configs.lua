@@ -17,8 +17,8 @@ local servers = {
     "zls",
     -- "qmlls",
     "slint_lsp",
-    unpack(minimal_servers)
-    "csharp_ls",
+    unpack(minimal_servers),
+    "csharp_ls"
 
     -- using standardjs in null-ls instead of these
     -- "quick_lint_js",
