@@ -1,5 +1,11 @@
+local pid = vim.fn.getpid()
+
 return {
-    cmd = { "omnisharp" },
+    handlers = {
+        ["textDocument/definition"] = require('omnisharp_extended').handler,
+    },
+
+    cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(pid) },
 
     -- Enables support for reading code style, naming convention and analyzer
     -- settings from .editorconfig.
