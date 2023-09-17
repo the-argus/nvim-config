@@ -5,7 +5,7 @@ return {
         ["textDocument/definition"] = require('omnisharp_extended').handler,
     },
 
-    cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(pid) },
+    cmd = { "OmniSharp", "--languageserver", "--hostPID", tostring(pid) },
 
     -- Enables support for reading code style, naming convention and analyzer
     -- settings from .editorconfig.
