@@ -71,6 +71,7 @@
         nim
         zls
         slint-lsp
+        csharp-ls
       ])
       ++ (with nodePackages; [
         vscode-html-languageserver-bin

@@ -18,6 +18,7 @@ local servers = {
     -- "qmlls",
     "slint_lsp",
     unpack(minimal_servers)
+    "csharp_ls",
 
     -- using standardjs in null-ls instead of these
     -- "quick_lint_js",
@@ -28,7 +29,6 @@ local servers = {
 
     -- csharp SUCKS
     -- "omnisharp",
-    -- "csharp_ls",
 }
 
 local s = servers
