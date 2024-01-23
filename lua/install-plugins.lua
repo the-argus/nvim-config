@@ -110,7 +110,7 @@ return packer.startup(function(use)
         requires = 'kyazdani42/nvim-web-devicons'
     }
 
-    use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
+    use "nvimtools/none-ls.nvim" -- for formatters and linters
     use "sakhnik/nvim-gdb"
     use "gpanders/editorconfig.nvim"
 

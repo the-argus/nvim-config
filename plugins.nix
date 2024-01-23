@@ -119,7 +119,7 @@
     cmp-cmdline # cmp-cmdline-history
 
     nvim-lspconfig
-    null-ls-nvim
+    none-ls-nvim
 
     friendly-snippets
     popup-nvim
