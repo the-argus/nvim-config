@@ -80,7 +80,7 @@
           # tree-sitter-org-nvim
           tree-sitter-zig
         ])))))
-    nvim-ts-rainbow
+    rainbow-delimiters-nvim
 
     vim-glsl
 
