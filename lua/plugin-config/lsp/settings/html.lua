@@ -1,4 +1,7 @@
 if InNix then
+    --Enable (broadcasting) snippet capability for completion
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
     return {
         cmd = { "html-languageserver", "--stdio" },
         filetypes = { "html" },
@@ -11,7 +14,8 @@ if InNix then
             provideFormatter = true
         },
         settings = {},
-        single_file_support = true
+        single_file_support = true,
+        capabilities = capabilities
     }
 else
     return {}
