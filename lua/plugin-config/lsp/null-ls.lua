@@ -69,10 +69,8 @@ local maximum_sources = {
     formatting.alejandra,
     code_actions.statix,
     diagnostics.deadnix,
-    formatting.biome,
-    formatting.tidy,
     -- diagnostics.markuplint,
-    formatting.prettier,
+    -- formatting.prettier,
     code_actions.proselint.with(spellchecking_settings),
 
     -- diagnostics.eslint_d.with(eslint_config),

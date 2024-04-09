@@ -54,7 +54,7 @@
       bash-language-server
       # jsonlint
       markdownlint-cli
-      prettier
+      # prettier
     ]);
 
   maximalBinPath =
@@ -73,7 +73,7 @@
         slint-lsp
         omnisharp-roslyn
         biome
-        html-tidy
+        cmake-language-server
       ])
       ++ (with nodePackages; [
         vscode-html-languageserver-bin
@@ -82,7 +82,7 @@
       ])
       ++ (with myNodePackages; [
         emmet-ls
-        ansiblels
+        # ansiblels
         # standard
       ])
       ++ [
