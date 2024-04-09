@@ -52,7 +52,7 @@
     ])
     ++ (with nodePackages; [
       bash-language-server
-      jsonlint
+      # jsonlint
       markdownlint-cli
       prettier
     ]);
@@ -62,7 +62,7 @@
         black
         deadnix
         sumneko-lua-language-server
-        rustfmt
+        # rustfmt
         pyright
         # proselint # i dont have this set up properly
         statix
@@ -72,16 +72,18 @@
         zls
         slint-lsp
         omnisharp-roslyn
+        biome
+        html-tidy
       ])
       ++ (with nodePackages; [
         vscode-html-languageserver-bin
         vscode-css-languageserver-bin
-        fixjson
+        # fixjson
       ])
       ++ (with myNodePackages; [
         emmet-ls
         ansiblels
-        standard
+        # standard
       ])
       ++ [
         tsls

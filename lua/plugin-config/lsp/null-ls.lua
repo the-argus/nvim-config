@@ -47,24 +47,12 @@ local cspell_config = {
     }
 }
 
-local make_standardjs_config = function(is_formatter)
-    local args = { "--stdin" }
-    if is_formatter then
-        args = { "--fix", "--stdin" }
-    end
-    return {
-        filetypes = { "javascript", "javascriptreact" },
-        command = "standard.js",
-        args,
-    }
-end
-
 local minimal_sources = {
     diagnostics.markdownlint,
     formatting.markdownlint,
     diagnostics.yamllint,
-    diagnostics.jsonlint,
-    formatting.fixjson,
+    -- diagnostics.jsonlint,
+    -- formatting.fixjson,
     formatting.alejandra,
 }
 
@@ -75,34 +63,16 @@ local maximum_sources = {
     diagnostics.markdownlint,
     diagnostics.yamllint,
     formatting.markdownlint,
-    diagnostics.jsonlint,
-    formatting.fixjson,
-    formatting.rustfmt,
+    -- diagnostics.jsonlint,
+    -- formatting.fixjson,
+    -- formatting.rustfmt,
     formatting.alejandra,
     code_actions.statix,
     diagnostics.deadnix,
-    diagnostics.standardjs.with(make_standardjs_config(false)),
-    formatting.standardjs.with(make_standardjs_config(true)),
-    formatting.prettier.with({
-        filetypes = {
-            -- "javascript",
-            -- "javascriptreact",
-            -- "typescript",
-            -- "typescriptreact",
-            "vue",
-            "css",
-            "scss",
-            "less",
-            "html",
-            "json",
-            "jsonc",
-            "yaml",
-            "markdown",
-            "markdown.mdx",
-            "graphql",
-            "handlebars"
-        }
-    }),
+    formatting.biome,
+    formatting.tidy,
+    -- diagnostics.markuplint,
+    formatting.prettier,
     code_actions.proselint.with(spellchecking_settings),
 
     -- diagnostics.eslint_d.with(eslint_config),
