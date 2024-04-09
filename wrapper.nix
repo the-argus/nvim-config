@@ -72,7 +72,6 @@
         zls
         slint-lsp
         omnisharp-roslyn
-        biome
         cmake-language-server
       ])
       ++ (with nodePackages; [
