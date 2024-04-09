@@ -73,6 +73,7 @@
         slint-lsp
         omnisharp-roslyn
         cmake-language-server
+        biome
       ])
       ++ (with nodePackages; [
         vscode-html-languageserver-bin
