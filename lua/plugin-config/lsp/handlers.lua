@@ -67,9 +67,6 @@ M.on_attach = function(client, bufnr)
     -- disable formatting for a lang server
     local disabled_formatting = {
         "nil_ls",
-        "cssls",
-        "html",
-        "tsserver"
     }
     local is_disabled = function(name)
         for _, value in pairs(disabled_formatting) do -- For all the values/"items" in the list, do this:
