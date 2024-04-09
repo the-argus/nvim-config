@@ -66,7 +66,7 @@ M.on_attach = function(client, bufnr)
     -- fix overrides
     -- disable formatting for a lang server
     local disabled_formatting = {
-        "rnix",
+        "nil_ls",
         "cssls",
         "html",
         "tsserver"

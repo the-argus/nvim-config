@@ -1,7 +1,7 @@
 local lspconfig = require("lspconfig")
 local minimal_servers = {
     "clangd",
-    "rnix",
+    "nil_ls",
     "bashls"
 }
 local servers = {

@@ -46,7 +46,7 @@
   minimalBinPath =
     (with pkgs; [
       clang-tools
-      rnix-lsp
+      nil
       alejandra
       yamllint
     ])
