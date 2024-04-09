@@ -16,7 +16,7 @@
         sha256 = "0jl9vlwa9swlgmlr928d0y9h8vaj3nz3jha9nz94wwavjnb0iwcz";
       };
     });
-    base16-nvim = superVimPlugins.nvim-base16.overrideAttrs (_: {
+    base16-nvim = superVimPlugins.base16-nvim.overrideAttrs (_: {
       src = super.fetchgit {
         url = "https://github.com/the-argus/banner.nvim";
         rev = "fd78195b411c103f05eddfc055a743df2de10d63";
