@@ -15,6 +15,7 @@ local servers = {
     "emmet_ls",
     "nimls",
     "cmake",
+    "biome",
     "zls",
     -- "qmlls",
     "slint_lsp",
