@@ -37,7 +37,7 @@
       '';
     })
 
-    nvim-base16
+    base16-nvim
 
     comment-nvim
 
