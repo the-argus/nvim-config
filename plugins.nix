@@ -66,6 +66,7 @@
           tree-sitter-bash
         ]
         ++ (lib.lists.optionals (!minimal) (with plugins; [
+          tree-sitter-godot-resource
           tree-sitter-rust
           tree-sitter-scss
           tree-sitter-lua
