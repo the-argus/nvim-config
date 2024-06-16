@@ -16,6 +16,7 @@ local servers = {
     "nimls",
     "cmake",
     "zls",
+    "gdscript",
     -- "qmlls",
     "slint_lsp",
     unpack(minimal_servers),
