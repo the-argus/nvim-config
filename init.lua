@@ -17,3 +17,6 @@ require "plugin-config"
 
 -- custom commands
 require "custom"
+
+-- custom? gdscript lsp
+require "gdscript"
