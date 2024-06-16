@@ -74,7 +74,6 @@
           tree-sitter-javascript
           tree-sitter-java
           tree-sitter-glsl
-          tree-sitter-godot-resource
           tree-sitter-gdscript
           tree-sitter-c-sharp
           tree-sitter-norg
