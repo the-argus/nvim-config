@@ -12,5 +12,6 @@ require "plugin-config.gitsign"
 require("plugin-config.base16").setup()
 require("plugin-config.todo-comments").setup()
 require("plugin-config.telescope-file-browser")
+require("plugin-config.dap")
 
 require("nvimgdb")

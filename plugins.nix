@@ -154,6 +154,7 @@
     nim-vim
 
     nvim-gdb
+    nvim-dap
 
     # better csharp support
     omnisharp-extended-lsp-nvim
