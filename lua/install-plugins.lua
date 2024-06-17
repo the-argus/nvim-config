@@ -111,7 +111,6 @@ return packer.startup(function(use)
     }
 
     use "nvimtools/none-ls.nvim" -- for formatters and linters
-    use "sakhnik/nvim-gdb"
     use "gpanders/editorconfig.nvim"
 
     -- cringe vimscript, really good plugins though

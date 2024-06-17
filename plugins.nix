@@ -153,7 +153,6 @@
     # nim
     nim-vim
 
-    nvim-gdb
     nvim-dap
 
     # better csharp support
