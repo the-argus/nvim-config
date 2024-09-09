@@ -78,8 +78,18 @@ local function show_buffers(command_info)
     })
 end
 
+local function live_grep(command_info)
+    local is_okay, telescope = pcall(require, "telescope.builtin")
+    if not is_okay then
+        print("Telescope is not installed.")
+        return
+    end
+    telescope.live_grep({})
+end
+
 dvorak_functions = require("settings.keymap.dvorak-overrides")
 
+vim.api.nvim_create_user_command("SearchInProject", live_grep, {})
 vim.api.nvim_create_user_command("ShowBuffers", show_buffers, {})
 vim.api.nvim_create_user_command("ShowFileDiagnostics", show_file_diagnostics, {})
 vim.api.nvim_create_user_command("ShowProjectDiagnostics", show_project_diagnostics, {})
