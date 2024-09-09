@@ -5,7 +5,7 @@ local opts = { silent = true }
 k("n", "<Leader>g", "<Cmd>Open<CR>", opts)
 k("n", "<Leader>h", "<Cmd>ShowFileDiagnostics<CR>", opts)
 k("n", "<Leader>j", "<Cmd>ShowBuffers<CR>", opts)
-k("n", "<Leader>c", "<Cmd>SearchInProject<CR>", opts)
+k("n", "<Leader>m", "<Cmd>SearchInProject<CR>", opts)
 k("n", "<Leader>k", "<Cmd>Telescope<CR>", opts)
 
 -- k("n", "<C-h>", "<Cmd>wincmd h<CR>", opts)
