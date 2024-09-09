@@ -61,6 +61,7 @@
     ((with pkgs; [
         black
         deadnix
+        jdt-language-server
         sumneko-lua-language-server
         # rustfmt
         pyright
