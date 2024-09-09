@@ -49,8 +49,40 @@ local function find_files(command_info)
     telescope.find_files()
 end
 
+local function show_file_diagnostics(command_info)
+    local is_okay, telescope = pcall(require, "telescope.builtin")
+    if not is_okay then
+        print("Telescope is not installed.")
+        return
+    end
+    telescope.diagnostics({ bufnr = 0 })
+end
+
+local function show_project_diagnostics(command_info)
+    local is_okay, telescope = pcall(require, "telescope.builtin")
+    if not is_okay then
+        print("Telescope is not installed.")
+        return
+    end
+    telescope.diagnostics()
+end
+
+local function show_buffers(command_info)
+    local is_okay, telescope = pcall(require, "telescope.builtin")
+    if not is_okay then
+        print("Telescope is not installed.")
+        return
+    end
+    telescope.buffers({
+        only_cwd = true,
+    })
+end
+
 dvorak_functions = require("settings.keymap.dvorak-overrides")
 
+vim.api.nvim_create_user_command("ShowBuffers", show_buffers, {})
+vim.api.nvim_create_user_command("ShowFileDiagnostics", show_file_diagnostics, {})
+vim.api.nvim_create_user_command("ShowProjectDiagnostics", show_project_diagnostics, {})
 vim.api.nvim_create_user_command("Url", open_url, {})
 vim.api.nvim_create_user_command("Open", find_files, {})
 vim.api.nvim_create_user_command("ToggleDvorak", dvorak_functions.toggle_dvorak, {})
