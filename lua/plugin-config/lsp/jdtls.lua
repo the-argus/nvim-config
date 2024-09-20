@@ -5,6 +5,19 @@ local project_name = vim.fn.fnamemodify(root_dir, ':p:h:t')
 local workspace_dir = '$HOME/.cache/jdtls/workspace/' .. project_name
 
 local install_path = os.getenv("JDTLS_INSTALL_PATH")
+local jar_folder = install_path .. '/share/java/jdtls/plugins/'
+local jar_glob = jar_folder .. "org.eclipse.equinox.launcher_*.jar"
+local launcher_files = vim.fn.glob(jar_glob)
+local launcher_file = nil
+for file in launcher_files do
+    launcher_file = file
+    break
+end
+
+if not launcher_file then
+    print("Failed to find any files matching " .. jar_glob .. " unable to initialize jdtls")
+    return
+end
 
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
@@ -23,7 +36,7 @@ local config = {
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
 
-    '-jar', install_path .. '/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*.jar',
+    '-jar', launcher_file,
     '-configuration', install_path .. '/share/java/jdtls/config_linux',
 
     '-data', workspace_dir,
