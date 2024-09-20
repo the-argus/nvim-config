@@ -157,4 +157,7 @@
 
     # better csharp support
     omnisharp-extended-lsp-nvim
+
+    # java ls
+    nvim-jdtls
   ])))

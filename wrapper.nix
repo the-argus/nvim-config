@@ -129,7 +129,8 @@
     neovimConfig.wrapperArgs
     ++ extraMakeWrapperLuaArgs
     ++ extraMakeWrapperLuaCArgs
-    ++ ["--suffix" "PATH" ":" "${binPath}"];
+    ++ ["--suffix" "PATH" ":" "${binPath}"]
+    ++ (lib.optionals (!minimal) ["--set" "JDTLS_INSTALL_PATH" "${jdt-language-server}"]);
 in
   wrapNeovimUnstable unwrappedTarget (neovimConfig
     // {inherit wrapperArgs;})
