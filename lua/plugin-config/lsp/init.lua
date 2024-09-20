@@ -11,6 +11,6 @@ require("plugin-config.lsp.handlers").setup()
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
     pattern = "*.java",
     callback = function()
-        require("plugin-config.lsp.jdtls")
+        require("plugin-config.lsp.java")
     end
 })
