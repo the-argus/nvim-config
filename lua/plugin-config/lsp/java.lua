@@ -28,6 +28,10 @@ local config = {
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
         '-Declipse.product=org.eclipse.jdt.ls.core.product',
+		"-Dosgi.checkConfiguration=true",
+        '-Dosgi.sharedConfiguration.area.readOnly=true',
+		"-Dosgi.sharedConfiguration.area=" .. install_path .. '/share/java/jdtls/config_linux',
+		-- "-Dosgi.configuration.cascaded=true",
         '-Dlog.protocol=true',
         '-Dlog.level=ALL',
         '-Xmx1g',
@@ -36,7 +40,6 @@ local config = {
         '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
 
         '-jar', launcher_file,
-        '-configuration', install_path .. '/share/java/jdtls/config_linux',
 
         '-data', workspace_dir,
     },
