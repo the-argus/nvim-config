@@ -5,8 +5,8 @@ local minimal_servers = {
     "bashls"
 }
 local servers = {
-    -- NOTE: jdtls unused because using dedicated nvim-jdtls plugin
-    -- "jdtls",
+    -- NOTE: jdtls should be disabled when using dedicated nvim-jdtls plugin
+    "jdtls",
     "lua_ls",
     "rust_analyzer",
     "pyright",
