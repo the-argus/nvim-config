@@ -130,7 +130,7 @@
     ++ extraMakeWrapperLuaArgs
     ++ extraMakeWrapperLuaCArgs
     ++ ["--suffix" "PATH" ":" "${binPath}"]
-    ++ (lib.optionals (!minimal) ["--set" "JDTLS_INSTALL_PATH" "${jdt-language-server}"]);
+    ++ (lib.optionals (!minimal) ["--set" "JDTLS_INSTALL_PATH" "${pkgs.jdt-language-server}"]);
 in
   wrapNeovimUnstable unwrappedTarget (neovimConfig
     // {inherit wrapperArgs;})
