@@ -4,6 +4,8 @@ local project_name = vim.fn.fnamemodify(root_dir, ':p:h:t')
 
 local workspace_dir = '$HOME/.cache/jdtls/workspace/' .. project_name
 
+local install_path = os.getenv("JDTLS_INSTALL_PATH")
+
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
   -- The command that starts the language server
@@ -21,8 +23,8 @@ local config = {
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
 
-    '-jar', '$JDTLS_INSTALL_PATH/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*.jar',
-    '-configuration', '$JDTLS_INSTALL_PATH/share/java/jdtls/config_linux',
+    '-jar', install_path .. '/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*.jar',
+    '-configuration', install_path .. '/share/java/jdtls/config_linux',
 
     '-data', workspace_dir,
   },
