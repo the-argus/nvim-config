@@ -1,7 +1,7 @@
 local root_dir = vim.fs.root(0, { ".git", "mvnw", "gradlew" })
 -- If you started neovim within `~/dev/xy/project-1` this would resolve to `project-1`
 local project_name = vim.fn.fnamemodify(root_dir, ':p:h:t')
-local workspace_dir = '$HOME/.cache/jdtls/workspace/' .. project_name
+local workspace_dir = os.getenv("HOME") .. '/.cache/jdtls/workspace/' .. project_name
 
 local install_path = os.getenv("JDTLS_INSTALL_PATH")
 local jar_folder = install_path .. '/share/java/jdtls/plugins/'
