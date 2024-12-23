@@ -28,13 +28,7 @@
     email = "i.mcfarlane2002@gmail.com";
   };
 
-  tsls = nodePackages.typescript-language-server.override {
-    nativeBuildInputs = [buildPackages.makeWrapper];
-    postInstall = ''
-      mkdir -p $out/node_modules/
-      ln -sf ${nodePackages.typescript}/lib/node_modules/typescript $out/node_modules/typescript
-    '';
-  };
+  tsls = nodePackages.typescript-language-server;
 
   luaFile =
     if builtins.typeOf lua == "path" || builtins.typeOf lua == "set"
