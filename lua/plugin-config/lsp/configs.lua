@@ -12,7 +12,7 @@ local servers = {
     "pyright",
     "html",
     "cssls",
-    "tsserver",
+    "ts_ls",
     -- "ansiblels",
     "emmet_ls",
     "nimls",

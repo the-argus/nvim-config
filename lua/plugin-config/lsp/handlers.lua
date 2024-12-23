@@ -68,7 +68,7 @@ M.on_attach = function(client, bufnr)
     local disabled_formatting = {
         "nil_ls",
         "html",
-        "tsserver",
+        "ts_ls",
         "cssls",
     }
     local is_disabled = function(name)
