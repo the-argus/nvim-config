@@ -74,11 +74,7 @@
         slint-lsp
         omnisharp-roslyn
         cmake-language-server
-      ])
-      ++ (with nodePackages; [
-        vscode-html-languageserver-bin
-        vscode-css-languageserver-bin
-        # fixjson
+        vscode-langservers-extracted
       ])
       ++ (with myNodePackages; [
         emmet-ls
