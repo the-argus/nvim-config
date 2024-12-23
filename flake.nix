@@ -5,7 +5,7 @@
     # nixpkgs.url = github:NixOS/nixpkgs?rev=e12211201092f08c24d710c1697cca16afae3a4c;
     nixpkgs.url = github:NixOS/nixpkgs?ref=nixos-unstable;
     nixpkgs-pinned.url = github:NixOS/nixpkgs?rev=5e871d8aa6f57cc8e0dc087d1c5013f6e212b4ce;
-    neorg-overlay.url = github:nvim-neorg/nixpkgs-neorg-overlay;
+    # neorg-overlay.url = github:nvim-neorg/nixpkgs-neorg-overlay;
     banner = {
       url = "github:the-argus/banner.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,7 +16,7 @@
     self,
     nixpkgs,
     nixpkgs-pinned,
-    neorg-overlay,
+    # neorg-overlay,
     banner,
     ...
   }: let
@@ -28,7 +28,7 @@
     mkPkgs = system: nixpkgSet:
       import nixpkgSet {
         overlays = [
-          neorg-overlay.overlays.default
+          # neorg-overlay.overlays.default
           (import ./overlays.nix)
           (_: _: {qmlls = self.packages.${system}.qmlls;})
         ];

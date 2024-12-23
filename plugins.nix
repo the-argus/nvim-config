@@ -144,8 +144,8 @@
     vim-table-mode
 
     # orgmode
-    neorg
-    neorg-telescope
+    # neorg
+    # neorg-telescope
 
     # color scheme dev
     lush-nvim
