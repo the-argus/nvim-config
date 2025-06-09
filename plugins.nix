@@ -17,10 +17,12 @@
       installPhase = let
         inherit (banner.lib.util) removeMeta;
         inherit (lib) attrsets;
-        palette =
+        paletteRaw =
           if builtins.typeOf bannerPalette == "set"
           then bannerPalette
           else banner.lib.parsers.basicYamlToBanner bannerPalette;
+        # replace comment color with a highlight color
+        palette = paletteRaw // { base03 = paletteRaw.base0C; };
         lualines =
           attrsets.mapAttrsToList
           (name: value: "${builtins.replaceStrings ["-"] ["_"] name} = \"#${value}\",")
