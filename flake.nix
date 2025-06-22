@@ -23,6 +23,7 @@
     supportedSystems = [
       "x86_64-linux"
       "aarch64-linux"
+      "aarch64-darwin"
     ];
     genSystems = nixpkgs.lib.genAttrs supportedSystems;
     mkPkgs = system: nixpkgSet:
