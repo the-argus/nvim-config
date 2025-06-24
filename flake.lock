@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1669224926,
-        "narHash": "sha256-UK19yx8jNqbPfBZNUeJr2Sms7BhbDAUyJBF5w2CT6Hc=",
+        "lastModified": 1750726333,
+        "narHash": "sha256-IskaLl1QLEwPzioH/4uwR0YYjiXiK9oKciVZw4jEpzM=",
         "owner": "the-argus",
         "repo": "banner.nix",
-        "rev": "253556f4068f5cb9728e49ac42d630cdc0ccfd58",
+        "rev": "2956bfc2f29b30e63bdcfe577d7ec213600b4cc5",
         "type": "github"
       },
       "original": {
