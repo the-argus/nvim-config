@@ -5,7 +5,7 @@
   vimPlugins,
   writeText,
   unstable,
-  bannerPalette,
+  bannerPalette ? "",
   minimal,
   ...
 }: (with vimPlugins;
