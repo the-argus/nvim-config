@@ -5,7 +5,7 @@
   vimPlugins,
   writeText,
   unstable,
-  bannerPalette ? "./default-palette.yaml",
+  bannerPalette ? ./default-palette.yaml,
   minimal,
   ...
 }: (with vimPlugins;
