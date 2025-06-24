@@ -5,7 +5,7 @@
   vimPlugins,
   writeText,
   unstable,
-  bannerPalette ? ./default-palette.yaml,
+  bannerPalette,
   minimal,
   ...
 }: (with vimPlugins;
@@ -20,7 +20,7 @@
         paletteRaw =
           if builtins.typeOf bannerPalette == "set"
           then bannerPalette
-          else banner.lib.parsers.basicYamlToBanner bannerPalette;
+          else banner.lib.parsers.basicYamlToBanner ./default-palette.yaml;
         # replace comment color with a highlight color
         palette = paletteRaw // { base03 = paletteRaw.base0C; };
         lualines =
