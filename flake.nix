@@ -8,7 +8,7 @@
     # neorg-overlay.url = github:nvim-neorg/nixpkgs-neorg-overlay;
     banner = {
       url = "github:the-argus/banner.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
