@@ -1,7 +1,7 @@
 {
   nodePackages,
   callPackage,
-  buildPackages,
+  latestZls,
   wrapNeovimUnstable,
   neovimUtils,
   lib,
@@ -64,7 +64,7 @@
         rust-analyzer
         nimlsp
         nim
-        zls
+        latestZls
         slint-lsp
         omnisharp-roslyn
         cmake-language-server
