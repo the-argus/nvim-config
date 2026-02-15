@@ -9,9 +9,64 @@ treesitter.setup {
     install_dir = vim.fn.stdpath('data') .. '/site',
 }
 
+local minimal_allowed_filetypes = {
+    "yaml",
+    "toml",
+    "regex",
+    "python",
+    "nix",
+    "markdown",
+    "make",
+    "json",
+    "dockerfile",
+    "comment",
+    "cmake",
+    "c",
+    "cpp",
+    "bash",
+}
+
+local all_allowed_filetypes = {
+    unpack(minimal_allowed_filetypes),
+    "godot_resource",
+    "gdscript",
+    "gdshader",
+    "rust",
+    "scss",
+    "lua",
+    "css",
+    "javascript",
+    "java",
+    "glsl",
+    "c_sharp",
+    "norg",
+    "zig",
+    "tsx",
+    "zsh",
+    "wgsl",
+    "vim",
+    "typescript",
+    "strace",
+    "slint",
+    "qmljs",
+    "qmldir",
+    "printf",
+    "odin",
+    "meson",
+    "go",
+    "gitignore",
+    "gitcommit",
+    "git_rebase",
+    "bitbake",
+};
+
 local function start_treesitter_on_buffer()
     local ft = vim.bo.filetype
-    local available_parsers = treesitter.get_available()
+
+    local available_parsers = minimal_allowed_filetypes
+    if not Minimal then
+        available_parsers = all_allowed_filetypes
+    end
 
     if vim.tbl_contains(available_parsers, ft) then
         vim.treesitter.start()

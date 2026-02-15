@@ -81,6 +81,24 @@
           tree-sitter-norg
           # tree-sitter-org-nvim
           tree-sitter-zig
+          tree-sitter-gdshader
+          tree-sitter-tsx
+          tree-sitter-zsh
+          tree-sitter-wgsl
+          tree-sitter-vim
+          tree-sitter-typescript
+          tree-sitter-strace
+          tree-sitter-slint
+          tree-sitter-qmljs
+          tree-sitter-qmldir
+          tree-sitter-printf
+          tree-sitter-odin
+          tree-sitter-meson
+          tree-sitter-go
+          tree-sitter-gitignore
+          tree-sitter-gitcommit
+          tree-sitter-git_rebase
+          tree-sitter-bitbake
         ])))))
     rainbow-delimiters-nvim
 
@@ -101,7 +119,7 @@
     vim-surround # surround-nvim is rewrite, figure that out
     vim-indent-object
     vim-repeat
-    # look into substitute.nvim
+    substitute-nvim
     vim-textobj-comment
     vim-textobj-entire
     vim-textobj-function
