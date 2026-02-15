@@ -87,7 +87,7 @@
         black
         deadnix
         jdt-language-server
-        sumneko-lua-language-server
+        lua-language-server
         # rustfmt
         pyright
         # proselint # i dont have this set up properly
