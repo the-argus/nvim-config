@@ -26,8 +26,7 @@ local minimal_allowed_filetypes = {
     "bash",
 }
 
-local all_allowed_filetypes = {
-    unpack(minimal_allowed_filetypes),
+local extra_allowed_filetypes = {
     "godot_resource",
     "gdscript",
     "gdshader",
@@ -60,15 +59,30 @@ local all_allowed_filetypes = {
     "bitbake",
 };
 
+-- Source - https://stackoverflow.com/a/33511182
+-- Posted by Oka, modified by community. See post 'Timeline' for change history
+-- Retrieved 2026-02-15, License - CC BY-SA 3.0
+local function has_value(tab, val)
+    for _, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+
+    return false
+end
+
 local function start_treesitter_on_buffer()
     local ft = vim.bo.filetype
 
     local available_parsers = minimal_allowed_filetypes
     if not Minimal then
-        available_parsers = all_allowed_filetypes
+        for _, value in ipairs(extra_allowed_filetypes) do
+            table.insert(available_parsers, value)
+        end
     end
 
-    if vim.tbl_contains(available_parsers, ft) then
+    if has_value(available_parsers, ft) then
         vim.treesitter.start()
     end
 end
