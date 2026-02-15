@@ -1,6 +1,7 @@
 local okay, colorizer = pcall(require, 'colorizer')
 
 if not okay then
+    vim.notify("failed to load colorizer")
     return
 end
 

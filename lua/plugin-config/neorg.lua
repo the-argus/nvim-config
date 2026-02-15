@@ -1,5 +1,6 @@
 local neorg_okay, neorg = pcall(require, "neorg")
 if not neorg_okay then
+    vim.notify("failed to load neorg")
     return
 end
 

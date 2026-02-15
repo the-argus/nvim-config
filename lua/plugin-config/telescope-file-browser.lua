@@ -1,5 +1,6 @@
 local telescope_okay, telescope = pcall(require, "telescope")
 if not telescope_okay then
+    vim.notify("failed to load telescope file browser")
     return
 end
 

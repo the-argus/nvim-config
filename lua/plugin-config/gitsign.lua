@@ -1,6 +1,7 @@
 local okay, gitsigns = pcall(require, 'gitsigns')
 
 if not okay then
+    vim.notify("failed to load gitsigns")
     return
 end
 

@@ -1,5 +1,6 @@
 local di_present, devicons = pcall(require, 'nvim-web-devicons')
 if not di_present then
+    vim.notify("failed to load nvim-web-devicons")
     return
 end
 

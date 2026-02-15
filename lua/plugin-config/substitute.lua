@@ -1,6 +1,7 @@
 local present, substitute = pcall(require, "substitute")
 
 if not present then
+    vim.notify("failed to load substitute")
     return
 end
 

@@ -2,6 +2,7 @@ local base16_okay, colorscheme = pcall(require, 'base16-colorscheme')
 local override_palette, colors = pcall(require, 'settings.color-palette')
 
 if not base16_okay then
+    vim.notify("failed to load base16")
     return
 end
 

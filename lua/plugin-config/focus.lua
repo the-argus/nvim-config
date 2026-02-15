@@ -2,9 +2,11 @@ local zenmode_okay, zenmode = pcall(require, 'zen-mode')
 local twilight_okay, twilight = pcall(require, 'twilight')
 
 if not zenmode_okay then
+    vim.notify("failed to load zen-mode")
     return
 end
 if not twilight_okay then
+    vim.notify("failed to load twilight")
     return
 end
 

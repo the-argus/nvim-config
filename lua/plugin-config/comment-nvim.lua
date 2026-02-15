@@ -1,5 +1,6 @@
 local is_okay, comments = pcall(require, "Comment")
 if not is_okay then
+    vim.notify("failed to load Comment nvim")
     return
 end
 
