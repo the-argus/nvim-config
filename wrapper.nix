@@ -70,7 +70,7 @@
 
   minimalBinPath =
     (with pkgs; [
-      (pkgs.callPackage clangdWrapper {})
+      (pkgs.callPackage clangdWrapper {clang-tools = pkgs.llvmPackages_21.clang-tools;})
       nil
       alejandra
       yamllint
