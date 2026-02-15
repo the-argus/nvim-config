@@ -2,8 +2,8 @@
   description = "My neovim configuration, packaging managed by nix.";
 
   inputs = {
-    # nixpkgs.url = github:NixOS/nixpkgs?rev=e12211201092f08c24d710c1697cca16afae3a4c;
-    nixpkgs.url = github:NixOS/nixpkgs?ref=nixos-unstable;
+    nixpkgs.url = github:NixOS/nixpkgs?rev=3497aa5c9457a9d88d71fa93a4a8368816fbeeba; # nixpkgs unstable as of 02-15-2026
+    # nixpkgs.url = github:NixOS/nixpkgs?ref=nixos-unstable;
     nixpkgs-pinned.url = github:NixOS/nixpkgs?rev=5e871d8aa6f57cc8e0dc087d1c5013f6e212b4ce;
     # neorg-overlay.url = github:nvim-neorg/nixpkgs-neorg-overlay;
     banner = {

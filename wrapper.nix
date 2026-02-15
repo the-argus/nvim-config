@@ -1,7 +1,8 @@
 {
   nodePackages,
   callPackage,
-  latestZls,
+  zls,
+  latestZls ? zls,
   wrapNeovimUnstable,
   neovimUtils,
   lib,
