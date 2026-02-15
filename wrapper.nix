@@ -49,6 +49,11 @@
         mkdir $out/bin -p
         cp ${clang-tools}/bin/clangd $out/bin/clangd
 
+        # make changes to what is about to become .clangd-wrapped, it's a
+        # wrapper of a wrapper so it's just a script
+        substituteInPlace $out/bin/clangd \
+          --replace "\$(basename \$0)" "clangd"
+
         wrapProgram $out/bin/clangd \
           --add-flags "--experimental-modules-support"
       '';
