@@ -28,6 +28,32 @@
     email = "i.mcfarlane2002@gmail.com";
   };
 
+  clangdWrapper = {
+    stdenv,
+    clang-tools,
+    makeWrapper,
+    emptyDirectory,
+  }:
+    stdenv.mkDerivation {
+      pname = "clangd-wrapped";
+      version = clang-tools.version;
+
+      src = emptyDirectory;
+
+      dontUnpack = true;
+      dontBuild = true;
+
+      buildInputs = [makeWrapper clang-tools];
+
+      postInstall = ''
+        mkdir $out/bin -p
+        cp ${clang-tools}/bin/clangd $out/bin/clangd
+
+        wrapProgram $out/bin/clangd \
+          --add-flags "--experimental-modules-support"
+      '';
+    };
+
   tsls = nodePackages.typescript-language-server;
 
   luaFile =
@@ -39,7 +65,7 @@
 
   minimalBinPath =
     (with pkgs; [
-      clang-tools
+      (pkgs.callPackage clangdWrapper {})
       nil
       alejandra
       yamllint
