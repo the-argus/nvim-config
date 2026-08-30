@@ -4,6 +4,7 @@
 
 Misc improvements:
 - [ ] remove bufferline, comment-nvim, focus, neorg
+- [ ] make alt keybinds work on macos with option? specifically for moving windows. might need to be bound to both left and right alt as well
 - [ ] use [mini.ai](https://github.com/nvim-mini/mini.ai) to expand the inner/around text objects. the main addition i am interested in is `if` which is "inner function call"
 - [ ] consider [mini.pairs](https://nvim-mini.org/mini.nvim/readmes/mini-pairs.html) which is just autopairs, opening quotes/braces will also add a closing one. I often find myself doing `<opening brace><closing brace><ESC><a>` to do this same thing.
 - [ ] definitely get [mini.move](https://nvim-mini.org/mini.nvim/readmes/mini-move.html) or maybe [nvim-gomove](https://github.com/booperlv/nvim-gomove) to move the visually selected text. this is nice because I often want to tab the selected text multiple times and it is finicky.
