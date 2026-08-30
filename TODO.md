@@ -3,6 +3,7 @@
 - [ ] migrate to using https://github.com/the-argus/portable-nvim-config so that I don't worry about a plugin manager and basically vendor the plugins
 
 Misc improvements:
+- [ ] make debugger breakpoints better, maybe it is possible to launch gdb as a server, otherwise put breakpoints in a specific file at some absolute path and just require the user load that path in the .gdbinit
 - [ ] remove bufferline, comment-nvim, focus, neorg
 - [ ] make alt keybinds work on macos with option? specifically for moving windows. might need to be bound to both left and right alt as well
 - [ ] use [mini.ai](https://github.com/nvim-mini/mini.ai) to expand the inner/around text objects. the main addition i am interested in is `if` which is "inner function call"
