@@ -2,7 +2,13 @@
 -- call), ia (inner argument), aa (around argument)
 local ai_present, ai = pcall(require, "mini.ai")
 if ai_present then
-    ai.setup()
+    ai.setup(
+        {
+            -- TODO: migrate text objects from other providers and others such as `ae` to this
+            -- see `:h MiniAi.config`.
+            custom_textobjects = {},
+        }
+    )
 end
 
 -- makes it so that typing an opening brace or quote also types the closing one
@@ -15,7 +21,18 @@ end
 -- b (buffers) d(diagnostics) c(comment) q(quickfix)
 local bracketed_present, bracketed = pcall(require, "mini.bracketed")
 if bracketed_present then
-    bracketed.setup()
+    bracketed.setup({
+        -- keeping comment (c), conflict (x), diagnostic (d), indent change (i) quickfix (q), everything else disabled
+        buffer     = { suffix = '', options = {} },
+        file       = { suffix = '', options = {} },
+        jump       = { suffix = '', options = {} },
+        location   = { suffix = '', options = {} },
+        oldfile    = { suffix = '', options = {} },
+        treesitter = { suffix = '', options = {} },
+        undo       = { suffix = '', options = {} },
+        window     = { suffix = '', options = {} },
+        yank       = { suffix = '', options = {} },
+    })
 end
 
 -- move visual selection with alt + hjkl

@@ -1,12 +1,12 @@
 -- Basic settings
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.numberwidth = 2         -- Minimal number column width
-vim.opt.cursorline = true       -- Highlight current line
-vim.opt.cursorlineopt = "both"  -- Highlight both line and number
-vim.opt.wrap = false      -- Don't wrap lines
-vim.opt.scrolloff = 10    -- Keep 10 lines above/below cursor
-vim.opt.sidescrolloff = 8 -- Keep 8 columns left/right of cursor
+vim.opt.numberwidth = 2        -- Minimal number column width
+vim.opt.cursorline = true      -- Highlight current line
+vim.opt.cursorlineopt = "both" -- Highlight both line and number
+vim.opt.wrap = false           -- Don't wrap lines
+vim.opt.scrolloff = 10         -- Keep 10 lines above/below cursor
+vim.opt.sidescrolloff = 8      -- Keep 8 columns left/right of cursor
 
 -- Indentation
 vim.opt.tabstop = 4        -- Tab width
@@ -23,8 +23,8 @@ vim.opt.hlsearch = true   -- Highlight search results, use <leader>c to clear
 vim.opt.incsearch = true  -- Show matches as you type
 
 -- Spelling (these only come into play if I do :set spell to enable spell checking)
-vim.opt.spellsuggest = "best,3"           -- Suggest 3 best matches
-vim.opt.spelllang = "en_us,en_gb,cjk"     -- Don't flag CJK characters as errors
+vim.opt.spellsuggest = "best,3"       -- Suggest 3 best matches
+vim.opt.spelllang = "en_us,en_gb,cjk" -- Don't flag CJK characters as errors
 
 -- Visual settings
 -- vim.cmd.colorscheme("retrobox") -- gruvbox, dim comments
@@ -42,7 +42,7 @@ vim.g.neovide_cursor_animation_length = 0.13
 vim.g.neovide_cursor_trail_length = 0.8
 vim.g.neovide_cursor_vfx_mode = "railgun"
 vim.g.neovide_input_macos_option_key_is_meta = "both" -- make <A-hjkl> work on macos
-local columnRange = {}       -- make everything after 80 chars a different color
+local columnRange = {}                                -- make everything after 80 chars a different color
 for i = 81, 999 do
     table.insert(columnRange, i)
 end
@@ -91,9 +91,9 @@ vim.filetype.add({ extension = { slint = "slint" } })
 
 -- Make cursor blink nicely
 vim.o.guicursor = table.concat({
-  "n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
-  "i-ci:ver25-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
-  "r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100"
+    "n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
+    "i-ci:ver25-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
+    "r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100"
 }, ",")
 
 -- Folding settings ( I don't use these )
@@ -125,8 +125,8 @@ vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yankin
 local function buffer_close()
     vim.cmd(":bp|sp|bn|bd")
 end
-vim.keymap.set('n', '<S-x>', buffer_close) -- close a buffer
-vim.keymap.set('n', '<S-k>', '<Cmd>bnext<CR>') -- next buffer
+vim.keymap.set('n', '<S-x>', buffer_close)         -- close a buffer
+vim.keymap.set('n', '<S-k>', '<Cmd>bnext<CR>')     -- next buffer
 vim.keymap.set('n', '<S-j>', '<Cmd>bprevious<CR>') -- previous buffer
 
 -- Exit terminal mode with escape
@@ -238,7 +238,7 @@ if vim.fn.has("nvim-0.11") == 0 then
     vim.keymap.set("n", "grr", vim.lsp.buf.references, { desc = "vim.lsp.buf.references()" })
     vim.keymap.set("n", "gri", vim.lsp.buf.implementation, { desc = "vim.lsp.buf.implementation()" })
     vim.keymap.set("n", "gO", vim.lsp.buf.document_symbol, { desc = "vim.lsp.buf.document_symbol()" })
-    vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, { desc = "vim.lsp.buf.signature_help()" })
+    vim.keymap.set({ "i", "n" }, "<C-s>", vim.lsp.buf.signature_help, { desc = "vim.lsp.buf.signature_help()" })
 end
 if vim.fn.has("nvim-0.11.2") == 0 then
     vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, { desc = "vim.lsp.buf.type_definition()" })
@@ -319,3 +319,4 @@ end
 
 -- Load and configure plugins
 require "perpluginconfig"
+require "textobjects"

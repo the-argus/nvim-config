@@ -1,4 +1,6 @@
 require "perpluginconfig.treesitter"
+require "perpluginconfig.treesitter_text_objects"
+require "perpluginconfig.treesitter_text_subjects"
 require "perpluginconfig.base16"
 require "perpluginconfig.mini_files"
 require "perpluginconfig.telescope"

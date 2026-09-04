@@ -85,3 +85,9 @@
 [submodule "pack/plugins/start/brk.nvim"]
 	path = pack/plugins/start/brk.nvim
 	url = https://codeberg.org/kafva/brk.nvim
+[submodule "pack/plugins/start/nvim-treesitter-textobjects"]
+	path = pack/plugins/start/nvim-treesitter-textobjects
+	url = https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+[submodule "pack/plugins/start/nvim-treesitter-textsubjects"]
+	path = pack/plugins/start/nvim-treesitter-textsubjects
+	url = https://github.com/RRethy/nvim-treesitter-textsubjects

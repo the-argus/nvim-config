@@ -3,10 +3,8 @@ if not present then
     return
 end
 
-vim.keymap.set({ 'n', 'x', 'o' }, 'z', '<Plug>(leap)')
-vim.keymap.set('n', 'Z', '<Plug>(leap-from-window)')
 vim.keymap.set('n', 'z', '<Plug>(leap-anywhere)')
--- vim.keymap.set({'x', 'o'}, 'z', '<Plug>(leap)')
+vim.keymap.set({ 'x', 'o' }, 'z', '<Plug>(leap)')
 
 -- Exclude whitespace and the middle of alphabetic words from preview:
 --   foobar[baaz] = quux
