@@ -1,6 +1,6 @@
 require "perpluginconfig.treesitter"
 require "perpluginconfig.base16"
-require "perpluginconfig.telescope_file_browser"
+require "perpluginconfig.mini_files"
 require "perpluginconfig.telescope"
 require "perpluginconfig.colorizer"
 require "perpluginconfig.devicons"
