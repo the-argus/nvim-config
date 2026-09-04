@@ -264,7 +264,13 @@ vim.diagnostic.config({
         header = "",
         prefix = "",
     },
-    jump = { float = true },
+    -- Open the diagnostic float after jumping. `jump.float` was deprecated in
+    -- 0.12 in favour of `jump.on_jump`, which is not understood by older versions.
+    jump = vim.fn.has("nvim-0.12") == 1 and {
+        on_jump = function(_, bufnr)
+            vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", focus = false })
+        end,
+    } or { float = true },
 })
 
 -- Solid borders on LSP hover/signature floats as well

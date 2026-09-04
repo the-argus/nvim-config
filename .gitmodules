@@ -18,7 +18,7 @@
 	url = https://github.com/nvim-tree/nvim-web-devicons
 [submodule "pack/plugins/start/nvim-colorizer.lua"]
 	path = pack/plugins/start/nvim-colorizer.lua
-	url = https://github.com/norcalli/nvim-colorizer.lua
+	url = https://github.com/catgoose/nvim-colorizer.lua
 [submodule "pack/plugins/start/base16-nvim"]
 	path = pack/plugins/start/base16-nvim
 	url = https://github.com/RRethy/base16-nvim
@@ -27,7 +27,7 @@
 	url = https://github.com/gbprod/substitute.nvim
 [submodule "pack/plugins/start/leap.nvim"]
 	path = pack/plugins/start/leap.nvim
-	url = https://github.com/ggandor/leap.nvim
+	url = https://codeberg.org/andyg/leap.nvim
 [submodule "pack/plugins/start/gitsigns.nvim"]
 	path = pack/plugins/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim

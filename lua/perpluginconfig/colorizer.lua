@@ -4,22 +4,26 @@ if not okay then
     return
 end
 
-_M = {
-    config = {
+-- Targets the maintained fork (catgoose/nvim-colorizer.lua). The original
+-- norcalli repo is unmaintained since 2021 and uses removed nvim APIs.
+colorizer.setup({
+    filetypes = {
         "*",
         "!txt",
     },
-    defaults = {
-        mode     = "foreground";
-        RGB      = true; -- #RGB hex codes
-        RRGGBB   = true; -- #RRGGBB hex codes
-        names    = false;
-        RRGGBBAA = true; -- #RRGGBBAA hex codes
-        rgb_fn   = true; -- CSS rgb() and rgba() functions
-        hsl_fn   = true; -- CSS hsl() and hsla() functions
-        css      = true; -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-        css_fn   = true; -- Enable all CSS *functions*: rgb_fn, hsl_fn
-    }
-}
-
-colorizer.setup(_M.config, _M.defaults)
+    options = {
+        parsers = {
+            -- css preset enables names, hex, rgb(), hsl(), oklch(), and CSS vars
+            css = true,
+            names = { enable = false },
+            hex = {
+                rgb = true,      -- #RGB
+                rrggbb = true,   -- #RRGGBB
+                rrggbbaa = true, -- #RRGGBBAA
+            },
+        },
+        display = {
+            mode = "foreground",
+        },
+    },
+})
