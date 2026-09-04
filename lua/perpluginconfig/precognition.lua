@@ -3,5 +3,6 @@ if not present then
     return
 end
 
--- :Precognition to toggle on and off
 precognition.setup()
+
+vim.keymap.set("n", "<Leader>pp", "<Cmd>Precognition<CR>", { desc = "Toggle inline motion hints", silent = true })

@@ -1,9 +1,10 @@
 # nvim-config
 
-This is my neovim configuration. I have tailored it to be very featureful (LSP, debugging, git integration, some additional text objects and motions, etc) but also bloat-free otherwise. Features:
+This is my neovim configuration. I have tailored it to be very featureful (LSP, debugging, git integration, some additional text objects and motions, etc) but not too bloated otherwise. Here are the overall features
 
-- No package manager. Plugins are submodules.
+- Instead of using a package manager, I have cloned the plugins directly into `pack/plugins/start`. This is fine for me as I find plugins tend to change their APIs too often, and so I like to pin their versions as well as the neovim version so I do not have to constantly think about maintaining this config.
 - No DAP integration, instead I use [brk.nvim](https://codeberg.org/kafva/brk.nvim) which simply creates a file such as a `.gdbinit` describing the breakpoints placed in the editor. This avoids having to install many plugins to reimplement all the features of debuggers (assembly view, watch window, memory view, etc).
+- Completion does not use tab or shift+tab, nor does it have a delay when typing. I find this to be a bit of a relic from other GUI editors which requires me to stop and wait to see completion, as well as often causing me to get a completion when I meant to type a tab, or sometimes vice versa.
 - Gitsigns + diffview, so that lines which are changed in git are visible in the editor (gitsigns) and the actual diff is also visible (diffview), even the diff against main/master. Further git integration is not present, as interactively staging and unstaging hunks from the editor is the only interaction which is not easier done (or done at all) from the command line. At least, for me.
 - Some plugins which are just for style, mostly for visual clarity:
   - `rainbow-delimiters.nvim`, so matching parentheses show a matching color.
@@ -16,15 +17,11 @@ This is my neovim configuration. I have tailored it to be very featureful (LSP, 
 
 ## TODO
 
-- [x] make text wrap on by default
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
-- [x] make the telescope and mini.files popups not overlap. might be worthwhile to have both open in a split instead?
-- [x] fix there being insert-mode leader bindings that makes spacebar lag
-- [x] fix treesitter failing and files becoming unhighlighted
 - [ ] probably steal the better text objects from <https://github.com/chrisgrieser/nvim-various-textobjs>
-- [x] figure out how to make completion windows no interfere with typing, maybe need to use a leader key to accept them or something. currently i sometimes want to press tab but get completion instead. also: make completion not have a delay, if one exists.
-- [x] remove nvim-dap submodules
-- [ ] come up with more TODOs
+- [ ] Fix mini.files briefly freezing whenever hovering a big file and showing a preview. ideally previews would be asynchronous
+- [ ] Fix the comment text object still being `gc` when it should be `c`
+- [ ] Improve or highlight the `[+]` statusbar indication that the current file needs saving. Assuming I don't get used to it, it would be nice for maybe the statusbar to appear a different color when the current buffer has unsaved changes, or something like that. Right now I tend to not notice when the current buffer needs to be saved.
 
 ## Keybinds / actions and navigation
 
@@ -125,6 +122,8 @@ Diffview plugin keybinds:
 Misc:
 
 { n }: <Leader>pa   Copy absolute path to current buffer to "+ register
+{ n }: <Leader>pp   Toggle inline motion hints via precognition.nvim
+{ n }: <Leader>pl   Toggle inline LSP diagnostics via lsp_lines.nvim
 
 ```
 
@@ -176,7 +175,7 @@ g]                          Go to prev (TODO: what is this?)
 
 Provided by mini.comment:
 
-gc                          Comment
+c                           Comment
 
 TODO: Migrate objects provided by ae and treesittertext-objects to mini.ai custom text objects. This would consolidate things into one dependency, and mini.ai does not support changing the letters used for the builtin text objects afaict.
 
