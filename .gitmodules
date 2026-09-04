@@ -58,3 +58,12 @@
 [submodule "pack/plugins/start/headlines.nvim"]
 	path = pack/plugins/start/headlines.nvim
 	url = https://github.com/lukas-reineke/headlines.nvim
+[submodule "pack/plugins/start/precognition.nvim"]
+	path = pack/plugins/start/precognition.nvim
+	url = https://github.com/tris203/precognition.nvim
+[submodule "pack/plugins/start/neoscroll.nvim"]
+	path = pack/plugins/start/neoscroll.nvim
+	url = https://github.com/karb94/neoscroll.nvim
+[submodule "pack/plugins/start/mini.nvim"]
+	path = pack/plugins/start/mini.nvim
+	url = https://github.com/nvim-mini/mini.nvim
