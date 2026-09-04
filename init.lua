@@ -255,11 +255,44 @@ if vim.fn.has("nvim-0.11.2") == 0 then
     vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, { desc = "vim.lsp.buf.type_definition()" })
 end
 
--- all diagnostic floating panels get solid border
+-- Diagnostics: no inline virtual text, icons in the sign column, most severe
+-- first. All diagnostic floating panels get solid border and show up after
+-- [d/]d jumps.
 vim.diagnostic.config({
-    float = { border = "solid" },
+    virtual_text = false,
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.HINT] = "",
+            [vim.diagnostic.severity.INFO] = "",
+        },
+    },
+    update_in_insert = true,
+    severity_sort = true,
+    float = {
+        border = "solid",
+        focusable = false,
+        style = "minimal",
+        source = true,
+        header = "",
+        prefix = "",
+    },
     jump = { float = true },
 })
+
+-- Solid borders on LSP hover/signature floats as well
+if vim.fn.has("nvim-0.11") == 1 then
+    vim.o.winborder = "solid" -- default border for all floating windows
+else
+    -- vim.lsp.with was deprecated and removed after 0.11, only use it here
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+        border = "solid",
+    })
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+        border = "solid",
+    })
+end
 
 -- Auto-resize splits when window is resized
 vim.api.nvim_create_autocmd("VimResized", {

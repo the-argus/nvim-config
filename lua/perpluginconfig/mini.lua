@@ -11,12 +11,50 @@ if pairs_present then
     mini_pairs.setup()
 end
 
--- next/prev diagnostic, comment, quickfix, git conflict, etc.
 -- do square brackets followed by a letter to do next/prev of that thing.
--- b (buffers) d(diagnostics)
+-- b (buffers) d(diagnostics) c(comment) q(quickfix)
 local bracketed_present, bracketed = pcall(require, "mini.bracketed")
 if bracketed_present then
     bracketed.setup()
+end
+
+-- file explorer popup
+-- <Leader>f : toggle file explorer
+-- TODO: probably just remove the current file stuff and always open at cwd
+local files_present, files = pcall(require, "mini.files")
+if files_present then
+    files.setup({
+        windows = { preview = true },
+    })
+
+    -- stretch the windows to the full editor height (widths are set on open)
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "MiniFilesWindowUpdate",
+        callback = function(args)
+            local config = vim.api.nvim_win_get_config(args.data.win_id)
+            config.height = vim.o.lines - 4 -- borders, statusline, cmdline
+            vim.api.nvim_win_set_config(args.data.win_id, config)
+        end,
+    })
+
+    vim.keymap.set("n", "<Leader>f", function()
+        if not files.close() then
+            local path = vim.api.nvim_buf_get_name(0)
+            if vim.fn.filereadable(path) == 0 then
+                path = nil
+            end
+            local usable = vim.o.columns - 8
+            local width_nofocus = math.floor(usable * 0.15)
+            local width_focus = math.floor(usable * 0.30)
+            files.open(path, true, {
+                windows = {
+                    width_nofocus = width_nofocus,
+                    width_focus = width_focus,
+                    width_preview = usable - width_focus - width_nofocus,
+                },
+            })
+        end
+    end)
 end
 
 -- move visual selection with alt + hjkl

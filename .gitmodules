@@ -79,3 +79,6 @@
 [submodule "pack/plugins/start/portal.nvim"]
 	path = pack/plugins/start/portal.nvim
 	url = https://github.com/cbochs/portal.nvim
+[submodule "pack/plugins/start/none-ls.nvim"]
+	path = pack/plugins/start/none-ls.nvim
+	url = https://github.com/nvimtools/none-ls.nvim

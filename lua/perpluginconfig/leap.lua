@@ -3,7 +3,6 @@ if not present then
     return
 end
 
--- keybinds
 vim.keymap.set({'n', 'x', 'o'}, 'z', '<Plug>(leap)')
 vim.keymap.set('n',             'Z', '<Plug>(leap-from-window)')
 vim.keymap.set('n',        'z', '<Plug>(leap-anywhere)')
