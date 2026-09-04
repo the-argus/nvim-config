@@ -41,6 +41,7 @@ vim.opt.guifont = "Comic Code,Fira Code Nerd Font Mono,VictorMono Nerd Font:h11"
 vim.g.neovide_cursor_animation_length = 0.13
 vim.g.neovide_cursor_trail_length = 0.8
 vim.g.neovide_cursor_vfx_mode = "railgun"
+vim.g.neovide_input_macos_option_key_is_meta = "both" -- make <A-hjkl> work on macos
 local columnRange = {}       -- make everything after 80 chars a different color
 for i = 81, 999 do
     table.insert(columnRange, i)
