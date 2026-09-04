@@ -33,7 +33,6 @@ This is my neovim configuration. I have tailored it to be very featureful (LSP, 
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
 - [ ] probably steal the better text objects from <https://github.com/chrisgrieser/nvim-various-textobjs>
 - [ ] Fix mini.files briefly freezing whenever hovering a big file and showing a preview. ideally previews would be asynchronous
-- [ ] Fix the comment text object still being `gc` when it should be `c`
 - [ ] Improve or highlight the `[+]` statusbar indication that the current file needs saving. Assuming I don't get used to it, it would be nice for maybe the statusbar to appear a different color when the current buffer has unsaved changes, or something like that. Right now I tend to not notice when the current buffer needs to be saved.
 
 ## Keybinds / actions and navigation
@@ -188,7 +187,7 @@ g]                          Go to prev (TODO: what is this?)
 
 Provided by mini.comment:
 
-c                           Comment
+ic                          The hovered comment (for example there is `dic`, `vic`, and `cic` to delete, select, and change respectively)
 
 TODO: Migrate objects provided by ae and treesittertext-objects to mini.ai custom text objects. This would consolidate things into one dependency, and mini.ai does not support changing the letters used for the builtin text objects afaict.
 
