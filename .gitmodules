@@ -55,9 +55,6 @@
 [submodule "pack/plugins/start/telescope-fzf-native.nvim"]
 	path = pack/plugins/start/telescope-fzf-native.nvim
 	url = https://github.com/nvim-telescope/telescope-fzf-native.nvim
-[submodule "pack/plugins/start/headlines.nvim"]
-	path = pack/plugins/start/headlines.nvim
-	url = https://github.com/lukas-reineke/headlines.nvim
 [submodule "pack/plugins/start/precognition.nvim"]
 	path = pack/plugins/start/precognition.nvim
 	url = https://github.com/tris203/precognition.nvim

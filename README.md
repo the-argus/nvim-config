@@ -3,7 +3,6 @@
 A neovim config which can be easily deployed on VMs servers I ssh into,
 regardless of OS. Testing is limited to whatever I use it for :)
 
-TODO: remove headlines plugin
 TODO: probably steal the better text objects from <https://github.com/chrisgrieser/nvim-various-textobjs>
 
 ## Keybinds / actions and navigation
