@@ -49,3 +49,8 @@ if move_present then
         },
     })
 end
+
+local comment_present, comment = pcall(require, "mini.comment")
+if comment_present then
+    comment.setup({ mappings = { textobject = 'c' } })
+end

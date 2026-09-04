@@ -148,6 +148,9 @@ Provided by surround.nvim
 { n }: ds           Follow with a character to delete a surrounding pair of those characters
 { n }: cs           Follow with two characters to replace a surrounding pair of the first character with a pair of the second.
 
+{ n }: gcc          Comment out the current line
+{ n, x}: gc         Comment out either visual select or the text object (for example `gcip` to comment out the current paragraph)
+
 ```
 
 ## Motions
@@ -170,6 +173,10 @@ Provided by mini.ai (all support being prefixed by count, ie. 2i} to select with
 
 g[                          Go to next (TODO: what is this?)
 g]                          Go to prev (TODO: what is this?)
+
+Provided by mini.comment:
+
+gc                          Comment
 
 TODO: Migrate objects provided by ae and treesittertext-objects to mini.ai custom text objects. This would consolidate things into one dependency, and mini.ai does not support changing the letters used for the builtin text objects afaict.
 
