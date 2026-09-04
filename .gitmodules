@@ -87,7 +87,8 @@
 	url = https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 [submodule "pack/plugins/start/nvim-treesitter-textsubjects"]
 	path = pack/plugins/start/nvim-treesitter-textsubjects
-	url = https://github.com/RRethy/nvim-treesitter-textsubjects
+	url = https://github.com/dtor/nvim-treesitter-textsubjects
+	branch = main
 [submodule "pack/plugins/start/lsp_lines.nvim"]
 	path = pack/plugins/start/lsp_lines.nvim
 	url = https://git.sr.ht/~whynothugo/lsp_lines.nvim
