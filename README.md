@@ -4,7 +4,7 @@ A neovim config which can be easily deployed on VMs servers I ssh into,
 regardless of OS. Testing is limited to whatever I use it for :)
 
 TODO: remove headlines plugin
-TODO: probably steal the better text objects from https://github.com/chrisgrieser/nvim-various-textobjs
+TODO: probably steal the better text objects from <https://github.com/chrisgrieser/nvim-various-textobjs>
 
 ## Keybinds / actions and navigation
 
@@ -19,7 +19,6 @@ TODO: might be necessary to remove or change z here, as there are other motions 
 { n }: <Leader>o        Portal backwards
 { n }: <Leader>i        Portal forwards
 { n }: <Leader>f        Open file explorer and renaming tool and editor popup, mini.files
-{ n }: <Leader>v        Toggle git diffview, useful for observing git diff without leaving the editor, jumping between git hunks, and staging and unstaging induvidual hunks.
 { n }: <Leader>g        Open a picker for files tracked by git, not including submodules
 { n }: <Leader>h        Open a picker for lines with LSP diagnostics reported
 { n }: <Leader>j        Open a picker show all buffers other than the currently active one, sorted by most recently used
@@ -89,6 +88,19 @@ TODO: Completion popup navigation (TODO: evaluate these and whether completion a
 ["<C-Space>"]
 ["<C-y>"]
 ["<C-e>"]
+
+Diffview plugin keybinds:
+
+{ n }: <Leader>v        Toggle git diffview, useful for observing git diff without leaving the editor, jumping between git hunks, and staging and unstaging induvidual hunks.
+{ n }: <Leader>vo       Open git diffview
+{ n }: <Leader>vc       Close git diffview
+{ n }: <Leader>vh       Show file history for current file
+{ n }: <Leader>vH       Show file history for entire repo
+{ x }: <Leader>vh       Show file history for visually selected text
+{ n }: <Leader>vl       Show file history for current line
+{ n }: <Leader>vm       Diff current branch and changes against main/master brance
+{ n }: <Leader>vb       Open a telescope picker for branches and diff the current branch against that
+{ n }: <Leader>vC       Open a telescope picker for commits and show file history for that commit
 
 Misc:
 
