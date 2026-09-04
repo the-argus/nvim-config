@@ -1,7 +1,9 @@
 -- Basic settings
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.cursorline = true -- Highlight current line
+vim.opt.numberwidth = 2         -- Minimal number column width
+vim.opt.cursorline = true       -- Highlight current line
+vim.opt.cursorlineopt = "both"  -- Highlight both line and number
 vim.opt.wrap = false      -- Don't wrap lines
 vim.opt.scrolloff = 10    -- Keep 10 lines above/below cursor
 vim.opt.sidescrolloff = 8 -- Keep 8 columns left/right of cursor
@@ -17,8 +19,12 @@ vim.opt.autoindent = true  -- Copy indent from current line
 -- Search settings
 vim.opt.ignorecase = true -- Case insensitive search
 vim.opt.smartcase = true  -- Case sensitive if uppercase in search
-vim.opt.hlsearch = false  -- Don't highlight search results
+vim.opt.hlsearch = true   -- Highlight search results, use <leader>c to clear
 vim.opt.incsearch = true  -- Show matches as you type
+
+-- Spelling (these only come into play if I do :set spell to enable spell checking)
+vim.opt.spellsuggest = "best,3"           -- Suggest 3 best matches
+vim.opt.spelllang = "en_us,en_gb,cjk"     -- Don't flag CJK characters as errors
 
 -- Visual settings
 -- vim.cmd.colorscheme("retrobox") -- gruvbox, dim comments
@@ -29,6 +35,12 @@ vim.opt.incsearch = true  -- Show matches as you type
 -- vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
 vim.opt.termguicolors = true -- Enable 24-bit colors
 vim.opt.signcolumn = "yes"   -- Always show sign column
+
+-- GUI settings (neovide etc.)
+vim.opt.guifont = "Comic Code,Fira Code Nerd Font Mono,VictorMono Nerd Font:h11"
+vim.g.neovide_cursor_animation_length = 0.13
+vim.g.neovide_cursor_trail_length = 0.8
+vim.g.neovide_cursor_vfx_mode = "railgun"
 local columnRange = {}       -- make everything after 80 chars a different color
 for i = 81, 999 do
     table.insert(columnRange, i)
@@ -70,6 +82,12 @@ vim.opt.clipboard:append("unnamedplus") -- Use system clipboard
 vim.opt.modifiable = true               -- Allow buffer modifications
 vim.opt.encoding = "UTF-8"              -- Set encoding
 
+-- may have installed LSPs and tooling in local node modules
+vim.env.PATH = vim.env.PATH .. ":./node_modules/.bin"
+
+-- neovim doesn't support slint by default
+vim.filetype.add({ extension = { slint = "slint" } })
+
 -- Make cursor blink nicely
 vim.o.guicursor = table.concat({
   "n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
@@ -109,6 +127,16 @@ end
 vim.keymap.set('n', '<S-x>', buffer_close) -- close a buffer
 vim.keymap.set('n', '<S-k>', '<Cmd>bnext<CR>') -- next buffer
 vim.keymap.set('n', '<S-j>', '<Cmd>bprevious<CR>') -- previous buffer
+
+-- Exit terminal mode with escape
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { silent = true })
+
+-- Pickers (user commands defined in perpluginconfig/telescope.lua)
+vim.keymap.set("n", "<Leader>g", "<Cmd>Open<CR>", { desc = "Find files", silent = true })
+vim.keymap.set("n", "<Leader>h", "<Cmd>ShowFileDiagnostics<CR>", { desc = "File diagnostics", silent = true })
+vim.keymap.set("n", "<Leader>j", "<Cmd>ShowBuffers<CR>", { desc = "Buffers", silent = true })
+vim.keymap.set("n", "<Leader>m", "<Cmd>SearchInProject<CR>", { desc = "Live grep", silent = true })
+vim.keymap.set("n", "<Leader>k", "<Cmd>Telescope<CR>", { desc = "Telescope pickers", silent = true })
 
 -- Navigate windows with alt + hjkl
 local opts = { silent = true }
@@ -174,14 +202,62 @@ vim.api.nvim_create_autocmd("TermClose", {
     end,
 })
 
--- Disable line numbers in terminal
+-- Disable line numbers in terminal and start in insert mode
 vim.api.nvim_create_autocmd("TermOpen", {
     group = augroup,
     callback = function()
         vim.opt_local.number = false
         vim.opt_local.relativenumber = false
         vim.opt_local.signcolumn = "no"
+        vim.cmd.startinsert()
     end,
+})
+
+-- LSP keymaps and commands, only on buffers with an attached server
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = augroup,
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        local opts = { buffer = args.buf, silent = true }
+
+        if client and client.server_capabilities.documentFormattingProvider then
+            vim.api.nvim_buf_create_user_command(args.buf, "Format", function()
+                vim.lsp.buf.format({ async = true })
+            end, {})
+        end
+        if client and client.server_capabilities.codeActionProvider then
+            vim.api.nvim_buf_create_user_command(args.buf, "Action", function()
+                vim.lsp.buf.code_action()
+            end, {})
+        end
+
+        -- Everything else uses the nvim 0.11 default LSP/diagnostic keymaps:
+        -- grr references, grn rename, gra code action, gri implementation,
+        -- grt type definition, gO document symbols, K hover,
+        -- <C-s> (insert) signature help, [d/]d diagnostics, <C-w>d diagnostic
+        -- float, <C-]> definition via tagfunc. These have no default:
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+    end,
+})
+
+-- I like the default lsp keymap but it wasn't default in older versions
+if vim.fn.has("nvim-0.11") == 0 then
+    vim.keymap.set("n", "grn", vim.lsp.buf.rename, { desc = "vim.lsp.buf.rename()" })
+    vim.keymap.set({ "n", "x" }, "gra", vim.lsp.buf.code_action, { desc = "vim.lsp.buf.code_action()" })
+    vim.keymap.set("n", "grr", vim.lsp.buf.references, { desc = "vim.lsp.buf.references()" })
+    vim.keymap.set("n", "gri", vim.lsp.buf.implementation, { desc = "vim.lsp.buf.implementation()" })
+    vim.keymap.set("n", "gO", vim.lsp.buf.document_symbol, { desc = "vim.lsp.buf.document_symbol()" })
+    vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, { desc = "vim.lsp.buf.signature_help()" })
+end
+if vim.fn.has("nvim-0.11.2") == 0 then
+    vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, { desc = "vim.lsp.buf.type_definition()" })
+end
+
+-- all diagnostic floating panels get solid border
+vim.diagnostic.config({
+    float = { border = "solid" },
+    jump = { float = true },
 })
 
 -- Auto-resize splits when window is resized
