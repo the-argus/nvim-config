@@ -1,52 +1,27 @@
-local function find_files(command_info)
-    local is_okay, telescope = pcall(require, "telescope.builtin")
-    if not is_okay then
-        print("Telescope is not installed.")
-        return
-    end
-    telescope.find_files()
+local telescope_ok, telescope = pcall(require, "telescope.builtin")
+if not telescope_ok then
+    return
 end
 
-local function show_file_diagnostics(command_info)
-    local is_okay, telescope = pcall(require, "telescope.builtin")
-    if not is_okay then
-        print("Telescope is not installed.")
-        return
-    end
-    telescope.diagnostics({ bufnr = 0 })
-end
+vim.api.nvim_create_user_command("SearchCommands", telescope.commands, {})
 
-local function show_project_diagnostics(command_info)
-    local is_okay, telescope = pcall(require, "telescope.builtin")
-    if not is_okay then
-        print("Telescope is not installed.")
-        return
-    end
-    telescope.diagnostics()
-end
+vim.api.nvim_create_user_command("SwitchBuffer", telescope.buffers, { sort_mru = true, ignore_current_buffer = true })
+vim.api.nvim_create_user_command("SearchBuffers", telescope.buffers, { select_current = true })
 
-local function show_buffers(command_info)
-    local is_okay, telescope = pcall(require, "telescope.builtin")
-    if not is_okay then
-        print("Telescope is not installed.")
-        return
-    end
-    telescope.buffers({
-        only_cwd = true,
-    })
-end
+vim.api.nvim_create_user_command("SearchInProject", telescope.live_grep, {})
+vim.api.nvim_create_user_command("SearchInOpenFiles", telescope.live_grep, { grep_open_files = true })
 
-local function live_grep(command_info)
-    local is_okay, telescope = pcall(require, "telescope.builtin")
-    if not is_okay then
-        print("Telescope is not installed.")
-        return
-    end
-    telescope.live_grep({})
-end
+vim.api.nvim_create_user_command("ShowFileDiagnostics", telescope.diagnostics, { bufnr = 0 })
+vim.api.nvim_create_user_command("ShowProjectDiagnostics", telescope.diagnostics, {})
 
-vim.api.nvim_create_user_command("SearchInProject", live_grep, {})
-vim.api.nvim_create_user_command("ShowBuffers", show_buffers, {})
-vim.api.nvim_create_user_command("ShowFileDiagnostics", show_file_diagnostics, {})
-vim.api.nvim_create_user_command("ShowProjectDiagnostics", show_project_diagnostics, {})
-vim.api.nvim_create_user_command("Open", find_files, {})
+vim.api.nvim_create_user_command("Open", telescope.git_files, { recurse_submodules = false })
+vim.api.nvim_create_user_command("OpenIncludingSubmodules", telescope.git_files, { recurse_submodules = true })
+vim.api.nvim_create_user_command("OpenIncludingEverything", telescope.live_grep,
+    { recurse_submodules = true, hidden = true, no_ignore = true, no_ignore_parent = true })
+
+-- keybinds opening pickers that I use all the time
+vim.keymap.set("n", "<Leader>g", "<Cmd>Open<CR>", { desc = "Find files", silent = true })
+vim.keymap.set("n", "<Leader>h", "<Cmd>ShowFileDiagnostics<CR>", { desc = "File diagnostics", silent = true })
+vim.keymap.set("n", "<Leader>j", "<Cmd>SwitchBuffers<CR>", { desc = "Buffers", silent = true })
+vim.keymap.set("n", "<Leader>m", "<Cmd>SearchInProject<CR>", { desc = "Live grep", silent = true })
+vim.keymap.set("n", "<Leader>k", "<Cmd>SearchCommands<CR>", { desc = "Pick from all user commands", silent = true })

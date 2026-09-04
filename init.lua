@@ -132,13 +132,6 @@ vim.keymap.set('n', '<S-j>', '<Cmd>bprevious<CR>') -- previous buffer
 -- Exit terminal mode with escape
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { silent = true })
 
--- Pickers (user commands defined in perpluginconfig/telescope.lua)
-vim.keymap.set("n", "<Leader>g", "<Cmd>Open<CR>", { desc = "Find files", silent = true })
-vim.keymap.set("n", "<Leader>h", "<Cmd>ShowFileDiagnostics<CR>", { desc = "File diagnostics", silent = true })
-vim.keymap.set("n", "<Leader>j", "<Cmd>ShowBuffers<CR>", { desc = "Buffers", silent = true })
-vim.keymap.set("n", "<Leader>m", "<Cmd>SearchInProject<CR>", { desc = "Live grep", silent = true })
-vim.keymap.set("n", "<Leader>k", "<Cmd>Telescope<CR>", { desc = "Telescope pickers", silent = true })
-
 -- Navigate windows with alt + hjkl
 local opts = { silent = true }
 vim.keymap.set("t", "<A-h>", "<C-\\><C-N><C-w>h", opts)
@@ -158,10 +151,6 @@ vim.keymap.set("n", "<C-h>", "<C-w><", opts)
 vim.keymap.set("n", "<C-l>", "<C-w>>", opts)
 vim.keymap.set("n", "<C-k>", "<C-w>+", opts)
 vim.keymap.set("n", "<C-j>", "<C-w>-", opts)
-
--- Quick file navigation
--- vim.keymap.set("n", "<leader>e", ":Explore<CR>", { desc = "Open file explorer" })
--- vim.keymap.set("n", "<leader>ff", ":find ", { desc = "Find file" })
 
 -- Copy Full File-Path
 vim.keymap.set("n", "<leader>pa", function()
@@ -255,9 +244,6 @@ if vim.fn.has("nvim-0.11.2") == 0 then
     vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, { desc = "vim.lsp.buf.type_definition()" })
 end
 
--- Diagnostics: no inline virtual text, icons in the sign column, most severe
--- first. All diagnostic floating panels get solid border and show up after
--- [d/]d jumps.
 vim.diagnostic.config({
     virtual_text = false,
     signs = {
