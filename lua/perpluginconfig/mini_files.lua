@@ -54,7 +54,7 @@ vim.keymap.set("n", "<Leader>f", function()
             windows = {
                 width_nofocus = width_nofocus,
                 width_focus = width_focus,
-                width_preview = usable - width_focus - width_nofocus,
+                width_preview = width - width_focus - width_nofocus,
             },
         })
     end

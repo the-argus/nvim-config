@@ -1,4 +1,4 @@
-local brk_ok, brk = pcall(require, "cmp")
+local brk_ok, brk = pcall(require, "brk")
 if not brk_ok then
     return
 end
