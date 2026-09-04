@@ -100,7 +100,7 @@ cmp.setup {
         { name = "nvim_lsp" },
         { name = "buffer" },
         { name = "path" },
-        { name = "luasnip" },
+        -- { name = "luasnip" },
         -- { name = "neorg" },
     },
     confirm_opts = {
