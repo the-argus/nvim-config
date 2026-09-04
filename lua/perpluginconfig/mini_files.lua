@@ -40,8 +40,10 @@ vim.api.nvim_create_autocmd("User", {
     end,
 })
 
--- file explorer popup
+local popups = require("perpluginconfig.popups")
+
 vim.keymap.set("n", "<Leader>f", function()
+    popups.close_telescope() -- mini.files + tele should be mutually exclusive
     if not files.close() then
         local path = vim.api.nvim_buf_get_name(0)
         if vim.fn.filereadable(path) == 0 then

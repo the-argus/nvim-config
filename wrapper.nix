@@ -8,14 +8,16 @@
   lib,
   plugins ? [],
   # a directory containing the init.lua and other lua config files, and optionally pack/plugins/start
-  configDirectory ? (lib.fileset.toSource {
-    root = ./.;
-    fileset = lib.fileset.unions [
-      ./init.lua
-      ./lua
-      ./pack
-    ];
-  }),
+  configDirectory ? (
+    lib.fileset.toSource {
+      root = ./.;
+      fileset = lib.fileset.unions [
+        ./init.lua
+        ./lua
+        ./pack
+      ];
+    }
+  ),
   neovim-unwrapped,
   unwrappedTarget ? neovim-unwrapped,
   extraLuaPackages ? (_: []),
@@ -41,7 +43,10 @@
       dontUnpack = true;
       dontBuild = true;
 
-      buildInputs = [makeWrapper clang-tools];
+      buildInputs = [
+        makeWrapper
+        clang-tools
+      ];
 
       postInstall = ''
         mkdir $out/bin -p
@@ -105,43 +110,169 @@
     ])
     ++ minimalBinPath;
 
-  binPath =
-    lib.makeBinPath
-    (
+  minimalTreesitterLanguages = [
+    "bash"
+    "c"
+    "cmake"
+    "comment"
+    "cpp"
+    "css"
+    "diff"
+    "dockerfile"
+    "editorconfig"
+    "gitattributes"
+    "gitcommit"
+    "gitignore"
+    "git_rebase"
+    "html"
+    "ini"
+    "javascript"
+    "json"
+    "lua"
+    "luadoc"
+    "make"
+    "markdown"
+    "markdown_inline"
+    "nix"
+    "python"
+    "query"
+    "regex"
+    "toml"
+    "tsx"
+    "typescript"
+    "vim"
+    "vimdoc"
+    "xml"
+    "yaml"
+  ];
+
+  maximalTreesitterLanguages =
+    [
+      "asm"
+      "c_sharp"
+      "doxygen"
+      "gdscript"
+      "gdshader"
+      "glsl"
+      "go"
+      "godot_resource"
+      "hlsl"
+      "java"
+      "just"
+      "kotlin"
+      "meson"
+      "nim"
+      "objc"
+      "odin"
+      "printf"
+      "rust"
+      "scss"
+      "slint"
+      "strace"
+      "swift"
+      "wgsl"
+      "zig"
+      "zsh"
+    ]
+    ++ minimalTreesitterLanguages;
+
+  treesitterGrammars = let
+    inherit (pkgs.vimPlugins) nvim-treesitter;
+
+    wanted =
       if minimal
-      then minimalBinPath
-      else maximalBinPath
+      then minimalTreesitterLanguages
+      else maximalTreesitterLanguages;
+
+    # some lanaguages depend on other grammars, such as C -> C++.
+    requiresOf = lang:
+      (nvim-treesitter.parsers.${lang}.requires or [])
+      ++ (nvim-treesitter.queries.${lang}.requires or []);
+
+    languages = map (entry: entry.key) (
+      lib.genericClosure {
+        startSet = map (lang: {key = lang;}) wanted;
+        operator = entry: map (lang: {key = lang;}) (requiresOf entry.key);
+      }
     );
+  in
+    pkgs.symlinkJoin {
+      name = "nvim-treesitter-grammars";
+      paths =
+        lib.concatMap (
+          lang:
+            lib.optional (nvim-treesitter.parsers ? ${lang}) nvim-treesitter.parsers.${lang}
+            ++ lib.optional (nvim-treesitter.queries ? ${lang}) nvim-treesitter.queries.${lang}
+        )
+        languages;
+    };
+
+  binPath = lib.makeBinPath (
+    if minimal
+    then minimalBinPath
+    else maximalBinPath
+  );
 
   # this bit is stolen from https://github.com/nix-community/home-manager/blob/master/modules/programs/neovim.nix
   luaPackages = unwrappedTarget.lua.pkgs;
   resolvedExtraLuaPackages = extraLuaPackages luaPackages;
 
   makeWrapperArgsFromPackages = op:
-    lib.lists.foldr
-    (next: prev: prev ++ [";" (op next)]) []
+    lib.lists.foldr (
+      next: prev:
+        prev
+        ++ [
+          ";"
+          (op next)
+        ]
+    ) []
     resolvedExtraLuaPackages;
 
-  extraMakeWrapperLuaCArgs =
-    lib.optionals (resolvedExtraLuaPackages != [])
-    (["--suffix" "LUA_CPATH" ";"]
-      ++ (makeWrapperArgsFromPackages luaPackages.getLuaCPath));
-  extraMakeWrapperLuaArgs =
-    lib.optionals (resolvedExtraLuaPackages != [])
-    (["--suffix" "LUA_PATH" ";"]
-      ++ (makeWrapperArgsFromPackages luaPackages.getLuaPath));
+  extraMakeWrapperLuaCArgs = lib.optionals (resolvedExtraLuaPackages != []) (
+    [
+      "--suffix"
+      "LUA_CPATH"
+      ";"
+    ]
+    ++ (makeWrapperArgsFromPackages luaPackages.getLuaCPath)
+  );
+  extraMakeWrapperLuaArgs = lib.optionals (resolvedExtraLuaPackages != []) (
+    [
+      "--suffix"
+      "LUA_PATH"
+      ";"
+    ]
+    ++ (makeWrapperArgsFromPackages luaPackages.getLuaPath)
+  );
 
   wrapperArgs =
     extraMakeWrapperLuaArgs
     ++ extraMakeWrapperLuaCArgs
-    ++ ["--suffix" "PATH" ":" "${binPath}"]
-    ++ (lib.optionals (!minimal) ["--set" "JDTLS_INSTALL_PATH" "${pkgs.jdt-language-server}"]);
+    ++ [
+      "--suffix"
+      "PATH"
+      ":"
+      "${binPath}"
+    ]
+    ++ (lib.optionals (!minimal) [
+      "--set"
+      "JDTLS_INSTALL_PATH"
+      "${pkgs.jdt-language-server}"
+    ]);
 in
-  wrapNeovimUnstable unwrappedTarget ({
-      inherit plugins extraPython3Packages withPython3 withRuby viAlias vimAlias;
-      # NOTE: wrapNeovimUnstable takes luaRcContent/neovimRcContent, not
-      # customRC (that was a makeNeovimConfig argument; passing it here is
-      # silently ignored)
+  wrapNeovimUnstable unwrappedTarget (
+    {
+      inherit
+        extraPython3Packages
+        withPython3
+        withRuby
+        viAlias
+        vimAlias
+        ;
+      plugins = plugins ++ [treesitterGrammars];
       luaRcContent = vimConfig;
     }
-    // {inherit wrapperArgs;})
+    // {
+      inherit wrapperArgs;
+    }
+  )

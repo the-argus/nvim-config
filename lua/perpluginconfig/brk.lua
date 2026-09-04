@@ -3,7 +3,7 @@ if not brk_ok then
     return
 end
 
-vim.keymap.set({'n', 'i'}, '<Leader>b', brk.toggle_breakpoint, {
+vim.keymap.set('n', '<Leader>b', brk.toggle_breakpoint, {
     desc = "Toggle breakpoint"
 })
 vim.keymap.set('n', '<Leader>dc', brk.toggle_conditional_breakpoint, {

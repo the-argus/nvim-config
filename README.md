@@ -16,14 +16,14 @@ This is my neovim configuration. I have tailored it to be very featureful (LSP, 
 
 ## TODO
 
-- [ ] make text wrap on by default
+- [x] make text wrap on by default
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
-- [ ] make the telescope and mini.files popups not overlap. might be worthwhile to have both open in a split instead?
-- [ ] fix there being insert-mode leader bindings that makes spacebar lag
-- [ ] fix treesitter failing and files becoming unhighlighted
+- [x] make the telescope and mini.files popups not overlap. might be worthwhile to have both open in a split instead?
+- [x] fix there being insert-mode leader bindings that makes spacebar lag
+- [x] fix treesitter failing and files becoming unhighlighted
 - [ ] probably steal the better text objects from <https://github.com/chrisgrieser/nvim-various-textobjs>
-- [ ] figure out how to make completion windows no interfere with typing, maybe need to use a leader key to accept them or something. currently i sometimes want to press tab but get completion instead. also: make completion not have a delay, if one exists.
-- [ ] remove nvim-dap submodules
+- [x] figure out how to make completion windows no interfere with typing, maybe need to use a leader key to accept them or something. currently i sometimes want to press tab but get completion instead. also: make completion not have a delay, if one exists.
+- [x] remove nvim-dap submodules
 - [ ] come up with more TODOs
 
 ## Keybinds / actions and navigation
@@ -99,15 +99,15 @@ Language server operations (pretty much neovim defaults):
 { n }: g0           Show all LSP symbols in the current document
 { n, i }: Ctrl + S  Show signature help in a floating popup
 
-TODO: Completion popup navigation (TODO: evaluate these and whether completion as I have it currently really makes sense):
+Completion
 
-["<C-k>"]
-["<C-j>"]
-["<C-b>"]
-["<C-f>"]
-["<C-Space>"]
-["<C-y>"]
-["<C-e>"]
+{ i }: <C-Space>    Ask for completions at the cursor
+{ i }: <C-j>        Highlight the next entry
+{ i }: <C-k>        Highlight the previous entry
+{ i }: <C-y>        Accept the highlighted entry, or the top one if none is highlighted
+{ i }: <C-e>        Dismiss the popup
+{ i }: <C-b>        Scroll the documentation window up
+{ i }: <C-f>        Scroll the documentation window down
 
 Diffview plugin keybinds:
 

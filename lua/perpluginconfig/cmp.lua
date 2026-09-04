@@ -3,12 +3,6 @@ if not cmp_status_ok then
     return
 end
 
--- used for supertab
-local check_backspace = function()
-    local col = vim.fn.col "." - 1
-    return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
-end
-
 --   פּ ﯟ   some other good icons
 local kind_icons = {
     Text = "",
@@ -40,42 +34,34 @@ local kind_icons = {
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
 cmp.setup {
+    performance = {
+        -- don't wait, immediately pop up the completion
+        debounce = 0,
+        -- redraw and sort completion options always + immediately
+        throttle = 0,
+    },
+
+    -- don't preselect to prevent autocompletion from happening when I'm
+    -- trying to type normally. can use Ctrl + j and Ctrl + k to select
+    preselect = cmp.PreselectMode.None,
+    completion = {
+        completeopt = "menu,menuone,noselect",
+    },
+
     mapping = {
         ["<C-k>"] = cmp.mapping.select_prev_item(),
         ["<C-j>"] = cmp.mapping.select_next_item(),
         ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
         ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
         ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-        ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
         ["<C-e>"] = cmp.mapping {
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         },
-        -- Accept currently selected item. If none selected, `select` first item.
-        -- Set `select` to `false` to only confirm explicitly selected items.
+        -- select = true means that even if nothing is yet selected, these will
+        -- select and confirm the first option
+        ["<C-y>"] = cmp.mapping.confirm { select = true },
         ["<C-_>"] = cmp.mapping.confirm { select = true },
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif check_backspace() then
-                fallback()
-            else
-                fallback()
-            end
-        end, {
-            "i",
-            "s",
-        }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            else
-                fallback()
-            end
-        end, {
-            "i",
-            "s",
-        }),
     },
 
     -- format entries in the completion popup

@@ -4,9 +4,11 @@ vim.opt.relativenumber = true
 vim.opt.numberwidth = 2        -- Minimal number column width
 vim.opt.cursorline = true      -- Highlight current line
 vim.opt.cursorlineopt = "both" -- Highlight both line and number
-vim.opt.wrap = false           -- Don't wrap lines
+vim.opt.wrap = true            -- Wrap long lines instead of running them off screen
+vim.opt.breakindent = true     -- Continuation lines keep the indent of the line they wrap
+vim.opt.showbreak = "↳ "       -- Mark continuation lines so wraps aren't mistaken for real lines
 vim.opt.scrolloff = 10         -- Keep 10 lines above/below cursor
-vim.opt.sidescrolloff = 8      -- Keep 8 columns left/right of cursor
+vim.opt.sidescrolloff = 8      -- Keep 8 columns left/right of cursor (only matters if wrap is off)
 
 -- Indentation
 vim.opt.tabstop = 4        -- Tab width

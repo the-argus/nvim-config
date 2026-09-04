@@ -13,5 +13,4 @@ colorscheme.with_config({
     ts_rainbow = true,
     cmp = true,
     -- illuminate = true,
-    dapui = true,
 });
