@@ -3,23 +3,28 @@
 This is my neovim configuration. I have tailored it to be very featureful (LSP, debugging, git integration, some additional text objects and motions, etc) but also bloat-free otherwise. Features:
 
 - No package manager. Plugins are submodules.
-- No DAP integration, instead I use [brk.nvim](https://codeberg.org/kafva/brk.nvim) which simply creates a file such as a `.gdbinit` with the breakpoints. This avoids having to install many plugins to reimplement all the features of debuggers (assembly view, watch window, memory view, etc).
+- No DAP integration, instead I use [brk.nvim](https://codeberg.org/kafva/brk.nvim) which simply creates a file such as a `.gdbinit` describing the breakpoints placed in the editor. This avoids having to install many plugins to reimplement all the features of debuggers (assembly view, watch window, memory view, etc).
 - Gitsigns + diffview, so that lines which are changed in git are visible in the editor (gitsigns) and the actual diff is also visible (diffview), even the diff against main/master. Further git integration is not present, as interactively staging and unstaging hunks from the editor is the only interaction which is not easier done (or done at all) from the command line. At least, for me.
 - Some plugins which are just for style, mostly for visual clarity:
   - `rainbow-delimiters.nvim`, so matching parentheses show a matching color.
+  - `indent_blankline.nvim` to show a line connected the currently selected indented block, matching colors with any braces colored by `rainbow-delimiters`
   - `neoscroll.nvim`, (smooth scrolling) to help lessen how often jumping from place to place causes me to lose my sense of direction within the file or codebase.
   - `lsp_lines.nvim`, to show all diagnostics as virtual text / inlay hints
-  - `indent_blankline.nvim` to show a line connected the currently selected indented block, matching colors with any braces colored by `rainbow-delimiters`
   - `base16-nvim` for some color schemes
   - `todo-comments` which just nicely highlights comments containing WARN, TODO, HACK.
-  - `nvim-web-devicaons`, which are used by the mini.files file explorer.
-- TODO: come up with more TODOs
+  - `nvim-web-devicons`, which are used by the mini.files file explorer.
 
 ## TODO
 
+- [ ] make text wrap on by default
+- [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
+- [ ] make the telescope and mini.files popups not overlap. might be worthwhile to have both open in a split instead?
+- [ ] fix there being insert-mode leader bindings that makes spacebar lag
+- [ ] fix treesitter failing and files becoming unhighlighted
 - [ ] probably steal the better text objects from <https://github.com/chrisgrieser/nvim-various-textobjs>
 - [ ] figure out how to make completion windows no interfere with typing, maybe need to use a leader key to accept them or something. currently i sometimes want to press tab but get completion instead. also: make completion not have a delay, if one exists.
 - [ ] remove nvim-dap submodules
+- [ ] come up with more TODOs
 
 ## Keybinds / actions and navigation
 
