@@ -15,6 +15,19 @@ This is my neovim configuration. I have tailored it to be very featureful (LSP, 
   - `todo-comments` which just nicely highlights comments containing WARN, TODO, HACK.
   - `nvim-web-devicons`, which are used by the mini.files file explorer.
 
+## List of lies told to me by Big Plugin, which I have become wise to since making this config
+
+- You need a plugin manager (afaict these are glorified bash scripts to clone repos)
+- You need lazy loading (actually, I want everything except LSP and treesitter to be on in every file anyways, so they should all be loaded at startup. Also, if your neovim lags while loading due to all your plugins, you have already screwed up. Plugin loading shouldn't need to be asynchronous unless the plugin's loading time is a function of buffer length or project size)
+- You can emulate VSCode with just a few neovim plugins! (You don't want to do this)
+  - A good example is mapping Tab and Shift+Tab to completion, which doesn't make sense because those are also keys you use to type normally
+  - Also, bufferline/a tab bar doesn't make sense. I have three possible things I want to do with buffers, which bufferline only sometimes provides when there are only a few buffers open:
+    - Use a picker / search through buffers
+    - Go back to the previously visited buffer, or return after doing so
+    - Use a hotkey bound to a specific buffer, such as `<Leader>1`, `<Leader>2`, etc.
+  - DAP integration is a necessary feature (no, there are great debuggers out there and debugger interfaces, there is no need to recreate them in neovim).
+- A dashboard is a cool feature (it just feels annoying, I usually start neovim and immediately open the file picker to open some files, because I know what I need to do)
+
 ## TODO
 
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
