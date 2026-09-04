@@ -82,3 +82,6 @@
 [submodule "pack/plugins/start/none-ls.nvim"]
 	path = pack/plugins/start/none-ls.nvim
 	url = https://github.com/nvimtools/none-ls.nvim
+[submodule "pack/plugins/start/brk.nvim"]
+	path = pack/plugins/start/brk.nvim
+	url = https://codeberg.org/kafva/brk.nvim
