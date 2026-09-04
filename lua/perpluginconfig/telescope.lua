@@ -25,6 +25,6 @@ vim.api.nvim_create_user_command("OpenIncludingEverything",
 -- keybinds opening pickers that I use all the time
 vim.keymap.set("n", "<Leader>g", "<Cmd>Open<CR>", { desc = "Find files", silent = true })
 vim.keymap.set("n", "<Leader>h", "<Cmd>ShowFileDiagnostics<CR>", { desc = "File diagnostics", silent = true })
-vim.keymap.set("n", "<Leader>j", "<Cmd>SwitchBuffers<CR>", { desc = "Buffers", silent = true })
+vim.keymap.set("n", "<Leader>j", "<Cmd>SwitchBuffer<CR>", { desc = "Buffers", silent = true })
 vim.keymap.set("n", "<Leader>m", "<Cmd>SearchInProject<CR>", { desc = "Live grep", silent = true })
 vim.keymap.set("n", "<Leader>k", "<Cmd>SearchCommands<CR>", { desc = "Pick from all user commands", silent = true })
