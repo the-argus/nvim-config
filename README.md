@@ -28,12 +28,60 @@ This is my neovim configuration. I have tailored it to be very featureful (LSP, 
   - DAP integration is a necessary feature (no, there are great debuggers out there and debugger interfaces, there is no need to recreate them in neovim).
 - A dashboard is a cool feature (it just feels annoying, I usually start neovim and immediately open the file picker to open some files, because I know what I need to do)
 
+## Plugins installed by lines of lua code (for both implementation and tests)
+
+I keep this list just to be aware of how much stuff has accumulated in the dependencies of this config, and to judge whether the size of a plugin is really worth the features that I actually use.
+
+```txt
+rainbow-delimiters.nvim         53,150 lines (but 01,179 lines when not including tests?)
+diffview-plus.nvim              50,557 lines
+none-ls.nvim                    20,825 lines (but 13,363 when not including tests)
+telescope.nvim                  16,393 lines
+nvim-colorizer                  15,201 lines (but 05,428 when not including tests)
+plenary.nvim                    14,074 lines
+gitsigns.nvim                   11,489 lines
+nvim-cmp                         7,429 lines
+nvim-treesitter                  6,929 lines
+precognition.nvim                5,903 lines
+nvim-treesitter-textobjects      4,877 lines
+nvim-surround                    3,605 lines
+indent_blankline.nvim            3,499 lines
+base16.nvim                      3,192 lines
+trailblazer.nvim                 2,938 lines
+nvim-web-devicons                2,447 lines
+leap.nvim                        2,294 lines
+substitute.nvim                  1,814 lines
+telescope-fzf-native.nvim        1,767 lines
+mini.files                       1,513 lines
+brk.nvim                         1,424 lines
+portal.nvim                      1,391 lines
+neoscroll.nvim                   1,248 lines
+mini.bracketed                     992 lines
+todo-comments.nvim                 912 lines
+mini.ai                            911 lines
+nvim-treesitter-textsubjects       685 lines
+cmp-buffer                         381 lines
+mini.pairs                         243 lines
+mini.comment                       240 lines
+lsp_lines.nvim                     235 lines
+cmp-nvim-lsp                       228 lines
+cmp-path                           196 lines
+cmp-cmdline                        190 lines
+mini.move                          181 lines
+```
+
 ## TODO
 
+- [ ] replace nvim-colorizer with nvim-highlight-colors. the former is much larger and doesn't support LSP providing colors, so it seems like an all around win to use nvim-highlight-colors
+- [ ] consider using mini.icons instead of nvim-web-devicons
+- [ ] remove unused telescope-file-browser.nvim submodules
+- [ ] check on indent_blankline, afaict it is not working
+- [ ] some plugins vendor plenary.nvim, but I do also. figure out about load order and whether they are actually using my version, or if they even should be.
+- [ ] consider removing precognition.nvim. It is a bit intrusive
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
 - [ ] probably steal the better text objects from <https://github.com/chrisgrieser/nvim-various-textobjs>
 - [ ] fix mini.files briefly freezing whenever hovering a big file and showing a preview. ideally previews would be asynchronous
-- [ ] Figure out mini.files bookmarking, having a keybind to show/hide hidden files, and bind `<CR>` to "go in" *in addition to* `L`.
+- [ ] Figure out mini.files bookmarking, having a keybind to show/hide hidden files, and bind `<CR>` to "go in" _in addition to_ `L`.
 - [ ] fix telescope lagging when loading the git files picker (I only notice this on my PC)
 - [ ] improve or highlight the `[+]` statusbar indication that the current file needs saving. Assuming I don't get used to it, it would be nice for maybe the statusbar to appear a different color when the current buffer has unsaved changes, or something like that. Right now I tend to not notice when the current buffer needs to be saved.
 
