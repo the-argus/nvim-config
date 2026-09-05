@@ -172,16 +172,11 @@ Completion
 
 Diffview plugin keybinds:
 
-{ n }: <Leader>v        Toggle git diffview, useful for observing git diff without leaving the editor, jumping between git hunks, and staging and unstaging induvidual hunks.
-{ n }: <Leader>vo       Open git diffview
-{ n }: <Leader>vc       Close git diffview
-{ n }: <Leader>vh       Show file history for current file
-{ n }: <Leader>vH       Show file history for entire repo
-{ x }: <Leader>vh       Show file history for visually selected text
-{ n }: <Leader>vl       Show file history for current line
-{ n }: <Leader>vm       Diff current branch and changes against main/master brance
+{ n }: <Leader>vv       Toggle git diff view, useful for observing git diff without leaving the editor. Shows the diff caused by the current staged and unstaged changes.
+{ n }: <Leader>va       Show a diff view of all the currently changed files in one megabuffer
+{ n }: <Leader>vm       Toggle git diff view against the main/master branch
 { n }: <Leader>vb       Open a telescope picker for branches and diff the current branch against that
-{ n }: <Leader>vC       Open a telescope picker for commits and show file history for that commit
+{ n }: <Leader>vC       Open a telescope picker for commits and a picker for a specific file, and show a diff for that specific file on that specific commit
 
 Misc:
 
