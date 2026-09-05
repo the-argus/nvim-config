@@ -37,3 +37,4 @@ vim.keymap.set("n", "<Leader>h", "<Cmd>ShowFileDiagnostics<CR>", { desc = "File 
 vim.keymap.set("n", "<Leader>j", "<Cmd>SwitchBuffer<CR>", { desc = "Buffers", silent = true })
 vim.keymap.set("n", "<Leader>m", "<Cmd>SearchInProject<CR>", { desc = "Live grep", silent = true })
 vim.keymap.set("n", "<Leader>k", "<Cmd>SearchCommands<CR>", { desc = "Pick from all user commands", silent = true })
+vim.keymap.set("n", "<Leader>n", "<Cmd>Telescope git_status<CR>", { desc = "Pick from files that have pending changes", silent = true })

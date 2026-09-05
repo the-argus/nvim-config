@@ -32,8 +32,10 @@ This is my neovim configuration. I have tailored it to be very featureful (LSP, 
 
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
 - [ ] probably steal the better text objects from <https://github.com/chrisgrieser/nvim-various-textobjs>
-- [ ] Fix mini.files briefly freezing whenever hovering a big file and showing a preview. ideally previews would be asynchronous
-- [ ] Improve or highlight the `[+]` statusbar indication that the current file needs saving. Assuming I don't get used to it, it would be nice for maybe the statusbar to appear a different color when the current buffer has unsaved changes, or something like that. Right now I tend to not notice when the current buffer needs to be saved.
+- [ ] fix mini.files briefly freezing whenever hovering a big file and showing a preview. ideally previews would be asynchronous
+- [ ] Figure out mini.files bookmarking, having a keybind to show/hide hidden files, and bind `<CR>` to "go in" *in addition to* `L`.
+- [ ] fix telescope lagging when loading the git files picker (I only notice this on my PC)
+- [ ] improve or highlight the `[+]` statusbar indication that the current file needs saving. Assuming I don't get used to it, it would be nice for maybe the statusbar to appear a different color when the current buffer has unsaved changes, or something like that. Right now I tend to not notice when the current buffer needs to be saved.
 
 ## Keybinds / actions and navigation
 
@@ -53,6 +55,7 @@ TODO: might be necessary to remove or change z here, as there are other motions 
 { n }: <Leader>j        Open a picker show all buffers other than the currently active one, sorted by most recently used
 { n }: <Leader>m        Open a picker for matches to a search term for any files in the CWD which are not in hidden or ignored directories
 { n }: <Leader>k        Open a picker for all defined user commands
+{ n }: <Leader>n        Open a picker for files with pending changes in git
 
 Replace text (provided by substitute.nvim):
 
@@ -205,4 +208,8 @@ Provided by treesitter-text-objects:
 {],[}m                      Go to next or previous function, respectively.
 {],[}r                      Go to next or previous struct/class, respectively.
 {],[}a                      Go to next or previous function call parameter, respectively.
+
+Custom, provided by gitsigns:
+
+{],[}h                      Go to next or previous hunk in current buffer
 ```

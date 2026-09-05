@@ -43,3 +43,6 @@ local config = {
 }
 
 gitsigns.setup(config)
+
+vim.keymap.set("n", "]n", "<Cmd>Gitsigns next_hunk<CR>", { desc = "Jump to next uncommitted hunk in the current file", silent = true })
+vim.keymap.set("n", "[n", "<Cmd>Gitsigns prev_hunk<CR>", { desc = "Jump to previous uncommitted hunk in the current file", silent = true })
