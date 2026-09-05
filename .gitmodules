@@ -64,9 +64,6 @@
 [submodule "pack/plugins/start/mini.nvim"]
 	path = pack/plugins/start/mini.nvim
 	url = https://github.com/nvim-mini/mini.nvim
-[submodule "pack/plugins/start/diffview-plus.nvim"]
-	path = pack/plugins/start/diffview-plus.nvim
-	url = https://github.com/dlyongemallo/diffview-plus.nvim
 [submodule "pack/plugins/start/trailblazer.nvim"]
 	path = pack/plugins/start/trailblazer.nvim
 	url = https://github.com/LeonHeidelbach/trailblazer.nvim
