@@ -72,6 +72,7 @@ mini.move                          181 lines
 
 ## TODO
 
+- [ ] fix highlight groups so that comments are brightly colored. by default they are terrible dark/faded (I guess some people think comments are less important than code...)
 - [ ] replace nvim-colorizer with nvim-highlight-colors. the former is much larger and doesn't support LSP providing colors, so it seems like an all around win to use nvim-highlight-colors
 - [ ] consider using mini.icons instead of nvim-web-devicons
 - [ ] remove unused telescope-file-browser.nvim submodules
