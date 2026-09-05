@@ -89,3 +89,6 @@
 [submodule "pack/plugins/start/indent-blankline.nvim"]
 	path = pack/plugins/start/indent-blankline.nvim
 	url = https://github.com/lukas-reineke/indent-blankline.nvim
+[submodule "pack/plugins/start/deltaview.nvim"]
+	path = pack/plugins/start/deltaview.nvim
+	url = https://github.com/kokusenz/deltaview.nvim
