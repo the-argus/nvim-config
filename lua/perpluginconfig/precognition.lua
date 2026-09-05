@@ -5,4 +5,4 @@ end
 
 precognition.setup()
 
-vim.keymap.set("n", "<Leader>pp", "<Cmd>Precognition<CR>", { desc = "Toggle inline motion hints", silent = true })
+vim.keymap.set("n", "<Leader>pp", "<Cmd>Precognition toggle<CR>", { desc = "Toggle inline motion hints", silent = true })
