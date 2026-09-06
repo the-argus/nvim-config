@@ -30,37 +30,38 @@ This is my neovim configuration. I have tailored it to be very featureful (LSP, 
 
 ## Plugins installed by lines of lua code (for both implementation and tests)
 
-I keep this list just to be aware of how much stuff has accumulated in the dependencies of this config, and to judge whether the size of a plugin is really worth the features that I actually use.
+I keep this list just to be aware of how much stuff has accumulated in the dependencies of this config, and to judge whether the size of a plugin is really worth the features that I actually use. "not including tests" excludes `test/`, `tests/`, `spec/`, `testdata/`, `fixtures/`. Collected with `nix shell nixpkgs#cloc -c cloc --include-lang=Lua <plugin dir>`
 
 ```txt
-rainbow-delimiters.nvim         53,150 lines (but 01,179 lines when not including tests?)
-diffview-plus.nvim              50,557 lines
-none-ls.nvim                    20,825 lines (but 13,363 when not including tests)
-telescope.nvim                  16,393 lines
-nvim-colorizer                  15,201 lines (but 05,428 when not including tests)
-plenary.nvim                    14,074 lines
-gitsigns.nvim                   11,489 lines
+rainbow-delimiters.nvim         53,476 lines (but  1,547 when not including tests)
+none-ls.nvim                    20,825 lines (but 13,646 when not including tests)
+trailblazer.nvim                17,607 lines (but  2,817 when not including tests)
+telescope.nvim                  16,393 lines (but 14,306 when not including tests)
+nvim-colorizer.lua              15,201 lines (but  6,444 when not including tests)
+plenary.nvim                    14,074 lines (but 10,382 when not including tests)
+gitsigns.nvim                   11,489 lines (but  8,483 when not including tests)
+deltaview.nvim                  10,965 lines (but  2,994 when not including tests)
 nvim-cmp                         7,429 lines
-nvim-treesitter                  6,929 lines
-precognition.nvim                5,903 lines
-nvim-treesitter-textobjects      4,877 lines
-nvim-surround                    3,605 lines
-indent_blankline.nvim            3,499 lines
-base16.nvim                      3,192 lines
-trailblazer.nvim                 2,938 lines
+nvim-treesitter                  6,929 lines (but  4,488 when not including tests)
+precognition.nvim                5,903 lines (but  2,317 when not including tests)
+nvim-surround                    3,605 lines (but  1,576 when not including tests)
+indent-blankline.nvim            3,499 lines
+base16-nvim                      3,192 lines
 nvim-web-devicons                2,447 lines
 leap.nvim                        2,294 lines
-substitute.nvim                  1,814 lines
-telescope-fzf-native.nvim        1,767 lines
+telescope-file-browser.nvim      2,054 lines (but  1,929 when not including tests)
+substitute.nvim                  1,814 lines (but    740 when not including tests)
+nvim-treesitter-textobjects      1,708 lines (but  1,463 when not including tests)
 mini.files                       1,513 lines
-brk.nvim                         1,424 lines
-portal.nvim                      1,391 lines
-neoscroll.nvim                   1,248 lines
+brk.nvim                         1,424 lines (but  1,037 when not including tests)
+portal.nvim                      1,391 lines (but  1,104 when not including tests)
+neoscroll.nvim                   1,248 lines (but    729 when not including tests)
 mini.bracketed                     992 lines
 todo-comments.nvim                 912 lines
 mini.ai                            911 lines
-nvim-treesitter-textsubjects       685 lines
+nvim-treesitter-textsubjects       488 lines
 cmp-buffer                         381 lines
+telescope-fzf-native.nvim          343 lines (but    244 when not including tests)
 mini.pairs                         243 lines
 mini.comment                       240 lines
 lsp_lines.nvim                     235 lines
