@@ -177,7 +177,10 @@ Diffview plugin keybinds:
 { n }: <Leader>va       Show a diff view of all the currently changed files in one megabuffer
 { n }: <Leader>vm       Toggle git diff view against the main/master branch
 { n }: <Leader>vb       Open a telescope picker for branches and diff the current branch against that
-{ n }: <Leader>vC       Open a telescope picker for commits and a picker for a specific file, and show a diff for that specific file on that specific commit
+{ n }: <Leader>vf       Pick from commits that affect the current file and then show the relevant hunks from that commit
+{ n }: <Leader>vl       Pick from commits affecting the current line (git log -L), then show any hunks from that commit affecting the current buffer. Unfortunately deltaview does not support limiting the diff to a line range
+{ n }: <Leader>vH       Pick from all commits, then pick from a file, then show deltaview for the changes to that file for that commit
+{ n }: <Leader>vq       Quickfix review, use ]q / [q to step through changed files
 
 Misc:
 

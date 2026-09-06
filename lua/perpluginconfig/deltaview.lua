@@ -77,8 +77,10 @@ end), { desc = "Deltaview picker showing current branch vs main/master" })
 -- the current branch and that branch
 vim.keymap.set("n", "<Leader>vb", wrap_telescope_popup(function()
     require("telescope.builtin").git_branches({
-        attach_mappings = function(_, map)
-            map("i", "<CR>", function(prompt_bufnr)
+        attach_mappings = function()
+            -- replace (not map) so both insert and normal mode <CR> are covered;
+            -- telescope's default here is git checkout
+            require("telescope.actions").select_default:replace(function(prompt_bufnr)
                 local selection = require("telescope.actions.state").get_selected_entry()
                 require("telescope.actions").close(prompt_bufnr)
                 vim.cmd("DeltaMenu " .. selection.value .. "...HEAD")
@@ -88,20 +90,41 @@ vim.keymap.set("n", "<Leader>vb", wrap_telescope_popup(function()
     })
 end), { desc = "Deltaview picker showing current branch vs picked branch" })
 
--- <Leader>vC : open a picker to choose a commit, then a changed files picker
--- for that commit, then show the changes in that file on that commit
-vim.keymap.set("n", "<Leader>vC", wrap_telescope_popup(function()
-    require("telescope.builtin").git_commits({
-        attach_mappings = function(_, map)
-            map("i", "<CR>", function(prompt_bufnr)
-                local selection = require("telescope.actions.state").get_selected_entry()
-                require("telescope.actions").close(prompt_bufnr)
-                vim.cmd("DeltaMenu " .. selection.value .. "^!")
-            end)
-            return true
-        end,
-    })
-end), { desc = "Deltaview picker showing changes for a specific file in a specific commit" })
+--- Open a telescope commit picker and run a deltaview command on
+--- the chosen commit
+--- @param picker fun(opts: table) telescope.builtin picker
+--- @param command string "DeltaView" | "DeltaMenu"
+--- @param desc string
+local function commit_history_keymap(lhs, picker, command, desc)
+    vim.keymap.set("n", lhs, wrap_telescope_popup(function()
+        picker({
+            attach_mappings = function()
+                require("telescope.actions").select_default:replace(function(prompt_bufnr)
+                    local selection = require("telescope.actions.state").get_selected_entry()
+                    require("telescope.actions").close(prompt_bufnr)
+                    vim.cmd(command .. " " .. selection.value .. "^!")
+                end)
+                return true
+            end,
+        })
+    end), { desc = desc })
+end
+
+-- <Leader>vf : commits the affect the current file and then the relevant hunks
+-- frmo that commit
+commit_history_keymap("<Leader>vf", function(opts) require("telescope.builtin").git_bcommits(opts) end,
+    "DeltaView", "File history (current file)")
+
+-- <Leader>vl : commits affecting the current line (git log -L), then any hunks
+-- from that commit affecting the current buffer. Unfortunately deltaview does
+-- not support limiting the diff to a line range
+commit_history_keymap("<Leader>vl", function(opts) require("telescope.builtin").git_bcommits_range(opts) end,
+    "DeltaView", "File history (current line)")
+
+-- <Leader>vH : pick from all commits, then pick from a file, then show
+-- deltaview for the changes to that file for that commit
+commit_history_keymap("<Leader>vH", function(opts) require("telescope.builtin").git_commits(opts) end,
+    "DeltaMenu", "File history (repo)")
 
 -- <Leader>vq : quickfix review, use ]q / [q to step through changed files
 vim.keymap.set("n", "<Leader>vq", "<Cmd>DeltaMenu!<CR>", { desc = "Deltaview review with quickfix" })
