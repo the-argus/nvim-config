@@ -77,6 +77,7 @@ mini.move                          181 lines
 - [ ] fix pressing enter on a quickfix item from list references not taking me to the file and line number
 - [ ] fix `gl` not working to open floating popup with diagnostic
 - [ ] make the default file search (`<Leader>g`) search unstaged files as well. consider reverting back to just searching all files
+- [ ] unify completion keybinds for `/` and `:` statusbar/command with the keybinds for regular code completion (the former uses tab and shift+tab, the latter uses `Ctrl-j` and `Ctrl-k`)
 - [ ] fix lsp_lines sometimes not working (hence wanting the floating popup)
 - [ ] replace nvim-colorizer with nvim-highlight-colors. the former is much larger and doesn't support LSP providing colors, so it seems like an all around win to use nvim-highlight-colors
 - [ ] consider using mini.icons instead of nvim-web-devicons
