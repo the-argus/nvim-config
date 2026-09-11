@@ -76,6 +76,7 @@ mini.move                          181 lines
 - [ ] fix highlight groups so that comments are brightly colored. by default they are terrible dark/faded (I guess some people think comments are less important than code...)
 - [ ] fix pressing enter on a quickfix item from list references not taking me to the file and line number
 - [ ] fix `gl` not working to open floating popup with diagnostic
+- [ ] make the default file search (`<Leader>g`) search unstaged files as well. consider reverting back to just searching all files
 - [ ] fix lsp_lines sometimes not working (hence wanting the floating popup)
 - [ ] replace nvim-colorizer with nvim-highlight-colors. the former is much larger and doesn't support LSP providing colors, so it seems like an all around win to use nvim-highlight-colors
 - [ ] consider using mini.icons instead of nvim-web-devicons
