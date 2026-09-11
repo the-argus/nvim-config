@@ -74,12 +74,16 @@ mini.move                          181 lines
 ## TODO
 
 - [ ] fix highlight groups so that comments are brightly colored. by default they are terrible dark/faded (I guess some people think comments are less important than code...)
+- [ ] fix pressing enter on a quickfix item from list references not taking me to the file and line number
+- [ ] fix `gl` not working to open floating popup with diagnostic
+- [ ] fix lsp_lines sometimes not working (hence wanting the floating popup)
 - [ ] replace nvim-colorizer with nvim-highlight-colors. the former is much larger and doesn't support LSP providing colors, so it seems like an all around win to use nvim-highlight-colors
 - [ ] consider using mini.icons instead of nvim-web-devicons
+- [ ] the default mode when I am in a folder of mini.files should be to fuzzy search to take my cursor to the item I want, right now I have to press `/` to start searching and it a) persists after I hit `L` and b) is not fuzzy
 - [ ] remove unused telescope-file-browser.nvim submodules
 - [ ] check on indent_blankline, afaict it is not working
 - [ ] some plugins vendor plenary.nvim, but I do also. figure out about load order and whether they are actually using my version, or if they even should be.
-- [ ] consider removing precognition.nvim. It is a bit intrusive
+- [ ] consider removing precognition.nvim. It is a bit intrusive. maybe only enable it when in `o` / command pending mode?
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
 - [ ] probably steal the better text objects from <https://github.com/chrisgrieser/nvim-various-textobjs>
 - [ ] fix mini.files briefly freezing whenever hovering a big file and showing a preview. ideally previews would be asynchronous
