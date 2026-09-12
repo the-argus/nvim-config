@@ -73,6 +73,7 @@ mini.move                          181 lines
 
 ## TODO
 
+- [ ] probably remove mini.pairs, it seems to insert the pair in every situation which makes it difficult to work with, for example if I have an open quote already it inserts two quotes not one. maybe there are some configuration options, or an alternative plugin which work better.
 - [ ] fix highlight groups so that comments are brightly colored. by default they are terrible dark/faded (I guess some people think comments are less important than code...)
 - [ ] fix pressing enter on a quickfix item from list references not taking me to the file and line number
 - [ ] fix `gl` not working to open floating popup with diagnostic
