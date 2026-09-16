@@ -73,21 +73,6 @@ mini.move                          181 lines
 
 ## TODO
 
-Actionable changes:
-
-- [ ] make git files search fall back to regular files search if not in a git directory
-- [ ] fix highlight groups so that comments are brightly colored. by default they are terrible dark/faded (I guess some people think comments are less important than code...)
-- [ ] fix pressing enter on a quickfix item from list references not taking me to the file and line number
-- [ ] fix `gl` not working to open floating popup with diagnostic
-- [ ] make the default file search (`<Leader>g`) search unstaged files as well
-- [ ] unify completion keybinds for `/` and `:` statusbar/command with the keybinds for regular code completion (the former uses tab and shift+tab, the latter uses `Ctrl-j` and `Ctrl-k`)
-- [ ] fix lsp_lines not working (hence wanting the floating popup)
-- [ ] replace nvim-colorizer with nvim-highlight-colors. the former is much larger and doesn't support LSP providing colors, so it seems like an all around win to use nvim-highlight-colors
-- [ ] check on indent_blankline, afaict it is not working
-- [ ] add keybinds to mini.files to show/hide hidden files, and bind `<CR>` to "go in" _in addition to_ `L`.
-
-Needs evaluation:
-
 - [ ] the default mode when I am in a folder of mini.files should be to fuzzy search to take my cursor to the item I want, right now I have to press `/` to start searching and it a) persists after I hit `L` and b) is not fuzzy
 - [ ] probably remove mini.pairs, it seems to insert the pair in every situation which makes it difficult to work with, for example if I have an open quote already it inserts two quotes not one. maybe there are some configuration options, or an alternative plugin which work better.
 - [ ] consider reverting (`<Leader>g`) back to just searching all non-hidden files
