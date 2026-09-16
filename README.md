@@ -73,27 +73,37 @@ mini.move                          181 lines
 
 ## TODO
 
+Actionable changes:
+
 - [ ] make git files search fall back to regular files search if not in a git directory
-- [ ] probably remove mini.pairs, it seems to insert the pair in every situation which makes it difficult to work with, for example if I have an open quote already it inserts two quotes not one. maybe there are some configuration options, or an alternative plugin which work better.
 - [ ] fix highlight groups so that comments are brightly colored. by default they are terrible dark/faded (I guess some people think comments are less important than code...)
 - [ ] fix pressing enter on a quickfix item from list references not taking me to the file and line number
 - [ ] fix `gl` not working to open floating popup with diagnostic
-- [ ] make the default file search (`<Leader>g`) search unstaged files as well. consider reverting back to just searching all files
+- [ ] make the default file search (`<Leader>g`) search unstaged files as well
 - [ ] unify completion keybinds for `/` and `:` statusbar/command with the keybinds for regular code completion (the former uses tab and shift+tab, the latter uses `Ctrl-j` and `Ctrl-k`)
-- [ ] fix lsp_lines sometimes not working (hence wanting the floating popup)
+- [ ] fix lsp_lines not working (hence wanting the floating popup)
 - [ ] replace nvim-colorizer with nvim-highlight-colors. the former is much larger and doesn't support LSP providing colors, so it seems like an all around win to use nvim-highlight-colors
-- [ ] consider using mini.icons instead of nvim-web-devicons
-- [ ] the default mode when I am in a folder of mini.files should be to fuzzy search to take my cursor to the item I want, right now I have to press `/` to start searching and it a) persists after I hit `L` and b) is not fuzzy
-- [ ] remove unused telescope-file-browser.nvim submodules
 - [ ] check on indent_blankline, afaict it is not working
+- [ ] add keybinds to mini.files to show/hide hidden files, and bind `<CR>` to "go in" _in addition to_ `L`.
+
+Needs evaluation:
+
+- [ ] the default mode when I am in a folder of mini.files should be to fuzzy search to take my cursor to the item I want, right now I have to press `/` to start searching and it a) persists after I hit `L` and b) is not fuzzy
+- [ ] probably remove mini.pairs, it seems to insert the pair in every situation which makes it difficult to work with, for example if I have an open quote already it inserts two quotes not one. maybe there are some configuration options, or an alternative plugin which work better.
+- [ ] consider reverting (`<Leader>g`) back to just searching all non-hidden files
+- [ ] consider using mini.icons instead of nvim-web-devicons
+- [ ] remove unused telescope-file-browser.nvim submodules
 - [ ] some plugins vendor plenary.nvim, but I do also. figure out about load order and whether they are actually using my version, or if they even should be.
 - [ ] consider removing precognition.nvim. It is a bit intrusive. maybe only enable it when in `o` / command pending mode?
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
 - [ ] probably steal the better text objects from <https://github.com/chrisgrieser/nvim-various-textobjs>
-- [ ] fix mini.files briefly freezing whenever hovering a big file and showing a preview. ideally previews would be asynchronous
-- [ ] Figure out mini.files bookmarking, having a keybind to show/hide hidden files, and bind `<CR>` to "go in" _in addition to_ `L`.
-- [ ] fix telescope lagging when loading the git files picker (I only notice this on my PC)
+- [ ] Figure out mini.files bookmarking
 - [ ] improve or highlight the `[+]` statusbar indication that the current file needs saving. Assuming I don't get used to it, it would be nice for maybe the statusbar to appear a different color when the current buffer has unsaved changes, or something like that. Right now I tend to not notice when the current buffer needs to be saved.
+
+Performance improvements:
+
+- [ ] fix mini.files briefly freezing whenever hovering a big file and showing a preview. ideally previews would be asynchronous
+- [ ] fix telescope lagging when loading the git files picker (I only notice this on my PC)
 
 ## Keybinds / actions and navigation
 
