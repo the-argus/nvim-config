@@ -275,6 +275,13 @@ vim.diagnostic.config({
     } or { float = true },
 })
 
+-- This is the only lsp keybind that isn't created on LspAttach, to include vim
+-- itself or none-ls giving diagnostics, in addition to the lsp implementation
+-- Default keybind is <C-w>d
+vim.keymap.set("n", "gl", function()
+    vim.diagnostic.open_float({ scope = "line" })
+end, { desc = "Show diagnostics for the current line in a floating window" })
+
 -- Solid borders on LSP hover/signature floats as well
 if vim.fn.has("nvim-0.11") == 1 then
     vim.o.winborder = "solid" -- default border for all floating windows
