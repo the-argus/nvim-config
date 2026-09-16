@@ -38,3 +38,12 @@ if leap_user.with_traversal_keys then
 else
     leap_user.set_repeat_keys('<enter>', '<backspace>')
 end
+
+-- fixes a problem where pressing enter to jump in the quickfix window didn't
+-- work because leap had remapped <CR> in normal buffers
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "qf",
+    callback = function(args)
+        vim.keymap.set("n", "<enter>", "<CR>", { buffer = args.buf, remap = false })
+    end,
+})
