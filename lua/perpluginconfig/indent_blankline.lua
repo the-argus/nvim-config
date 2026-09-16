@@ -5,23 +5,25 @@ if not indent_blankline_ok or not indent_blankline_hooks_ok then
 end
 
 local highlight = {
-    "RainbowRed",
-    "RainbowYellow",
-    "RainbowBlue",
-    "RainbowOrange",
-    "RainbowGreen",
-    "RainbowViolet",
-    "RainbowCyan",
+    "RainbowDelimiterRed",
+    "RainbowDelimiterYellow",
+    "RainbowDelimiterBlue",
+    "RainbowDelimiterOrange",
+    "RainbowDelimiterGreen",
+    "RainbowDelimiterViolet",
+    "RainbowDelimiterCyan",
 }
 
--- NOTE: in the suggested settings there is a hook registered here, where we
--- set the values of rainbow_delimiters colors whenever highlight gets set up.
--- but we don't customize rainbow_delimiters colors at all so I believe this
--- can be ignored
+-- indent blankline does not work if the highlight groups do not exist yet.
+-- but rainbow delimiters does not set up its highlight groups until after
+-- plugins have loaded, which doesn't happen until after user init.lua runs.
+-- Solve this by deferring setup until VimEnter
+vim.api.nvim_create_autocmd("VimEnter", {
+    once = true,
+    callback = function()
+        indent_blankline.setup { scope = { highlight = highlight } }
 
-vim.g.rainbow_delimiters = { highlight = highlight }
-
-indent_blankline.setup { scope = { highlight = highlight } }
-
-indent_blankline_hooks.register(indent_blankline_hooks.type.SCOPE_HIGHLIGHT,
-    indent_blankline_hooks.builtin.scope_highlight_from_extmark)
+        indent_blankline_hooks.register(indent_blankline_hooks.type.SCOPE_HIGHLIGHT,
+            indent_blankline_hooks.builtin.scope_highlight_from_extmark)
+    end,
+})
