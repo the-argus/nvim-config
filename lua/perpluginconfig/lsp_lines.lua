@@ -10,6 +10,10 @@ vim.diagnostic.config({
 
 lsp_lines.setup()
 
+vim.diagnostic.config({
+    virtual_lines = true,
+})
+
 vim.api.nvim_create_user_command("ToggleLSPLines", lsp_lines.toggle, {})
 
 vim.keymap.set("n", "<Leader>pl", "<Cmd>ToggleLSPLines<CR>", { desc = "Toggle inline lsp diagnostics", silent = true })
