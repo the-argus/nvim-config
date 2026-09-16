@@ -99,6 +99,7 @@ Needs evaluation:
 - [ ] probably steal the better text objects from <https://github.com/chrisgrieser/nvim-various-textobjs>
 - [ ] Figure out mini.files bookmarking
 - [ ] improve or highlight the `[+]` statusbar indication that the current file needs saving. Assuming I don't get used to it, it would be nice for maybe the statusbar to appear a different color when the current buffer has unsaved changes, or something like that. Right now I tend to not notice when the current buffer needs to be saved.
+- [ ] Sometimes, motions do not get processed when I would expect them to. I notice this most often when doing `ciw`. Nothing happens at all, but the second time I do it, it works fine. I suspect there is a stray keybind somewhere, maybe related to one of the navigations keys in normal mode.
 
 Performance improvements:
 
