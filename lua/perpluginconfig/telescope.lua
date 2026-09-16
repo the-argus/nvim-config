@@ -23,10 +23,23 @@ vim.api.nvim_create_user_command("ShowFileDiagnostics",
     wrap_telescope_popup(function() telescope.diagnostics({ bufnr = 0 }) end), {})
 vim.api.nvim_create_user_command("ShowProjectDiagnostics", wrap_telescope_popup(telescope.diagnostics), {})
 
+-- use find_files in a normal folder, and git_files in a git repo
+local function git_files_or_find_files(opts)
+    local from = vim.api.nvim_buf_get_name(0)
+    if from == "" then
+        from = assert(vim.uv.cwd())
+    end
+    if vim.fs.root(from, ".git") then
+        telescope.git_files(opts)
+    else
+        telescope.find_files(opts)
+    end
+end
+
 vim.api.nvim_create_user_command("Open",
-    wrap_telescope_popup(function() telescope.git_files({ recurse_submodules = false }) end), {})
+    wrap_telescope_popup(function() git_files_or_find_files({ recurse_submodules = false }) end), {})
 vim.api.nvim_create_user_command("OpenIncludingSubmodules",
-    wrap_telescope_popup(function() telescope.git_files({ recurse_submodules = true }) end), {})
+    wrap_telescope_popup(function() git_files_or_find_files({ recurse_submodules = true }) end), {})
 vim.api.nvim_create_user_command("OpenIncludingEverything",
     wrap_telescope_popup(function() telescope.live_grep({ recurse_submodules = true, hidden = true, no_ignore = true, no_ignore_parent = true }) end),
     {})
