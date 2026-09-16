@@ -37,7 +37,9 @@ local function git_files_or_find_files(opts)
 end
 
 vim.api.nvim_create_user_command("Open",
-    wrap_telescope_popup(function() git_files_or_find_files({ recurse_submodules = false }) end), {})
+    wrap_telescope_popup(function()
+        git_files_or_find_files({ recurse_submodules = false, show_untracked = true })
+    end), {})
 vim.api.nvim_create_user_command("OpenIncludingSubmodules",
     wrap_telescope_popup(function() git_files_or_find_files({ recurse_submodules = true }) end), {})
 vim.api.nvim_create_user_command("OpenIncludingEverything",
