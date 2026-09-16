@@ -61,3 +61,31 @@ vim.keymap.set("n", "<Leader>f", function()
         })
     end
 end)
+
+local function show_hidden(_)
+    return true
+end
+
+local function hide_hidden(fs_entry)
+    return not vim.startswith(fs_entry.name, ".")
+end
+
+-- modify the currently active filter. could also probably modify a variable
+-- that the filter looks at, this seems cleaner though
+local function toggle_hidden()
+    files.config.content.filter = files.config.content.filter ~= hide_hidden and hide_hidden or show_hidden
+    files.refresh({ content = { filter = files.config.content.filter } })
+end
+
+vim.api.nvim_create_autocmd("User", {
+    pattern = "MiniFilesBufferCreate",
+    callback = function(args)
+        local buf = args.data.buf_id
+        vim.keymap.set("n", "zh", toggle_hidden, { buffer = buf, desc = "Toggle hidden files" })
+        -- mini files only allows for binding one key per thing, so just do a
+        -- general keybind while in a mini files buffer that calls the function
+        -- manually
+        vim.keymap.set("n", "<CR>", function() files.go_in({ close_on_file = true }) end,
+            { buffer = buf, desc = "Go in, closing the explorer when it is a file" })
+    end,
+})

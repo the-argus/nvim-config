@@ -200,6 +200,14 @@ Diffview plugin keybinds:
 { n }: <Leader>vH       Pick from all commits, then pick from a file, then show deltaview for the changes to that file for that commit
 { n }: <Leader>vq       Quickfix review, use ]q / [q to step through changed files
 
+mini.files view keybinds (buffer that shows up when pressing <Leader>g)
+{ n }: zh               Toggle showing hidden files
+{ n }: <CR>             Go into the selected folder, otherwise open it if it's a file
+{ n }: L                Go into the selected folder, otherwise open it if it's a file
+{ n }: l                Go into the selected folder, if it is a folder
+{ n }: h                Go out of the current folder
+{ n }: =                Synchronize (make the actual filesystem reflect any edits made to the mini.files buffer)
+
 Misc:
 
 { n }: <Leader>pa   Copy absolute path to current buffer to "+ register
