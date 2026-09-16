@@ -115,9 +115,19 @@ cmp.setup.filetype('gitcommit', {
     })
 })
 
+-- try to use the same keys when showing completion for the
+-- commandline/statusbar as when completing code
+local cmdline_mapping = cmp.mapping.preset.cmdline({
+    ['<Tab>'] = cmp.config.disable,
+    ['<S-Tab>'] = cmp.config.disable,
+    ['<C-j>'] = { c = cmp.mapping.select_next_item() },
+    ['<C-k>'] = { c = cmp.mapping.select_prev_item() },
+    ['<C-Space>'] = { c = cmp.mapping.complete() },
+})
+
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
-    mapping = cmp.mapping.preset.cmdline(),
+    mapping = cmdline_mapping,
     sources = {
         { name = 'buffer' }
     }
@@ -125,7 +135,7 @@ cmp.setup.cmdline('/', {
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
+    mapping = cmdline_mapping,
     sources = cmp.config.sources({
         { name = 'path' }
     }, {
