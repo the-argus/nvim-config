@@ -14,3 +14,17 @@ colorscheme.with_config({
     cmp = true,
     -- illuminate = true,
 });
+
+-- Fixes base16 making all comments super faded out for some reason, I guess
+-- they think comments are not important
+local function assign_brighter_comment_color()
+    local bright = colorscheme.colors and colorscheme.colors.base0C or "#8ec07c"
+    for _, group in ipairs({ "Comment", "TSComment" }) do
+        local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+        hl.fg = bright
+        vim.api.nvim_set_hl(0, group, hl)
+    end
+end
+
+vim.api.nvim_create_autocmd("ColorScheme", { callback = assign_brighter_comment_color })
+assign_brighter_comment_color()
