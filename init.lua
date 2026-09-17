@@ -314,8 +314,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
--- Command-line completion
-vim.opt.wildmenu = true
+-- disable in favor of cmp's completion popup in the statusbar for commands
+-- TODO: tab will still autocomplete, although the wildmenu is invisible. figure
+-- out a way to disable tab here
+vim.opt.wildmenu = false
 vim.opt.wildmode = "longest:full,full"
 vim.opt.wildignore:append({ "*.o", "*.obj", "*.pyc", "*.class", "*.jar" })
 
