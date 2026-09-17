@@ -21,7 +21,7 @@ if nix_palette_okay then
     local colors = {}
     for i = 0, 15 do
         local hex = string.format("%02X", i)
-        colors["base" .. hex] = palette["ansi" .. hex] or palette["base" .. hex]
+        colors["base" .. hex] = palette["base" .. hex]
     end
     colorscheme.setup(colors, {})
 end
