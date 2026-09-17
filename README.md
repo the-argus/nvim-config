@@ -72,6 +72,7 @@ mini.move                          181 lines
 
 ## TODO
 
+- [ ] add keybinds like ctrl + d and ctrl + u, except they move the cursor only and not the view
 - [ ] consider reverting (`<Leader>g`) back to just searching all non-hidden files
 - [ ] consider using mini.icons instead of nvim-web-devicons
 - [ ] some plugins vendor plenary.nvim, but I do also. figure out about load order and whether they are actually using my version, or if they even should be.
