@@ -83,8 +83,8 @@ mini.move                          181 lines
 
 Performance improvements:
 
-- [ ] fix mini.files briefly freezing whenever hovering a big file and showing a preview. ideally previews would be asynchronous
-- [ ] fix telescope lagging when loading the git files picker (I only notice this on my PC)
+- [ ] fix mini.files briefly freezing whenever hovering a big file and showing a preview. ideally previews would be asynchronous. I think unfortunately the creator of mini.files really doesnt want to add tons of new features, debouncing or asynchronous behavior, so this probably requires forking mini.files...
+- [ ] fix telescope lagging when loading the git files picker (I only notice this on my PC, haven't been able to reproduce it since...)
 
 ## Keybinds / actions and navigation
 
