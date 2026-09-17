@@ -72,7 +72,6 @@ mini.move                          181 lines
 
 ## TODO
 
-- [ ] the default mode when I am in a folder of mini.files should be to fuzzy search to take my cursor to the item I want, right now I have to press `/` to start searching and it a) persists after I hit `L` and b) is not fuzzy
 - [ ] consider reverting (`<Leader>g`) back to just searching all non-hidden files
 - [ ] consider using mini.icons instead of nvim-web-devicons
 - [ ] some plugins vendor plenary.nvim, but I do also. figure out about load order and whether they are actually using my version, or if they even should be.
