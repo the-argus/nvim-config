@@ -73,7 +73,6 @@ mini.move                          181 lines
 ## TODO
 
 - [ ] the default mode when I am in a folder of mini.files should be to fuzzy search to take my cursor to the item I want, right now I have to press `/` to start searching and it a) persists after I hit `L` and b) is not fuzzy
-- [ ] probably remove mini.pairs, it seems to insert the pair in every situation which makes it difficult to work with, for example if I have an open quote already it inserts two quotes not one. maybe there are some configuration options, or an alternative plugin which work better.
 - [ ] consider reverting (`<Leader>g`) back to just searching all non-hidden files
 - [ ] consider using mini.icons instead of nvim-web-devicons
 - [ ] some plugins vendor plenary.nvim, but I do also. figure out about load order and whether they are actually using my version, or if they even should be.
