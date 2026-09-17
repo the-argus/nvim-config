@@ -4,9 +4,6 @@
 [submodule "plugins/telescope.nvim"]
 	path = pack/plugins/start/telescope.nvim
 	url = https://github.com/nvim-telescope/telescope.nvim
-[submodule "pack/plugins/start/telescope-file-browser.nvim"]
-	path = pack/plugins/start/telescope-file-browser.nvim
-	url = https://github.com/nvim-telescope/telescope-file-browser.nvim
 [submodule "pack/plugins/start/nvim-surround"]
 	path = pack/plugins/start/nvim-surround
 	url = https://github.com/kylechui/nvim-surround

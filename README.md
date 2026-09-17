@@ -49,7 +49,6 @@ indent-blankline.nvim            3,499 lines
 base16-nvim                      3,192 lines
 nvim-web-devicons                2,447 lines
 leap.nvim                        2,294 lines
-telescope-file-browser.nvim      2,054 lines (but  1,929 when not including tests)
 substitute.nvim                  1,814 lines (but    740 when not including tests)
 nvim-treesitter-textobjects      1,708 lines (but  1,463 when not including tests)
 mini.files                       1,513 lines
@@ -73,13 +72,11 @@ mini.move                          181 lines
 
 ## TODO
 
-- [ ] there is still some native neovim completion that seems to appear behind the cmp completion for the command line /statusbar. And that completion uses tab/shift tab, whereas the cmp completion correctly uses CTRL+j and CTRL+k
 - [ ] add a keybind to disable LSP, probably disable it by default in markdown files
 - [ ] the default mode when I am in a folder of mini.files should be to fuzzy search to take my cursor to the item I want, right now I have to press `/` to start searching and it a) persists after I hit `L` and b) is not fuzzy
 - [ ] probably remove mini.pairs, it seems to insert the pair in every situation which makes it difficult to work with, for example if I have an open quote already it inserts two quotes not one. maybe there are some configuration options, or an alternative plugin which work better.
 - [ ] consider reverting (`<Leader>g`) back to just searching all non-hidden files
 - [ ] consider using mini.icons instead of nvim-web-devicons
-- [ ] remove unused telescope-file-browser.nvim submodules
 - [ ] some plugins vendor plenary.nvim, but I do also. figure out about load order and whether they are actually using my version, or if they even should be.
 - [ ] consider removing precognition.nvim. It is a bit intrusive. maybe only enable it when in `o` / command pending mode?
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
