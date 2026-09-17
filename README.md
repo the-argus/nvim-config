@@ -77,7 +77,6 @@ mini.move                          181 lines
 - [ ] consider reverting (`<Leader>g`) back to just searching all non-hidden files
 - [ ] consider using mini.icons instead of nvim-web-devicons
 - [ ] some plugins vendor plenary.nvim, but I do also. figure out about load order and whether they are actually using my version, or if they even should be.
-- [ ] consider removing precognition.nvim. It is a bit intrusive. maybe only enable it when in `o` / command pending mode?
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
 - [ ] probably steal the better text objects from <https://github.com/chrisgrieser/nvim-various-textobjs>
 - [ ] Figure out mini.files bookmarking
