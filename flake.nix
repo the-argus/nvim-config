@@ -6,15 +6,16 @@
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
-    # banner = {
-    #   url = "github:the-argus/banner.nix";
-    # };
+    banner = {
+      url = "github:the-argus/banner.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     nixpkgs,
     flake-utils,
-    # banner,
+    banner,
     ...
   }: let
     supportedSystems = let
@@ -25,12 +26,11 @@
       system.x86_64-linux
     ];
   in
-    flake-utils.lib.eachSystem supportedSystems (system: let
-      pkgs = import nixpkgs {inherit system;};
-    in {
-      devShell =
-        pkgs.mkShell
-        {
+    flake-utils.lib.eachSystem supportedSystems (
+      system: let
+        pkgs = import nixpkgs {inherit system;};
+      in {
+        devShell = pkgs.mkShell {
           packages = with pkgs; [
             zig_0_14
             gdb
@@ -54,14 +54,21 @@
           ];
         };
 
-      packages = let
-        mkNeovim = args: pkgs.callPackage ./wrapper.nix args;
-      in {
-        inherit mkNeovim;
+        packages = let
+          # accepts, in addition to the arguments of wrapper.nix, a
+          # `bannerPalette` which is either an attrset in the banner palette
+          # format or a path to a yaml file containing one.
+          mkNeovim = args:
+            pkgs.callPackage ./wrapper.nix ({inherit banner;} // args);
+        in {
+          inherit mkNeovim;
 
-        default = mkNeovim {};
+          default = mkNeovim {};
 
-        minimal = mkNeovim {minimal = true;};
-      };
-    });
+          minimal = mkNeovim {minimal = true;};
+
+          gruvbox = mkNeovim {bannerPalette = ./default-palette.yaml;};
+        };
+      }
+    );
 }
