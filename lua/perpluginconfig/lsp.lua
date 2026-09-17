@@ -131,6 +131,9 @@ for name, cfg in pairs(servers) do
         group = group,
         pattern = cfg.filetypes,
         callback = function(args)
+            if not require("perpluginconfig.lsp_state").enabled(args.buf) then
+                return
+            end
             -- check if server is a command, then check if the first arg is
             -- executable, if not then just cancel starting the LSP instead of
             -- erroring
@@ -166,3 +169,45 @@ for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) d
         return default_diagnostic_handler(err, result, context, config)
     end
 end
+
+--- Detach all clients from a given buffer
+local function detach_all(buf)
+    for _, client in ipairs(vim.lsp.get_clients({ bufnr = buf })) do
+        vim.lsp.buf_detach_client(buf, client.id)
+    end
+    -- remove all diagnostics under all namespaces
+    vim.diagnostic.reset(nil, buf)
+end
+
+-- Set if LSP is enabled on a given buffer true/false
+---@param buf integer
+---@param enabled boolean
+local function set_lsp_enabled(buf, enabled)
+    vim.b[buf].lsp_enabled = enabled
+    if enabled then
+        -- lsp and nonels etc. need to run filetype autocommands when attaching
+        vim.api.nvim_exec_autocmds("FileType", { buffer = buf })
+    else
+        detach_all(buf)
+    end
+end
+
+local lsp_state = require("perpluginconfig.lsp_state")
+
+vim.api.nvim_create_user_command("LspToggle", function()
+    local buf = vim.api.nvim_get_current_buf()
+    local enabled = not lsp_state.enabled(buf)
+    set_lsp_enabled(buf, enabled)
+    vim.notify("LSP " .. (enabled and "enabled" or "disabled") .. " for this buffer")
+end, { desc = "Toggle language servers for the current buffer" })
+
+vim.api.nvim_create_user_command("LspEnable", function()
+    set_lsp_enabled(vim.api.nvim_get_current_buf(), true)
+end, { desc = "Attach language servers to the current buffer" })
+
+vim.api.nvim_create_user_command("LspDisable", function()
+    set_lsp_enabled(vim.api.nvim_get_current_buf(), false)
+end, { desc = "Detach language servers from the current buffer" })
+
+vim.keymap.set("n", "<Leader>l", "<Cmd>LspToggle<CR>",
+    { desc = "Toggle LSP for this buffer", silent = true })

@@ -40,7 +40,14 @@ add("diagnostics", "deadnix", "deadnix")
 add("formatting", "prettier", "prettier")
 add("code_actions", "proselint", "proselint", spellchecking_settings)
 
+local lsp_state = require("perpluginconfig.lsp_state")
+
 null_ls.setup({
     debug = false,
     sources = sources,
+    -- share state that determines whether to attach our services with regular
+    -- LSP. so toggling lsp in a buffer with ToggleLSP affects nonels
+    should_attach = function(bufnr)
+        return lsp_state.enabled(bufnr)
+    end,
 })
