@@ -18,30 +18,11 @@ colorscheme.with_config({
 -- try to use the palette from nix, if it inserts some nix-banner-palette.lua
 local nix_palette_okay, palette = pcall(require, 'nix-banner-palette')
 if nix_palette_okay then
-    local from_ansi = {
-        base00 = "ansi00",
-        base01 = "ansi0A",
-        base02 = "ansi0B",
-        base03 = "ansi08",
-        base04 = "ansi0C",
-        base05 = "ansi07",
-        base06 = "ansi0D",
-        base07 = "ansi0F",
-        base08 = "ansi01",
-        base09 = "ansi09",
-        base0A = "ansi03",
-        base0B = "ansi02",
-        base0C = "ansi06",
-        base0D = "ansi04",
-        base0E = "ansi05",
-        base0F = "ansi0E",
-    }
-
     local colors = {}
-    for base, ansi in pairs(from_ansi) do
-        colors[base] = palette[ansi] or palette[base]
+    for i = 0, 15 do
+        local hex = string.format("%02X", i)
+        colors["base" .. hex] = palette["ansi" .. hex] or palette["base" .. hex]
     end
-
     colorscheme.setup(colors, {})
 end
 
