@@ -1,14 +1,14 @@
 -- Basic settings
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.numberwidth = 2        -- Minimal number column width
-vim.opt.cursorline = true      -- Highlight current line
+vim.opt.numberwidth = 2 -- Minimal number column width
+vim.opt.cursorline = true -- Highlight current line
 vim.opt.cursorlineopt = "both" -- Highlight both line and number
-vim.opt.wrap = true            -- Wrap long lines instead of running them off screen
-vim.opt.breakindent = true     -- Continuation lines keep the indent of the line they wrap
-vim.opt.showbreak = "↳ "       -- Mark continuation lines so wraps aren't mistaken for real lines
-vim.opt.scrolloff = 10         -- Keep 10 lines above/below cursor
-vim.opt.sidescrolloff = 8      -- Keep 8 columns left/right of cursor (only matters if wrap is off)
+vim.opt.wrap = true -- Wrap long lines instead of running them off screen
+vim.opt.breakindent = true -- Continuation lines keep the indent of the line they wrap
+vim.opt.showbreak = "↳ " -- Mark continuation lines so wraps aren't mistaken for real lines
+vim.opt.scrolloff = 10 -- Keep 10 lines above/below cursor
+vim.opt.sidescrolloff = 8 -- Keep 8 columns left/right of cursor (only matters if wrap is off)
 
 -- Indentation
 vim.opt.tabstop = 4        -- Tab width
@@ -160,6 +160,51 @@ vim.keymap.set("n", "<leader>pa", function()
     vim.fn.setreg("+", path)
     print("file:", path)
 end)
+
+-- keep a ring buffer of recently pressed keys to help debug when weird stuff
+-- happens
+local keylog = {}
+local keylog_max = 100
+
+vim.on_key(function(_, typed)
+    if typed == "" then
+        return
+    end
+    keylog[#keylog + 1] = {
+        key = vim.fn.keytrans(typed),
+        mode = vim.api.nvim_get_mode().mode,
+        at = vim.uv.hrtime(),
+    }
+    if #keylog > keylog_max then
+        table.remove(keylog, 1)
+    end
+end)
+
+-- :KeyLog usercommand to observe the most recently pressed keys, for debugging
+vim.api.nvim_create_user_command("KeyLog", function(args)
+    local last = #keylog
+    while last > 0 and keylog[last].mode == "c" do
+        last = last - 1
+    end
+    if last < #keylog and last > 0 then
+        last = last - 1
+    end
+
+    local count = math.min(tonumber(args.args) or 25, last)
+    if count == 0 then
+        vim.api.nvim_echo({ { "no keys recorded yet" } }, false, {})
+        return
+    end
+    local chunks = {}
+    for i = last - count + 1, last do
+        local entry = keylog[i]
+        local previous = keylog[i - 1]
+        local gap = previous and (entry.at - previous.at) / 1e6 or 0
+        table.insert(chunks, { string.format("%-12s", entry.key), "Special" })
+        table.insert(chunks, { string.format("mode=%-4s %7.1fms\n", entry.mode, gap) })
+    end
+    vim.api.nvim_echo(chunks, false, {})
+end, { nargs = "?", desc = "Show the last 100 keys pressed" })
 
 -- Basic autocommands
 local augroup = vim.api.nvim_create_augroup("UserConfig", {})
