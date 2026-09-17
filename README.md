@@ -73,6 +73,7 @@ mini.move                          181 lines
 
 ## TODO
 
+- [ ] there is still some native neovim completion that seems to appear behind the cmp completion for the command line /statusbar. And that completion uses tab/shift tab, whereas the cmp completion correctly uses CTRL+j and CTRL+k
 - [ ] add a keybind to disable LSP, probably disable it by default in markdown files
 - [ ] the default mode when I am in a folder of mini.files should be to fuzzy search to take my cursor to the item I want, right now I have to press `/` to start searching and it a) persists after I hit `L` and b) is not fuzzy
 - [ ] probably remove mini.pairs, it seems to insert the pair in every situation which makes it difficult to work with, for example if I have an open quote already it inserts two quotes not one. maybe there are some configuration options, or an alternative plugin which work better.
