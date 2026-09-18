@@ -75,12 +75,11 @@ mini.move                          181 lines
 - [ ] add keybinds like ctrl + d and ctrl + u, except they move the cursor only and not the view
 - [ ] consider reverting (`<Leader>g`) back to just searching all non-hidden files
 - [ ] consider using mini.icons instead of nvim-web-devicons
-- [ ] some plugins vendor plenary.nvim, but I do also. figure out about load order and whether they are actually using my version, or if they even should be.
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
 - [ ] probably steal the better text objects from <https://github.com/chrisgrieser/nvim-various-textobjs>
 - [ ] Figure out mini.files bookmarking
 - [ ] improve or highlight the `[+]` statusbar indication that the current file needs saving. Assuming I don't get used to it, it would be nice for maybe the statusbar to appear a different color when the current buffer has unsaved changes, or something like that. Right now I tend to not notice when the current buffer needs to be saved.
-- [ ] Sometimes, motions do not get processed when I would expect them to. I notice this most often when doing `ciw`. Nothing happens at all, but the second time I do it, it works fine. I suspect there is a stray keybind somewhere, maybe related to one of the navigations keys in normal mode.
+- [ ] Sometimes, motions do not get processed when I would expect them to. I notice this most often when doing `ciw`. Nothing happens at all, but the second time I do it, it works fine. I suspect there is a stray keybind somewhere, maybe related to one of the navigations keys in normal mode. (Added :KeyLog usercommand to debug this, hopefully I can figure it out)
 
 Performance improvements:
 
@@ -93,7 +92,7 @@ The `{ n }` indicates the mode in which the binding is relevant. `n` is normal, 
 
 ```txt
 <Leader>: Spacebar
-
+use
 TODO: might be necessary to remove or change z here, as there are other motions such as zz zt zb etc. not sure how that works. Could also unbind those other motions as I don't use them
 { n }: z                Leap to anywhere in any currently visible window
 { x, o }: z             Leap to anywhere in the focused window
