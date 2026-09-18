@@ -72,6 +72,7 @@ mini.move                          181 lines
 
 ## TODO
 
+- [ ] fix conflicts between buffer resizing keybinds and mini.files nav keybinds (ctrl + hkjl). Also try to unify keybinds between not fuzzy searching and fuzzy searching in mini.files
 - [ ] add keybinds like ctrl + d and ctrl + u, except they move the cursor only and not the view
 - [ ] consider reverting (`<Leader>g`) back to just searching all non-hidden files
 - [ ] consider using mini.icons instead of nvim-web-devicons
