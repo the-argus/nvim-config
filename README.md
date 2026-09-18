@@ -72,6 +72,8 @@ mini.move                          181 lines
 
 ## TODO
 
+- [ ] add a text object for what is currently highlighted by indent_blankline. the semicolon text object from treesitter-text-subjects is pretty close, but only seems to work in C/C++ code.
+- [ ] fix sometimes precognition.nvim in PartialOn mode leaving behind a line even after I leave operator pending mode, and fix it taking a second to appear when entering operator pending
 - [ ] fix conflicts between buffer resizing keybinds and mini.files nav keybinds (ctrl + hkjl). Also try to unify keybinds between not fuzzy searching and fuzzy searching in mini.files
 - [ ] add keybinds like ctrl + d and ctrl + u, except they move the cursor only and not the view
 - [ ] consider reverting (`<Leader>g`) back to just searching all non-hidden files
