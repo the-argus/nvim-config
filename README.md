@@ -72,6 +72,7 @@ mini.move                          181 lines
 
 ## TODO
 
+- [ ] remove the FZF command, or bind Format to a key. currently both pop up when typing :F and I have to parse which to use
 - [ ] add a text object for what is currently highlighted by indent_blankline. the semicolon text object from treesitter-text-subjects is pretty close, but only seems to work in C/C++ code.
 - [ ] fix sometimes precognition.nvim in PartialOn mode leaving behind a line even after I leave operator pending mode, and fix it taking a second to appear when entering operator pending
 - [ ] fix conflicts between buffer resizing keybinds and mini.files nav keybinds (ctrl + hkjl). Also try to unify keybinds between not fuzzy searching and fuzzy searching in mini.files
