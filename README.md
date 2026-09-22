@@ -270,6 +270,17 @@ Provided by treesitter-text-objects:
 {],[}r                      Go to next or previous struct/class, respectively.
 {],[}a                      Go to next or previous function call parameter, respectively.
 
+Provided by mini.bracketed (supports going to first/last with the capital letter is used):
+
+{],[}i                      Go to next or previous indent
+{],[}d                      Go to next or previous diagnostic
+{],[}x                      Go to next or previous version control conflict
+{],[}c                      Go to next or previous comment
+
+Provided by (and for) leap.nvim:
+
+{],[}w                      Go to next or previous instance of the leaped-to pattern
+
 Custom, provided by gitsigns:
 
 {],[}h                      Go to next or previous hunk in current buffer

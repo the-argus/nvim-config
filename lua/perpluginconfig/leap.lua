@@ -25,18 +25,16 @@ if not leap_user_ok then
     return
 end
 
--- <enter>/<backspace> repeat the previous search forwards/backwards without
--- re-invoking leap. `set_repeat_keys` is deprecated upstream in favour of
--- traversal keys (see :h leap-repeat); fall back for older checkouts.
 if leap_user.with_traversal_keys then
-    vim.keymap.set({ 'n', 'x', 'o' }, '<enter>', function()
-        leap.leap({ ['repeat'] = true, opts = leap_user.with_traversal_keys('<enter>', '<backspace>') })
+    vim.keymap.set({ 'n', 'x', 'o' }, ']w', function()
+        leap.leap({ ['repeat'] = true, opts = leap_user.with_traversal_keys(']w', '[w') })
     end)
-    vim.keymap.set({ 'n', 'x', 'o' }, '<backspace>', function()
-        leap.leap({ ['repeat'] = true, backward = true, opts = leap_user.with_traversal_keys('<backspace>', '<enter>') })
+    vim.keymap.set({ 'n', 'x', 'o' }, '[w', function()
+        leap.leap({ ['repeat'] = true, backward = true, opts = leap_user.with_traversal_keys('[w', ']w') })
     end)
 else
-    leap_user.set_repeat_keys('<enter>', '<backspace>')
+    -- deprecated method, see :h leap-repeat
+    leap_user.set_repeat_keys(']w', '[w')
 end
 
 -- fixes a problem where pressing enter to jump in the quickfix window didn't
