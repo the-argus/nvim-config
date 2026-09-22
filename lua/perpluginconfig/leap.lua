@@ -6,6 +6,13 @@ end
 vim.keymap.set('n', 'z', '<Plug>(leap-anywhere)')
 vim.keymap.set({ 'x', 'o' }, 'z', '<Plug>(leap)')
 
+vim.keymap.set({ 'x', 'o' }, 'at', '<Plug>(leap-visit-text-object)')
+vim.keymap.set({ 'x', 'o' }, 'it', '<Plug>(leap-visit-inner-text-object)')
+
+vim.keymap.set({ 'n', 'x', 'o' }, 'x', function()
+    require('leap').visit { input = (vim.fn.mode(true) == 'n') and 'v' or '' }
+end)
+
 -- Exclude whitespace and the middle of alphabetic words from preview:
 --   foobar[baaz] = quux
 --   ^----^^^--^^-^-^--^
