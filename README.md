@@ -79,7 +79,7 @@ mini.move                          181 lines
 - [ ] fix semicolon and other text objects provided by nvim-treesitter-textsubjects. those seem to simply not work in some cases. I find only the ; to be reliable, and only in C/C++ code.
 - [ ] deltaview opening a file from a picker, from :DeltaMenu, I get `deltaview.nvim/lua/deltaview/view.lua:292`: attempt to index a nil value
 - [ ] add a text object for what is currently highlighted by indent_blankline. the semicolon text object from treesitter-text-subjects is pretty close, but only seems to work in C/C++ code.
-- [ ] fix conflicts between buffer resizing keybinds and mini.files nav keybinds (ctrl + hkjl). Also try to unify keybinds between not fuzzy searching and fuzzy searching in mini.files
+- [ ] figure out weirdness where ctrl+jk in a mini.files moves the cursor to next/prev match, but when fuzzyfind is not happening it does up/down. maybe the former can be rebound to shift + jk in this mode?
 - [ ] add keybinds like ctrl + d and ctrl + u, except they move the cursor only and not the view
 - [ ] consider reverting (`<Leader>g`) back to just searching all non-hidden files
 - [ ] consider using mini.icons instead of nvim-web-devicons
@@ -190,7 +190,14 @@ Diffview plugin keybinds:
 { n }: <Leader>vH       Pick from all commits, then pick from a file, then show deltaview for the changes to that file for that commit
 { n }: <Leader>vq       Quickfix review, use ]q / [q to step through changed files
 
-mini.files view keybinds (buffer that shows up when pressing <Leader>g)
+mini.files file explorer popup navigation (starts out in search mode initially, but its been a bit customized to be a fuzzy search):
+
+{ n, i, x }: Ctrl + j   Move to the next entry, or to the next search match while searching
+{ n, i, x }: Ctrl + k   Move to the previous entry, or to the previous search match while searching
+{ n, i, x }: Ctrl + l   Go into the selected folder, otherwise open it if it's a file
+{ n, i, x }: Ctrl + h   Go out of the current folder
+{ n }: /                Start custom fuzzy search for the current directory
+{ n }: <Esc>            Stop the search mode, same as for normal search in vim
 { n }: zh               Toggle showing hidden files
 { n }: <CR>             Go into the selected folder, otherwise open it if it's a file
 { n }: L                Go into the selected folder, otherwise open it if it's a file

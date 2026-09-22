@@ -13,7 +13,6 @@ local search_keys = {}
 for byte = 33, 126 do
     table.insert(search_keys, string.char(byte))
 end
-local search_control_keys = { "<BS>", "<Esc>", "<C-j>", "<C-k>", "<C-h>", "<C-l>" }
 
 -- get the lines (files/directories) of the current buffer (folder) as a table,
 -- so it can be searched with the fuzzy algorithm
@@ -98,7 +97,8 @@ local function stop_search(buf)
         return
     end
     vim.b[buf].minifiles_query = nil
-    for _, key in ipairs(vim.list_extend(vim.deepcopy(search_keys), search_control_keys)) do
+    -- BS and escape also bound during searching process
+    for _, key in ipairs(vim.list_extend(vim.deepcopy(search_keys), { "<BS>", "<Esc>" })) do
         pcall(vim.keymap.del, "n", key, { buffer = buf })
     end
     clear_query_display()
@@ -124,26 +124,60 @@ function start_search(buf)
     for _, key in ipairs(search_keys) do
         map(key, function() set_query(buf, vim.b[buf].minifiles_query .. key) end, "Add to fuzzy search")
     end
-    map("<BS>", function() set_query(buf, vim.b[buf].minifiles_query:sub(1, -2)) end, "Drop last search character")
+    map("<BS>", function() set_query(buf, vim.b[buf].minifiles_query:sub(1, -2)) end, "Backspace in the search")
     map("<Esc>", function() stop_search(buf) end, "Leave fuzzy search")
-    map("<C-j>", function() cycle(buf, 1) end, "Next fuzzy match")
-    map("<C-k>", function() cycle(buf, -1) end, "Previous fuzzy match")
-    map("<C-l>", function() files.go_in({ close_on_file = true }) end, "Go in")
-    -- no bufenter happens when going out so we have to manually restart the
-    -- search, doesnt make sense if at root of file directory but eh, that does
-    -- not usually happen
-    map("<C-h>", function()
-        files.go_out()
-        vim.schedule(function() start_search(vim.api.nvim_get_current_buf()) end)
-    end, "Go out")
     set_query(buf, "")
+end
+
+-- move one entry up or down, if searching this means up/down in results (TODO: maybe just always move up and down, have a separate action for search results)
+local function move(buf, direction)
+    if vim.b[buf].minifiles_query ~= nil then
+        -- we are searching
+        return cycle(buf, direction)
+    end
+    local line = vim.api.nvim_win_get_cursor(0)[1] + direction
+    line = math.min(math.max(line, 1), vim.api.nvim_buf_line_count(buf))
+    vim.api.nvim_win_set_cursor(0, { line, 0 })
+end
+
+local function go_in()
+    files.go_in({ close_on_file = true })
+end
+
+local function go_out(buf)
+    local was_searching = vim.b[buf].minifiles_query ~= nil
+    files.go_out()
+    if was_searching then
+        -- no BufEnter happens when going out so the search has to be restarted
+        -- by hand. Doesn't make sense at the root of the filesystem, but that
+        -- does not usually happen
+        vim.schedule(function() start_search(vim.api.nvim_get_current_buf()) end)
+    end
+end
+
+local function map_navigation(buf)
+    local navigation = {
+        ["<C-j>"] = { function() move(buf, 1) end, "Next entry" },
+        ["<C-k>"] = { function() move(buf, -1) end, "Previous entry" },
+        ["<C-l>"] = { go_in, "Go in" },
+        ["<C-h>"] = { function() go_out(buf) end, "Go out" },
+    }
+    for key, action in pairs(navigation) do
+        local fn, desc = action[1], action[2]
+        vim.keymap.set({ "n", "x" }, key, fn, { buffer = buf, desc = desc })
+        -- local function insertmode_fn()
+        --     vim.cmd("stopinsert")
+        --     vim.schedule(fn)
+        -- end
+        vim.keymap.set("i", key, fn, { buffer = buf, desc = desc })
+    end
 end
 
 vim.api.nvim_create_autocmd("User", {
     pattern = "MiniFilesBufferCreate",
     callback = function(args)
         local buf = args.data.buf_id
-        -- every buffer and directory should start its own search
+        -- always restart search when going into a new directory
         vim.api.nvim_create_autocmd("BufEnter", {
             buffer = buf,
             callback = function()
@@ -156,6 +190,7 @@ vim.api.nvim_create_autocmd("User", {
         })
         vim.keymap.set("n", "/", function() start_search(buf) end,
             { buffer = buf, desc = "Fuzzy search this directory" })
+        map_navigation(buf)
     end,
 })
 
