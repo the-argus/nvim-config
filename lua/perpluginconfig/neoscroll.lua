@@ -3,5 +3,8 @@ if not present then
     return
 end
 
--- smooth scrolling for <C-u>/<C-d>/<C-b>/<C-f>/<C-y>/<C-e>/zt/zz/zb
-neoscroll.setup()
+neoscroll.setup({
+    -- zt/zz/zb purposefully left out because I don't use them and want z
+    -- motion prefix for leaping
+    mappings = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "<C-y>", "<C-e>" },
+})

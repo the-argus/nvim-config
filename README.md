@@ -98,8 +98,7 @@ The `{ n }` indicates the mode in which the binding is relevant. `n` is normal, 
 
 ```txt
 <Leader>: Spacebar
-use
-TODO: might be necessary to remove or change z here, as there are other motions such as zz zt zb etc. not sure how that works. Could also unbind those other motions as I don't use them
+
 { n }: z                Leap to any visible location
 { n }: x                Leap to (visit) any visibler location, entering visual mode, then jumping back after changing modes
 { x, o }: z             Leap to anywhere in the focused window
