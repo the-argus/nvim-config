@@ -17,6 +17,7 @@ require "perpluginconfig.cmp"
 require "perpluginconfig.mini"
 require "perpluginconfig.surround"
 require "perpluginconfig.precognition"
+require "perpluginconfig.spider" -- NOTE: must come after precognition for integration to work
 require "perpluginconfig.neoscroll"
 require "perpluginconfig.brk"
 require "perpluginconfig.deltaview"

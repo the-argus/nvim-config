@@ -58,6 +58,7 @@ neoscroll.nvim                   1,248 lines (but    729 when not including test
 mini.bracketed                     992 lines
 todo-comments.nvim                 912 lines
 mini.ai                            911 lines
+nvim-spider                        751 lines
 nvim-treesitter-textsubjects       488 lines
 cmp-buffer                         381 lines
 telescope-fzf-native.nvim          343 lines (but    244 when not including tests)
@@ -275,6 +276,13 @@ Provided by mini.bracketed (supports going to first/last with the capital letter
 {],[}d                      Go to next or previous diagnostic
 {],[}x                      Go to next or previous version control conflict
 {],[}c                      Go to next or previous comment
+
+Provided by nvim-spider (replacing builtin motions):
+
+{ n, x, o }: w              Go to the start of the next subword (subword == word but treats capital letters and underscores as word separators)
+{ n, x, o }: e              Go to the end of the next subword
+{ n, x, o }: b              Go to the start of the previous subword
+{ n, x, o }: ge             Go to the end of the previous subword
 
 Provided by (and for) leap.nvim:
 

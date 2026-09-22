@@ -89,3 +89,6 @@
 [submodule "pack/plugins/start/nvim-highlight-colors"]
 	path = pack/plugins/start/nvim-highlight-colors
 	url = https://github.com/brenoprata10/nvim-highlight-colors
+[submodule "pack/plugins/start/nvim-spider"]
+	path = pack/plugins/start/nvim-spider
+	url = https://github.com/chrisgrieser/nvim-spider
