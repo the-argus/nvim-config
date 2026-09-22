@@ -73,8 +73,9 @@ mini.move                          181 lines
 
 ## TODO
 
+- [ ] fix reenabling LSP causing old diagnostics to reappear but the LSP not seeming to restart/reattach
 - [ ] unbind ctrl + hjkl in telescope popup in favor of jk navigating up and down while remaining in insert mode
-- [ ] have a motion that means whole word and one that means subword, sometimes I want everything in an identifier, sometimes I actually want the whole word (maybe w vs. iw works here?)
+- [ ] have a motion that means whole word and one that means subword. right now `iw` is one thing and `w` is another (word vs. subword), would be nice to have "inner subword" etc as motions
 - [ ] set up dot-repeat for everything that it is relevant for, I think there are some where I have used lua functions but I shouldn't have
 - [ ] fix semicolon and other text objects provided by nvim-treesitter-textsubjects. those seem to simply not work in some cases. I find only the ; to be reliable, and only in C/C++ code.
 - [ ] deltaview opening a file from a picker, from :DeltaMenu, I get `deltaview.nvim/lua/deltaview/view.lua:292`: attempt to index a nil value
