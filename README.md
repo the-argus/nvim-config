@@ -75,7 +75,6 @@ mini.move                          181 lines
 - [ ] fix semicolon and other text objects provided by nvim-treesitter-textsubjects. those seem to simply not work in some cases. I find only the ; to be reliable, and only in C/C++ code.
 - [ ] deltaview opening a file from a picker, from :DeltaMenu, I get `deltaview.nvim/lua/deltaview/view.lua:292`: attempt to index a nil value
 - [ ] add a text object for what is currently highlighted by indent_blankline. the semicolon text object from treesitter-text-subjects is pretty close, but only seems to work in C/C++ code.
-- [ ] fix sometimes precognition.nvim in PartialOn mode leaving behind a line even after I leave operator pending mode, and fix it taking a second to appear when entering operator pending
 - [ ] fix conflicts between buffer resizing keybinds and mini.files nav keybinds (ctrl + hkjl). Also try to unify keybinds between not fuzzy searching and fuzzy searching in mini.files
 - [ ] add keybinds like ctrl + d and ctrl + u, except they move the cursor only and not the view
 - [ ] consider reverting (`<Leader>g`) back to just searching all non-hidden files
@@ -198,7 +197,7 @@ mini.files view keybinds (buffer that shows up when pressing <Leader>g)
 Misc:
 
 { n }: <Leader>pa   Copy absolute path to current buffer to "+ register
-{ n }: <Leader>pp   Toggle inline motion hints via precognition.nvim
+{ n }: Ctrl + C     Temporarily show inline motion hints from precognition.nvim
 { n }: <Leader>pl   Toggle inline LSP diagnostics via lsp_lines.nvim
 
 ```
