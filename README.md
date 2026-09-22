@@ -73,6 +73,7 @@ mini.move                          181 lines
 
 ## TODO
 
+- [ ] find a better keybind for next/prev search match, `][w` is jumping but then moving by a word also, but maybe there is a way to make this work, it was preceded by the square bracket so it would be nice if the w just jumped and didn't also go to the next word
 - [ ] fix reenabling LSP causing old diagnostics to reappear but the LSP not seeming to restart/reattach
 - [ ] unbind ctrl + hjkl in telescope popup in favor of jk navigating up and down while remaining in insert mode
 - [ ] have a motion that means whole word and one that means subword. right now `iw` is one thing and `w` is another (word vs. subword), would be nice to have "inner subword" etc as motions
