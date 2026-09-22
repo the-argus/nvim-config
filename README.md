@@ -210,6 +210,7 @@ Misc:
 { n }: <Leader>pa   Copy absolute path to current buffer to "+ register
 { n }: Ctrl + C     Temporarily show inline motion hints from precognition.nvim
 { n }: <Leader>pl   Toggle inline LSP diagnostics via lsp_lines.nvim
+{ n }: <Leader>l    Toggle language servers for the current buffer and remove all diagnostics
 
 ```
 

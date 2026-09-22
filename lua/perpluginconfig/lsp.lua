@@ -175,8 +175,10 @@ local function detach_all(buf)
     for _, client in ipairs(vim.lsp.get_clients({ bufnr = buf })) do
         vim.lsp.buf_detach_client(buf, client.id)
     end
-    -- remove all diagnostics under all namespaces
+    -- remove all diagnostics under all namespaces and then also disable
+    -- diagnostics altogether
     vim.diagnostic.reset(nil, buf)
+    vim.diagnostic.enable(false, { bufnr = buf })
 end
 
 -- Set if LSP is enabled on a given buffer true/false
@@ -185,6 +187,9 @@ end
 local function set_lsp_enabled(buf, enabled)
     vim.b[buf].lsp_enabled = enabled
     if enabled then
+        -- reset diagnostics as well
+        vim.diagnostic.reset(nil, buf)
+        vim.diagnostic.enable(true, { bufnr = buf })
         -- lsp and nonels etc. need to run filetype autocommands when attaching
         vim.api.nvim_exec_autocmds("FileType", { buffer = buf })
     else
