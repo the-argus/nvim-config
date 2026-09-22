@@ -72,6 +72,7 @@ mini.move                          181 lines
 
 ## TODO
 
+- [ ] fix semicolon and other text objects provided by nvim-treesitter-textsubjects. those seem to simply not work in some cases. I find only the ; to be reliable, and only in C/C++ code.
 - [ ] deltaview opening a file from a picker, from :DeltaMenu, I get `deltaview.nvim/lua/deltaview/view.lua:292`: attempt to index a nil value
 - [ ] remove the FZF command, or bind Format to a key. currently both pop up when typing :F and I have to parse which to use
 - [ ] add a text object for what is currently highlighted by indent_blankline. the semicolon text object from treesitter-text-subjects is pretty close, but only seems to work in C/C++ code.
