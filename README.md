@@ -102,7 +102,7 @@ The `{ n }` indicates the mode in which the binding is relevant. `n` is normal, 
 <Leader>: Spacebar
 
 { n }: z                Leap to any visible location
-{ n }: x                Leap to (visit) any visibler location, entering visual mode, then jumping back after changing modes
+{ n }: rr               Leap to (visit) any visible location, entering visual mode, then jumping back after changing modes. So replacing a letter with the normal r motion does not work.
 { x, o }: z             Leap to anywhere in the focused window
 { n }: <Leader>o        Portal backwards
 { n }: <Leader>i        Portal forwards
