@@ -73,22 +73,64 @@ vim.keymap.set("n", "<Leader>vm", wrap_telescope_popup(function()
     vim.cmd("DeltaMenu " .. main_branch() .. "...HEAD")
 end), { desc = "Deltaview picker showing current branch vs main/master" })
 
--- <Leader>vb : Show a picker to select a branch, then show a diff view between
--- the current branch and that branch
-vim.keymap.set("n", "<Leader>vb", wrap_telescope_popup(function()
-    require("telescope.builtin").git_branches({
+local commit_log_limit = 50
+
+--- @param ... string extra git args
+--- @return string[]
+local function commit_log_args(...)
+    return vim.list_extend({
+        -- list doesn't get reversed until max count is applied, so this is fine
+        "git", "log", "--reverse", "--max-count=" .. commit_log_limit, "--no-color",
+    }, { ... })
+end
+
+--- Global variable that remembers the last commit that was reviewed, typically
+--- I am reviewing one at a time in order so I want to  move by one from the
+--- last one i reviewed
+--- @type string|nil
+local last_reviewed_commit = nil
+
+--- tries to find the index of last_reviewed_commit, but it might be filtered
+--- out by the search query, or it might be nil, in which case do the most
+--- recent commit
+--- TODO: probably try for the closest commit to the last_reviewed_commit
+--- @return integer|nil
+local function default_commit_index()
+    local hashes = vim.fn.systemlist(commit_log_args("--pretty=%h"))
+    if vim.v.shell_error ~= 0 or #hashes == 0 then
+        return nil
+    end
+    for index, hash in ipairs(hashes) do
+        if hash == last_reviewed_commit then
+            return index
+        end
+    end
+    return #hashes
+end
+
+-- commit review picker
+vim.keymap.set("n", "<Leader>vc", wrap_telescope_popup(function()
+    require("telescope.builtin").git_commits({
+        prompt_title = "Commits on this branch",
+        git_command = commit_log_args("--pretty=oneline", "--abbrev-commit"),
+        -- oldest at the top, so moving down the list moves forward in time
+        sorting_strategy = "ascending",
+        default_selection_index = default_commit_index(),
         attach_mappings = function()
-            -- replace (not map) so both insert and normal mode <CR> are covered;
-            -- telescope's default here is git checkout
+            -- we are using the git_commits picker so we need to override the select action
             require("telescope.actions").select_default:replace(function(prompt_bufnr)
                 local selection = require("telescope.actions.state").get_selected_entry()
                 require("telescope.actions").close(prompt_bufnr)
-                vim.cmd("DeltaMenu " .. selection.value .. "...HEAD")
+                if selection == nil then
+                    return
+                end
+                last_reviewed_commit = selection.value
+                vim.cmd("DeltaMenu! " .. selection.value .. "^!")
             end)
             return true
         end,
     })
-end), { desc = "Deltaview picker showing current branch vs picked branch" })
+end), { desc = "Review a commit from this branch in a quickfix deltaview" })
 
 --- Open a telescope commit picker and run a deltaview command on
 --- the chosen commit

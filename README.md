@@ -184,11 +184,11 @@ Diffview plugin keybinds:
 { n }: <Leader>vv       Toggle git diff view, useful for observing git diff without leaving the editor. Shows the diff caused by the current staged and unstaged changes.
 { n }: <Leader>va       Show a diff view of all the currently changed files in one megabuffer
 { n }: <Leader>vm       Toggle git diff view against the main/master branch
-{ n }: <Leader>vb       Open a telescope picker for branches and diff the current branch against that
+{ n }: <Leader>vc       Open a picker with the last 50 commits on the current branch. Selecting one opens a quickfix review for it, like <Leader>vq
+{ n }: <Leader>vq       Quickfix review for the current unstaged changes, use ]q / [q to step through changed files. Similar to <Leader>n
 { n }: <Leader>vf       Pick from commits that affect the current file and then show the relevant hunks from that commit
 { n }: <Leader>vl       Pick from commits affecting the current line (git log -L), then show any hunks from that commit affecting the current buffer. Unfortunately deltaview does not support limiting the diff to a line range
 { n }: <Leader>vH       Pick from all commits, then pick from a file, then show deltaview for the changes to that file for that commit
-{ n }: <Leader>vq       Quickfix review, use ]q / [q to step through changed files
 
 mini.files file explorer popup navigation (starts out in search mode initially, but its been a bit customized to be a fuzzy search):
 
