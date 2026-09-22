@@ -91,6 +91,10 @@ vim.env.PATH = vim.env.PATH .. ":./node_modules/.bin"
 -- neovim doesn't support slint by default
 vim.filetype.add({ extension = { slint = "slint" } })
 
+-- I use telescope, I have no clue why but for some reason there is this
+-- fzf plugin that also gets added? TODO: figure out why this is happening
+vim.g.loaded_fzf = 1
+
 -- Make cursor blink nicely
 vim.o.guicursor = table.concat({
     "n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
@@ -261,6 +265,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.api.nvim_buf_create_user_command(args.buf, "Format", function()
                 vim.lsp.buf.format({ async = true })
             end, {})
+            vim.keymap.set("n", "<Leader>u", "<Cmd>Format<CR>",
+                vim.tbl_extend("force", opts, { desc = "Format the current buffer" }))
         end
         if client and client.server_capabilities.codeActionProvider then
             vim.api.nvim_buf_create_user_command(args.buf, "Action", function()

@@ -74,7 +74,6 @@ mini.move                          181 lines
 
 - [ ] fix semicolon and other text objects provided by nvim-treesitter-textsubjects. those seem to simply not work in some cases. I find only the ; to be reliable, and only in C/C++ code.
 - [ ] deltaview opening a file from a picker, from :DeltaMenu, I get `deltaview.nvim/lua/deltaview/view.lua:292`: attempt to index a nil value
-- [ ] remove the FZF command, or bind Format to a key. currently both pop up when typing :F and I have to parse which to use
 - [ ] add a text object for what is currently highlighted by indent_blankline. the semicolon text object from treesitter-text-subjects is pretty close, but only seems to work in C/C++ code.
 - [ ] fix sometimes precognition.nvim in PartialOn mode leaving behind a line even after I leave operator pending mode, and fix it taking a second to appear when entering operator pending
 - [ ] fix conflicts between buffer resizing keybinds and mini.files nav keybinds (ctrl + hkjl). Also try to unify keybinds between not fuzzy searching and fuzzy searching in mini.files
@@ -165,6 +164,7 @@ Language server operations (pretty much neovim defaults):
 { n, x }: gra       Show code actions
 { n }: g0           Show all LSP symbols in the current document
 { n, i }: Ctrl + S  Show signature help in a floating popup
+{ n }: <Leader>u    Format the current buffer, if there is an attached language server that can do that
 
 Completion
 
