@@ -73,6 +73,8 @@ mini.move                          181 lines
 
 ## TODO
 
+- [ ] fix the apply button for mini.files which I broke by doing my weird custom fuzzy search thing. maybe find a separate plugin that has an option to get fuzzy search when doing `/pattern`
+- [ ] look into figure out a way to use modifiers to traverse things that currently use open and close square bracket to go left and right respectively. this way each movement is just one keydown and easier to spam :D
 - [ ] find a better keybind for next/prev search match, `][w` is jumping but then moving by a word also, but maybe there is a way to make this work, it was preceded by the square bracket so it would be nice if the w just jumped and didn't also go to the next word
 - [ ] fix reenabling LSP causing old diagnostics to reappear but the LSP not seeming to restart/reattach
 - [ ] unbind ctrl + hjkl in telescope popup in favor of jk navigating up and down while remaining in insert mode
