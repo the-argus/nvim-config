@@ -73,6 +73,7 @@ mini.move                          181 lines
 
 ## TODO
 
+- [ ] shellcheck does not properly get killed, I noticed opening it on a very large file, I later am not using my editor and see it is still running and using a bunch of memory
 - [ ] code actions only sometimes work, often an LSP popup will say "fix available" but then the :Action command shows nothing
 - [ ] when I do `diw` over the first word in `testThing->method()`, it deletes `testThing-`. I think that is due to the web plugin and it ignoring insignificant case
 - [ ] fix the apply button for mini.files which I broke by doing my weird custom fuzzy search thing. maybe find a separate plugin that has an option to get fuzzy search when doing `/pattern`
