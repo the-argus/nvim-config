@@ -305,4 +305,9 @@ it                          Inside remote textobject, for example yitw{leap} wil
 Custom, provided by gitsigns:
 
 {],[}h                      Go to next or previous hunk in current buffer
+
+Shorthand for all the next/prev keybinds:
+
+{ n, o }: Alt + <letter>            Same as ]<letter> (go to next thing)
+{ n, o }: Alt + Shift + <letter>    Same as [<letter> (go to previous thing)
 ```

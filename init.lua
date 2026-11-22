@@ -152,6 +152,7 @@ local function noscroll_jump_cursor_by_half_page(direction)
         end
     end
 end
+
 vim.keymap.set({ "n", "x" }, "<A-d>", noscroll_jump_cursor_by_half_page(1),
     { desc = "Move cursor by half a page up without scrolling the view" })
 vim.keymap.set({ "n", "x" }, "<A-u>", noscroll_jump_cursor_by_half_page(-1),
@@ -415,3 +416,14 @@ end
 -- load and configure plugins
 require "perpluginconfig"
 require "textobjects"
+
+-- shorthand for ]w and other square bracket keybinds that just go to the next thing previous thing
+for _, keymap in ipairs(vim.api.nvim_get_keymap("n")) do
+    local letter = keymap.lhs:match("^%]([a-z])$")
+    if letter then
+        vim.keymap.set({ "n", "o" }, "<M-" .. letter .. ">", "]" .. letter,
+            { remap = true, desc = "Same as ]" .. letter })
+        vim.keymap.set({ "n", "o" }, "<M-" .. letter:upper() .. ">", "[" .. letter,
+            { remap = true, desc = "Same as [" .. letter })
+    end
+end
