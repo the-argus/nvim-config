@@ -10,9 +10,6 @@
 [submodule "pack/plugins/start/rainbow-delimiters.nvim"]
 	path = pack/plugins/start/rainbow-delimiters.nvim
 	url = https://github.com/hiphish/rainbow-delimiters.nvim
-[submodule "pack/plugins/start/nvim-web-devicons"]
-	path = pack/plugins/start/nvim-web-devicons
-	url = https://github.com/nvim-tree/nvim-web-devicons
 [submodule "pack/plugins/start/base16-nvim"]
 	path = pack/plugins/start/base16-nvim
 	url = https://github.com/RRethy/base16-nvim

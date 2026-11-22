@@ -12,7 +12,7 @@ This is my neovim configuration. I have tailored it to be very featureful (LSP, 
   - `neoscroll.nvim`, (smooth scrolling) to help lessen how often jumping from place to place causes me to lose my sense of direction within the file or codebase.
   - `base16-nvim` for some color schemes
   - `todo-comments` which just nicely highlights comments containing WARN, TODO, HACK.
-  - `nvim-web-devicons`, which are used by the mini.files file explorer.
+  - `mini.icons`, which are used by the mini.files file explorer and telescope.
 
 ## List of lies told to me by Big Plugin, which I have become wise to since making this config
 
@@ -46,10 +46,10 @@ precognition.nvim                5,903 lines (but  2,317 when not including test
 nvim-surround                    3,605 lines (but  1,576 when not including tests)
 indent-blankline.nvim            3,499 lines
 base16-nvim                      3,192 lines
-nvim-web-devicons                2,447 lines
 leap.nvim                        2,294 lines
 substitute.nvim                  1,814 lines (but    740 when not including tests)
 nvim-treesitter-textobjects      1,708 lines (but  1,463 when not including tests)
+mini.icons                       1,548 lines
 mini.files                       1,513 lines
 brk.nvim                         1,424 lines (but  1,037 when not including tests)
 portal.nvim                      1,391 lines (but  1,104 when not including tests)
