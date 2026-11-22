@@ -73,6 +73,7 @@ mini.move                          181 lines
 - [ ] set up dot repeat for leap, probably do a small lua reimplementation of tpope/vim-repeat
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
 - [ ] Figure out mini.files bookmarking
+- [ ] test what happens if you open a file which was changed in git but the only thing changed was permissions with deltaview, I think this may still crash
 
 Performance improvements:
 
