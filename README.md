@@ -83,7 +83,7 @@ mini.move                          181 lines
 - [ ] look into figure out a way to use modifiers to traverse things that currently use open and close square bracket to go left and right respectively. this way each movement is just one keydown and easier to spam :D
 - [ ] find a better keybind for next/prev search match, `][w` is jumping but then moving by a word also, but maybe there is a way to make this work, it was preceded by the square bracket so it would be nice if the w just jumped and didn't also go to the next word
 - [ ] fix reenabling LSP causing old diagnostics to reappear but the LSP not seeming to restart/reattach
-- [ ] unbind ctrl + hjkl in telescope popup in favor of jk navigating up and down while remaining in insert mode
+- [ ] unbind ctrl + hjkl in telescope popup in favor of jk navigating up and down while remaining in insert mode (note to self: I think this refers to ctrl + jk navigating up and down?)
 - [ ] have a motion that means whole word and one that means subword. right now `iw` is one thing and `w` is another (word vs. subword), would be nice to have "inner subword" etc as motions
 - [ ] set up dot-repeat for everything that it is relevant for, I think there are some where I have used lua functions but I shouldn't have
 - [ ] fix semicolon and other text objects provided by nvim-treesitter-textsubjects. those seem to simply not work in some cases. I find only the ; to be reliable, and only in C/C++ code.
@@ -91,13 +91,11 @@ mini.move                          181 lines
 - [ ] add a text object for what is currently highlighted by indent_blankline. the semicolon text object from treesitter-text-subjects is pretty close, but only seems to work in C/C++ code.
 - [ ] figure out weirdness where ctrl+jk in a mini.files moves the cursor to next/prev match, but when fuzzyfind is not happening it does up/down. maybe the former can be rebound to shift + jk in this mode?
 - [ ] add keybinds like ctrl + d and ctrl + u, except they move the cursor only and not the view
-- [ ] consider reverting (`<Leader>g`) back to just searching all non-hidden files
 - [ ] consider using mini.icons instead of nvim-web-devicons
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
 - [ ] probably steal the better text objects from <https://github.com/chrisgrieser/nvim-various-textobjs>
 - [ ] Figure out mini.files bookmarking
 - [ ] improve or highlight the `[+]` statusbar indication that the current file needs saving. Assuming I don't get used to it, it would be nice for maybe the statusbar to appear a different color when the current buffer has unsaved changes, or something like that. Right now I tend to not notice when the current buffer needs to be saved.
-- [ ] Sometimes, motions do not get processed when I would expect them to. I notice this most often when doing `ciw`. Nothing happens at all, but the second time I do it, it works fine. I suspect there is a stray keybind somewhere, maybe related to one of the navigations keys in normal mode. (Added :KeyLog usercommand to debug this, hopefully I can figure it out)
 
 Performance improvements:
 
