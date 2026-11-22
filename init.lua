@@ -85,7 +85,6 @@ vim.opt.hidden = true                   -- allow hidden buffers
 vim.opt.errorbells = false
 vim.opt.backspace = "indent,eol,start"  -- allow backspacing over indents, newlines, and start of insert
 vim.opt.autochdir = false               -- don't auto change directory to buffer location
-vim.opt.iskeyword:append("-")           -- treat dash as part of word
 vim.opt.iskeyword:remove("/")           -- consider / to be a break in words
 vim.opt.path:append("**")               -- include subdirectories in search
 vim.opt.selection = "inclusive"         -- include last character in selection in copy
@@ -93,6 +92,14 @@ vim.opt.mouse = "a"                     -- enable mouse support
 vim.opt.clipboard:append("unnamedplus") -- use system clipboard
 vim.opt.modifiable = true               -- allow buffer modifications TODO: is this needed
 vim.opt.encoding = "UTF-8"
+
+-- use hyphen as part of identifier only in languages where that makes sense,
+-- otherwise in C and C++ things like a pointer dereference will get included
+-- in the word textobject
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "css", "scss", "less", "html", "lisp", "clojure", "scheme", "racket", "fennel", "nix" },
+    callback = function() vim.opt_local.iskeyword:append("-") end,
+})
 
 -- may have installed LSPs and tooling in local node modules
 vim.env.PATH = vim.env.PATH .. ":./node_modules/.bin"
