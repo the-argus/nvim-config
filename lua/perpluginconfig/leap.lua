@@ -23,26 +23,16 @@ local function preview_filter(ch0, ch1, ch2)
     )
 end
 leap.opts.preview = preview_filter
-leap.opts.preview_filter = preview_filter -- old name, for checkouts before 2025-10
+leap.opts.preview_filter = preview_filter -- old name, from before october 2025
 
 leap.opts.equivalence_classes = { ' \t\r\n', '([{', ')]}', '\'"`' }
 
-local leap_user_ok, leap_user = pcall(require, 'leap.user')
-if not leap_user_ok then
-    return
-end
-
-if leap_user.with_traversal_keys then
-    vim.keymap.set({ 'n', 'x', 'o' }, ']w', function()
-        leap.leap({ ['repeat'] = true, opts = leap_user.with_traversal_keys(']w', '[w') })
-    end)
-    vim.keymap.set({ 'n', 'x', 'o' }, '[w', function()
-        leap.leap({ ['repeat'] = true, backward = true, opts = leap_user.with_traversal_keys('[w', ']w') })
-    end)
-else
-    -- deprecated method, see :h leap-repeat
-    leap_user.set_repeat_keys(']w', '[w')
-end
+vim.keymap.set({ 'n', 'x', 'o' }, ']w', function()
+    leap.leap({ ['repeat'] = true })
+end, { desc = "Repeat last leap forwards" })
+vim.keymap.set({ 'n', 'x', 'o' }, '[w', function()
+    leap.leap({ ['repeat'] = true, backward = true })
+end, { desc = "Repeat last leap backwards" })
 
 -- fixes a problem where pressing enter to jump in the quickfix window didn't
 -- work because leap had remapped <CR> in normal buffers
