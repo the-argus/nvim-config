@@ -197,6 +197,64 @@ local function detach_all(buf)
     vim.diagnostic.enable(false, { bufnr = buf })
 end
 
+---@param filetype string
+---@return string[]
+local function get_all_lsp_client_names_for_filetype(filetype)
+    local client_names = { "null-ls" }
+    for server_name, server_config in pairs(servers) do
+        if vim.tbl_contains(server_config.filetypes, filetype) then
+            table.insert(client_names, server_name)
+            if server_config.large_file then
+                table.insert(client_names, server_config.large_file.name)
+            end
+        end
+    end
+    return client_names
+end
+
+---@param buf integer
+local function restart_all_clients_for_buffer(buf)
+    local client_names = get_all_lsp_client_names_for_filetype(vim.bo[buf].filetype)
+    local clients_to_stop = vim.tbl_filter(function(client)
+        return vim.tbl_contains(client_names, client.name)
+    end, vim.lsp.get_clients())
+
+    local buffers_to_reattach = { [buf] = true }
+    for _, client in ipairs(clients_to_stop) do
+        for attached_buffer in pairs(client.attached_buffers) do
+            buffers_to_reattach[attached_buffer] = true
+        end
+        client:stop()
+    end
+
+    local force_stop_after_milliseconds = 2000
+    local give_up_after_milliseconds = 5000
+    local poll_interval_milliseconds = 50
+    local elapsed_milliseconds = 0
+    local function start_clients_once_all_stopped()
+        local all_stopped = vim.iter(clients_to_stop):all(function(client)
+            return client:is_stopped()
+        end)
+        if not all_stopped and elapsed_milliseconds < give_up_after_milliseconds then
+            if elapsed_milliseconds >= force_stop_after_milliseconds then
+                for _, client in ipairs(clients_to_stop) do
+                    client:stop(true)
+                end
+            end
+            elapsed_milliseconds = elapsed_milliseconds + poll_interval_milliseconds
+            vim.defer_fn(start_clients_once_all_stopped, poll_interval_milliseconds)
+            return
+        end
+        for buffer_to_reattach in pairs(buffers_to_reattach) do
+            if vim.api.nvim_buf_is_valid(buffer_to_reattach) then
+                -- rerun filetype / attach autocommands
+                vim.api.nvim_exec_autocmds("FileType", { buffer = buffer_to_reattach })
+            end
+        end
+    end
+    start_clients_once_all_stopped()
+end
+
 -- Set if LSP is enabled on a given buffer true/false
 ---@param buf integer
 ---@param enabled boolean
@@ -206,8 +264,7 @@ local function set_lsp_enabled(buf, enabled)
         -- reset diagnostics as well
         vim.diagnostic.reset(nil, buf)
         vim.diagnostic.enable(true, { bufnr = buf })
-        -- lsp and nonels etc. need to run filetype autocommands when attaching
-        vim.api.nvim_exec_autocmds("FileType", { buffer = buf })
+        restart_all_clients_for_buffer(buf)
     else
         detach_all(buf)
     end
