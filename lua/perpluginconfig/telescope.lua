@@ -3,6 +3,23 @@ if not telescope_ok then
     return
 end
 
+local actions = require("telescope.actions")
+require("telescope").setup({
+    defaults = {
+        mappings = {
+            i = {
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-k>"] = actions.move_selection_previous,
+                ["<C-l>"] = actions.nop,
+            },
+            n = {
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-k>"] = actions.move_selection_previous,
+            },
+        },
+    },
+})
+
 -- makes telescope popups close mini.files popups first
 local wrap_telescope_popup = require("perpluginconfig.popups").wrap_telescope_popup
 
