@@ -39,6 +39,22 @@ deltaview.setup({
     },
 })
 
+-- deltaview has a bug where opening something via :DeltaMenu will sometimes
+-- cause "attempt to index a nil value" if the file is empty and the change was
+-- just that it was added to the repo. looks like they're just not checking for
+-- nil. in this case we can just skip the place_cursor_delta_buffer_entry()
+local deltaview_view = require("deltaview.view")
+local place_cursor_delta_buffer_entry = deltaview_view.place_cursor_delta_buffer_entry
+deltaview_view.place_cursor_delta_buffer_entry = function(bufnr, ...)
+    for _, diff_data in ipairs(vim.b[bufnr].delta_diff_data_set or {}) do
+        local first_hunk = (diff_data.hunks or {})[1]
+        if first_hunk ~= nil and first_hunk.lines[1] ~= nil then
+            return place_cursor_delta_buffer_entry(bufnr, ...)
+        end
+    end
+    vim.notify("No lines changed in this file.", vim.log.levels.INFO)
+end
+
 local function exit_deltaview()
     vim.cmd("normal q")
 end
