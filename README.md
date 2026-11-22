@@ -205,6 +205,8 @@ mini.files file explorer popup navigation (starts out in search mode initially, 
 
 Misc:
 
+{ n, x }: Ctrl + n  Next search result (like n)
+{ n, x }: Ctrl + p  Previous search result (like N)
 { n }: <Leader>pa   Copy absolute path to current buffer to "+ register
 { n }: Ctrl + C     Temporarily show inline motion hints from precognition.nvim
 { n }: <Leader>l    Toggle language servers for the current buffer and remove all diagnostics

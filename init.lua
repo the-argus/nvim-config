@@ -133,6 +133,8 @@ vim.keymap.set("n", "<leader>c", ":nohlsearch<CR>", { desc = "Clear search highl
 -- TODO: make this work for C-p and C-n, maybe the next/prev diagnostic/hunk/function etc as well?
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result (centered)" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result (centered)" })
+vim.keymap.set({ "n", "x" }, "<C-n>", "n", { remap = true, desc = "Next search result" })
+vim.keymap.set({ "n", "x" }, "<C-p>", "N", { remap = true, desc = "Previous search result" })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
