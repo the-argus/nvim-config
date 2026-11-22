@@ -129,6 +129,25 @@ vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result (centered)" }
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
+local function noscroll_jump_cursor_by_half_page(direction)
+    return function()
+        local scrolloff = vim.wo.scrolloff >= 0 and vim.wo.scrolloff or vim.go.scrolloff
+        local top_line, bottom_line, last_line = vim.fn.line("w0"), vim.fn.line("w$"), vim.fn.line("$")
+        local min = top_line == 1 and 1 or math.min(top_line + scrolloff, bottom_line)
+        local max = bottom_line == last_line and last_line or math.max(bottom_line - scrolloff, min)
+        local current_line = vim.fn.line(".")
+        local target_line = current_line + direction * vim.v.count1 * vim.wo.scroll
+        target_line = math.max(min, math.min(max, target_line))
+        if (target_line - current_line) * direction > 0 then
+            vim.cmd("keepjumps normal! " .. target_line .. "G")
+        end
+    end
+end
+vim.keymap.set({ "n", "x" }, "<A-d>", noscroll_jump_cursor_by_half_page(1),
+    { desc = "Move cursor by half a page up without scrolling the view" })
+vim.keymap.set({ "n", "x" }, "<A-u>", noscroll_jump_cursor_by_half_page(-1),
+    { desc = "Move cursor by half a page down without scrolling the view" })
+
 -- delete without yanking
 vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
 
