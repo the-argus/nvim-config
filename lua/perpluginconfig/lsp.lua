@@ -20,6 +20,14 @@ local servers = {
         cmd = { "bash-language-server", "start" },
         filetypes = { "sh", "bash" },
         root_markers = { ".git" },
+        -- different bashls instance which is the same except it doesn't spawn
+        -- shellcheck. this is needed because shellcheck will take a really
+        -- long time to start and use a bunch of memory and sometimes get
+        -- orphaned and just sit around using memory and cpu
+        large_file = {
+            name = "bashls_no_shellcheck",
+            settings = { bashIde = { shellcheckPath = "" } },
+        },
     },
     lua_ls = {
         cmd = { "lua-language-server" },
@@ -125,6 +133,8 @@ local servers = {
     },
 }
 
+local large_file_bytes = 100 * 1024
+
 local group = vim.api.nvim_create_augroup("UserLspStart", { clear = true })
 for name, cfg in pairs(servers) do
     vim.api.nvim_create_autocmd("FileType", {
@@ -145,11 +155,17 @@ for name, cfg in pairs(servers) do
             if cfg.cmd_fn then
                 cmd = cfg.cmd_fn(root)
             end
+            local client_name, settings = name, cfg.settings
+            local buf_bytes = vim.api.nvim_buf_get_offset(args.buf, vim.api.nvim_buf_line_count(args.buf))
+            if cfg.large_file and buf_bytes > large_file_bytes then
+                client_name = cfg.large_file.name
+                settings = cfg.large_file.settings
+            end
             vim.lsp.start({
-                name = name,
+                name = client_name,
                 cmd = cmd,
                 root_dir = root,
-                settings = cfg.settings,
+                settings = settings,
                 capabilities = capabilities,
             }, { bufnr = args.buf })
         end,
