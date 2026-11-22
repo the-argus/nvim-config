@@ -10,7 +10,6 @@ This is my neovim configuration. I have tailored it to be very featureful (LSP, 
   - `rainbow-delimiters.nvim`, so matching parentheses show a matching color.
   - `indent_blankline.nvim` to show a line connected the currently selected indented block, matching colors with any braces colored by `rainbow-delimiters`
   - `neoscroll.nvim`, (smooth scrolling) to help lessen how often jumping from place to place causes me to lose my sense of direction within the file or codebase.
-  - `lsp_lines.nvim`, to show all diagnostics as virtual text / inlay hints
   - `base16-nvim` for some color schemes
   - `todo-comments` which just nicely highlights comments containing WARN, TODO, HACK.
   - `nvim-web-devicons`, which are used by the mini.files file explorer.
@@ -64,7 +63,6 @@ cmp-buffer                         381 lines
 telescope-fzf-native.nvim          343 lines (but    244 when not including tests)
 mini.pairs                         243 lines
 mini.comment                       240 lines
-lsp_lines.nvim                     235 lines
 cmp-nvim-lsp                       228 lines
 cmp-path                           196 lines
 cmp-cmdline                        190 lines
@@ -217,7 +215,6 @@ Misc:
 
 { n }: <Leader>pa   Copy absolute path to current buffer to "+ register
 { n }: Ctrl + C     Temporarily show inline motion hints from precognition.nvim
-{ n }: <Leader>pl   Toggle inline LSP diagnostics via lsp_lines.nvim
 { n }: <Leader>l    Toggle language servers for the current buffer and remove all diagnostics
 
 ```

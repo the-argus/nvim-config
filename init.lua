@@ -298,7 +298,9 @@ if vim.fn.has("nvim-0.11.2") == 0 then
 end
 
 vim.diagnostic.config({
-    virtual_text = false,
+    -- enable virtual lines (or in old versions, virtual text at the end of the line) for diagnostics. alternative to lsp diagnostic float
+    -- virtual_lines = vim.fn.has("nvim-0.11") == 1,
+    -- virtual_text = vim.fn.has("nvim-0.11") == 0,
     signs = {
         text = {
             [vim.diagnostic.severity.ERROR] = "",
