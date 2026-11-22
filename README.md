@@ -59,10 +59,8 @@ todo-comments.nvim                 912 lines
 mini.ai                            911 lines
 nvim-various-textobjs              816 lines
 nvim-spider                        751 lines
-nvim-treesitter-textsubjects       488 lines
 cmp-buffer                         381 lines
 telescope-fzf-native.nvim          343 lines (but    244 when not including tests)
-mini.pairs                         243 lines
 mini.comment                       240 lines
 cmp-nvim-lsp                       228 lines
 cmp-path                           196 lines
@@ -73,7 +71,6 @@ mini.move                          181 lines
 ## TODO
 
 - [ ] set up dot repeat for leap, probably do a small lua reimplementation of tpope/vim-repeat
-- [ ] fix semicolon and other text objects provided by nvim-treesitter-textsubjects. those seem to simply not work in some cases. I find only the ; to be reliable, and only in C/C++ code.
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
 - [ ] Figure out mini.files bookmarking
 
@@ -266,12 +263,6 @@ Provided by mini.comment:
 ic                          The hovered comment (for example there is `dic`, `vic`, and `cic` to delete, select, and change respectively)
 
 TODO: Migrate objects provided by ae and treesittertext-objects to mini.ai custom text objects. This would consolidate things into one dependency, and mini.ai does not support changing the letters used for the builtin text objects afaict.
-
-Provided by treesitter-text-subjects:
-
-.                           Intelligently select the most relevant part of the syntax tree depending on the cursor position
-;                           Select a syntactical container (class, function, etc.) depending on your location in the syntax tree.
-i;                          Select the body of a syntactical container depending on your location in the syntax tree.
 
 Provided by treesitter-text-objects:
 

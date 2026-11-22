@@ -1,6 +1,5 @@
 require "perpluginconfig.treesitter"
 require "perpluginconfig.treesitter_text_objects"
-require "perpluginconfig.treesitter_text_subjects"
 require "perpluginconfig.various_textobjs"
 require "perpluginconfig.base16"
 require "perpluginconfig.mini_files"
