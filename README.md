@@ -5,27 +5,24 @@ This is my neovim configuration. I have tailored it to be very featureful (LSP, 
 - Instead of using a package manager, I have cloned the plugins directly into `pack/plugins/start`. This is fine for me as I find plugins tend to change their APIs too often, and so I like to pin their versions as well as the neovim version so I do not have to constantly think about maintaining this config.
 - No DAP integration, instead I use [brk.nvim](https://codeberg.org/kafva/brk.nvim) which simply creates a file such as a `.gdbinit` describing the breakpoints placed in the editor. This avoids having to install many plugins to reimplement all the features of debuggers (assembly view, watch window, memory view, etc).
 - Completion does not use tab or shift+tab, nor does it have a delay when typing. I find this to be a bit of a relic from other GUI editors which requires me to stop and wait to see completion, as well as often causing me to get a completion when I meant to type a tab, or sometimes vice versa.
-- Gitsigns + diffview, so that lines which are changed in git are visible in the editor (gitsigns) and the actual diff is also visible (diffview), even the diff against main/master. Further git integration is not present, as interactively staging and unstaging hunks from the editor is the only interaction which is not easier done (or done at all) from the command line. At least, for me.
+- Gitsigns + deltaview, so that lines which are changed in git are marked in the gutter (via gitsigns) and the actual git diff is also quickly view-able with a keybind (via deltaview). Also, there are some keybinds for interactively staging and unstaging hunks. Everything else I find is easier done from git commandline.
 - Some plugins which are just for style, mostly for visual clarity:
   - `rainbow-delimiters.nvim`, so matching parentheses show a matching color.
   - `indent_blankline.nvim` to show a line connected the currently selected indented block, matching colors with any braces colored by `rainbow-delimiters`
   - `neoscroll.nvim`, (smooth scrolling) to help lessen how often jumping from place to place causes me to lose my sense of direction within the file or codebase.
   - `base16-nvim` for some color schemes
-  - `todo-comments` which just nicely highlights comments containing WARN, TODO, HACK.
+  - `todo-comments` which just nicely highlights comments containing WARN, TODO, HACK
   - `mini.icons`, which are used by the mini.files file explorer and telescope.
 
-## List of lies told to me by Big Plugin, which I have become wise to since making this config
+## A strong opinion
 
-- You need a plugin manager (afaict these are glorified bash scripts to clone repos)
-- You need lazy loading (actually, I want everything except LSP and treesitter to be on in every file anyways, so they should all be loaded at startup. Also, if your neovim lags while loading due to all your plugins, you have already screwed up. Plugin loading shouldn't need to be asynchronous unless the plugin's loading time is a function of buffer length or project size)
-- You can emulate VSCode with just a few neovim plugins! (You don't want to do this)
-  - A good example is mapping Tab and Shift+Tab to completion, which doesn't make sense because those are also keys you use to type normally
-  - Also, bufferline/a tab bar doesn't make sense. I have three possible things I want to do with buffers, which bufferline only sometimes provides when there are only a few buffers open:
-    - Use a picker / search through buffers
-    - Go back to the previously visited buffer, or return after doing so
-    - Use a hotkey bound to a specific buffer, such as `<Leader>1`, `<Leader>2`, etc.
-  - DAP integration is a necessary feature (no, there are great debuggers out there and debugger interfaces, there is no need to recreate them in neovim).
-- A dashboard is a cool feature (it just feels annoying, I usually start neovim and immediately open the file picker to open some files, because I know what I need to do)
+I am a bit apalled by how long it took me to figure out what a good editor would feel like, and I think this really has a lot to do with the conversation and plugin development being really focused on features (debugger, git integration, etc.) and comparison with the featureset of mainstream editors like vscode or proprietary IDEs. Given that, here are some things this config *doesn't* have and why:
+- A plugin manager (reasons mentioned)
+- Delay when asking for autocomplete (reasons mentioned)
+- Debugger integration (reasons mentioned)
+- A bufferline/tab bar. I think these are quite nice when you only have a few files open, but as soon as the tab bar fills up it becomes a UX nightmare. Next/Prev actions and a search seem to work in all the scenarios I need, though it is a bit less new user friendly of course.
+- A dashboard. These are just extra, I don't really get the appeal. Code looks cooler than these anyways.
+- Lazy loading. I want (and shouldn't everyone want?) everything except LSP and treesitter to be on in every file anyways, so they should all be loaded at startup. It seems to me that, if your neovim lags while loading due to all your plugins, you have already screwed up. Plugin loading shouldn't need to be asynchronous unless the plugin's loading time is a function of buffer length or project size.
 
 ## Plugins installed by lines of lua code (for both implementation and tests)
 
