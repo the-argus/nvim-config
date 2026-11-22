@@ -57,6 +57,7 @@ neoscroll.nvim                   1,248 lines (but    729 when not including test
 mini.bracketed                     992 lines
 todo-comments.nvim                 912 lines
 mini.ai                            911 lines
+nvim-various-textobjs              816 lines
 nvim-spider                        751 lines
 nvim-treesitter-textsubjects       488 lines
 cmp-buffer                         381 lines
@@ -71,29 +72,12 @@ mini.move                          181 lines
 
 ## TODO
 
-- [ ] when indenting to a new line, a virtual -> character is shown, this seems to often not exactly appear in the correct place
-- [ ] I need a way to unstage hunks from the editor
 - [ ] add keybind for `lua vim.lsp.buf.hover()`
-- [ ] shellcheck does not properly get killed, I noticed opening it on a very large file, I later am not using my editor and see it is still running and using a bunch of memory
 - [ ] code actions only sometimes work, often an LSP popup will say "fix available" but then the :Action command shows nothing
-- [ ] when I do `diw` over the first word in `testThing->method()`, it deletes `testThing-`. I think that is due to the web plugin and it ignoring insignificant case
-- [ ] fix the apply button for mini.files which I broke by doing my weird custom fuzzy search thing. maybe find a separate plugin that has an option to get fuzzy search when doing `/pattern`
-- [ ] look into figure out a way to use modifiers to traverse things that currently use open and close square bracket to go left and right respectively. this way each movement is just one keydown and easier to spam :D
-- [ ] find a better keybind for next/prev search match, `][w` is jumping but then moving by a word also, but maybe there is a way to make this work, it was preceded by the square bracket so it would be nice if the w just jumped and didn't also go to the next word
-- [ ] fix reenabling LSP causing old diagnostics to reappear but the LSP not seeming to restart/reattach
-- [ ] unbind ctrl + hjkl in telescope popup in favor of jk navigating up and down while remaining in insert mode (note to self: I think this refers to ctrl + jk navigating up and down?)
-- [ ] have a motion that means whole word and one that means subword. right now `iw` is one thing and `w` is another (word vs. subword), would be nice to have "inner subword" etc as motions
-- [ ] set up dot-repeat for everything that it is relevant for, I think there are some where I have used lua functions but I shouldn't have
+- [ ] set up dot repeat for leap, probably do a small lua reimplementation of tpope/vim-repeat
 - [ ] fix semicolon and other text objects provided by nvim-treesitter-textsubjects. those seem to simply not work in some cases. I find only the ; to be reliable, and only in C/C++ code.
-- [ ] deltaview opening a file from a picker, from :DeltaMenu, I get `deltaview.nvim/lua/deltaview/view.lua:292`: attempt to index a nil value
-- [ ] add a text object for what is currently highlighted by indent_blankline. the semicolon text object from treesitter-text-subjects is pretty close, but only seems to work in C/C++ code.
-- [ ] figure out weirdness where ctrl+jk in a mini.files moves the cursor to next/prev match, but when fuzzyfind is not happening it does up/down. maybe the former can be rebound to shift + jk in this mode?
-- [ ] add keybinds like ctrl + d and ctrl + u, except they move the cursor only and not the view
-- [ ] consider using mini.icons instead of nvim-web-devicons
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
-- [ ] probably steal the better text objects from <https://github.com/chrisgrieser/nvim-various-textobjs>
 - [ ] Figure out mini.files bookmarking
-- [ ] improve or highlight the `[+]` statusbar indication that the current file needs saving. Assuming I don't get used to it, it would be nice for maybe the statusbar to appear a different color when the current buffer has unsaved changes, or something like that. Right now I tend to not notice when the current buffer needs to be saved.
 
 Performance improvements:
 
@@ -150,6 +134,8 @@ TODO: probably assign buffers to keybinds when opening similar to window manager
 
 Window management:
 
+{ n, x }: Alt + d      Move the cursor half a page down without scrolling the view
+{ n, x }: Alt + u      Move the cursor half a page up without scrolling the view
 { n }: Ctrl + {h,j,k,l} Resize currently focused window by 1 unit in any direction
 { n }: Alt + {h,j,k,l}  Jump to an adjacent window in any direction
 
@@ -171,6 +157,7 @@ Language server operations (pretty much neovim defaults):
 { n }: grt          Go to the definition of the type of the symbol under the cursor
 { n }: grn          Rename symbol under cursor
 { n, x }: gra       Show code actions
+{ n }: :Action      Show all code actions on current line
 { n }: g0           Show all LSP symbols in the current document
 { n, i }: Ctrl + S  Show signature help in a floating popup
 { n }: <Leader>u    Format the current buffer, if there is an attached language server that can do that
@@ -187,19 +174,24 @@ Completion
 
 Diffview plugin keybinds:
 
-{ n }: <Leader>vv       Toggle git diff view, useful for observing git diff without leaving the editor. Shows the diff caused by the current staged and unstaged changes.
-{ n }: <Leader>va       Show a diff view of all the currently changed files in one megabuffer
-{ n }: <Leader>vm       Toggle git diff view against the main/master branch
-{ n }: <Leader>vc       Open a picker with the last 50 commits on the current branch. Selecting one opens a quickfix review for it, like <Leader>vq
-{ n }: <Leader>vq       Quickfix review for the current unstaged changes, use ]q / [q to step through changed files. Similar to <Leader>n
-{ n }: <Leader>vf       Pick from commits that affect the current file and then show the relevant hunks from that commit
-{ n }: <Leader>vl       Pick from commits affecting the current line (git log -L), then show any hunks from that commit affecting the current buffer. Unfortunately deltaview does not support limiting the diff to a line range
-{ n }: <Leader>vH       Pick from all commits, then pick from a file, then show deltaview for the changes to that file for that commit
+{ n }:    <Leader>vv       Toggle git diff view, useful for observing git diff without leaving the editor. Shows the diff caused by the current staged and unstaged changes.
+{ n }:    <Leader>va       Show a diff view of all the currently changed files in one megabuffer
+{ n }:    <Leader>vm       Toggle git diff view against the main/master branch
+{ n }:    <Leader>vc       Open a picker with the last 50 commits on the current branch. Selecting one opens a quickfix review for it, like <Leader>vq
+{ n }:    <Leader>vq       Quickfix review for the current unstaged changes, use ]q / [q to step through changed files. Similar to <Leader>n
+{ n }:    <Leader>vf       Pick from commits that affect the current file and then show the relevant hunks from that commit
+{ n }:    <Leader>vl       Pick from commits affecting the current line (git log -L), then show any hunks from that commit affecting the current buffer. Unfortunately deltaview does not support limiting the diff to a line range
+{ n, x }: <Leader>vs       Toggle whether hunk(s) under cursor is already staged
+{ n }:    <Leader>vS       Stage the current file
+{ n }:    <Leader>vU       Unstage the current file
+{ n }:    <Leader>vH       Pick from all commits, then pick from a file, then show deltaview for the changes to that file for that commit
 
 mini.files file explorer popup navigation (starts out in search mode initially, but its been a bit customized to be a fuzzy search):
 
-{ n, i, x }: Ctrl + j   Move to the next entry, or to the next search match while searching
-{ n, i, x }: Ctrl + k   Move to the previous entry, or to the previous search match while searching
+{ n, i, x }: Ctrl + j   Move to the next entry
+{ n, i, x }: Ctrl + k   Move to the previous entry
+{ n }: Ctrl + n         Next fuzzy search result (only works while fuzzy search is active)
+{ n }: Ctrl + p         Previous fuzzy search result (only works while fuzzy search is active)
 { n, i, x }: Ctrl + l   Go into the selected folder, otherwise open it if it's a file
 { n, i, x }: Ctrl + h   Go out of the current folder
 { n }: /                Start custom fuzzy search for the current directory
@@ -248,6 +240,8 @@ Provided by surround.nvim
 
 ```txt
 ae                          Entire current buffer
+{a,i}S                      Subword (like word except it respects separate words in camelCase or snake_case or kebab-case etc.)
+{a,i}i                      The scope which is always visually highlighted by indent-blankline
 
 Provided by mini.ai (all support being prefixed by count, ie. 2i} to select within the second set of two nested brace sets):
 
@@ -302,7 +296,7 @@ Provided by nvim-spider (replacing builtin motions):
 
 Provided by (and for) leap.nvim:
 
-{],[}w                      Go to next or previous instance of the leaped-to pattern
+{],[}w                      Go to next or previous instance of the last leap pattern
 at                          Around remote textobject, for example yatp{leap} will yank around a paragraph selected by a leap operation.
 it                          Inside remote textobject, for example yitw{leap} will yank inside a word selected by a leap operation.
 
