@@ -153,10 +153,10 @@ local function noscroll_jump_cursor_by_half_page(direction)
     end
 end
 
-vim.keymap.set({ "n", "x" }, "<A-d>", noscroll_jump_cursor_by_half_page(1),
-    { desc = "Move cursor by half a page up without scrolling the view" })
-vim.keymap.set({ "n", "x" }, "<A-u>", noscroll_jump_cursor_by_half_page(-1),
+vim.keymap.set({ "n", "x" }, "<C-j>", noscroll_jump_cursor_by_half_page(1),
     { desc = "Move cursor by half a page down without scrolling the view" })
+vim.keymap.set({ "n", "x" }, "<C-k>", noscroll_jump_cursor_by_half_page(-1),
+    { desc = "Move cursor by half a page up without scrolling the view" })
 
 -- delete without yanking
 vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
