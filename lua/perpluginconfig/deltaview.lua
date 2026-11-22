@@ -55,6 +55,46 @@ deltaview_view.place_cursor_delta_buffer_entry = function(bufnr, ...)
     vim.notify("No lines changed in this file.", vim.log.levels.INFO)
 end
 
+--- @param ref string
+--- @param filepath string
+--- @return string|nil hash of the target of the git operation, or nill if the diff is being compared against the working tree
+local function get_hash_of_target_blob(ref, filepath)
+    local raw_diff_lines = vim.fn.systemlist({
+        "git", "-C", vim.fs.dirname(filepath), "diff", "--no-ext-diff", "--raw", "--abbrev=40", ref, "--", filepath,
+    })
+    if vim.v.shell_error ~= 0 then
+        return nil
+    end
+    local target_blob_hash = (raw_diff_lines[1] or ""):match("^:%S+ %S+ %x+ (%x+)")
+    if target_blob_hash == nil or target_blob_hash:match("^0+$") then
+        return nil
+    end
+    return target_blob_hash
+end
+
+-- work around a bug in deltaview where it looks at diffs for a specific file
+-- from the state of the working tree instead of from the commit
+local deltaview_utils = require("deltaview.utils")
+local open_git_diff_buffer = deltaview_view.open_git_diff_buffer
+deltaview_view.open_git_diff_buffer = function(filepath, ref, ...)
+    local target_blob_hash = get_hash_of_target_blob(ref, filepath)
+    if target_blob_hash == nil then
+        return open_git_diff_buffer(filepath, ref, ...)
+    end
+    local read_file_lines = deltaview_utils.read_file_lines
+    deltaview_utils.read_file_lines = function()
+        local blob_lines = vim.fn.systemlist({ "git", "-C", vim.fs.dirname(filepath), "cat-file", "blob",
+            target_blob_hash })
+        return vim.v.shell_error == 0 and blob_lines or nil
+    end
+    local success, result = pcall(open_git_diff_buffer, filepath, ref, ...)
+    deltaview_utils.read_file_lines = read_file_lines
+    if not success then
+        error(result, 0)
+    end
+    return result
+end
+
 local function exit_deltaview()
     vim.cmd("normal q")
 end
