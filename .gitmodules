@@ -86,3 +86,6 @@
 [submodule "pack/plugins/start/nvim-spider"]
 	path = pack/plugins/start/nvim-spider
 	url = https://github.com/chrisgrieser/nvim-spider
+[submodule "pack/plugins/start/nvim-various-textobjs"]
+	path = pack/plugins/start/nvim-various-textobjs
+	url = https://github.com/chrisgrieser/nvim-various-textobjs
