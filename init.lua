@@ -101,6 +101,12 @@ vim.api.nvim_create_autocmd("FileType", {
     callback = function() vim.opt_local.iskeyword:append("-") end,
 })
 
+-- markdown is plain text so it should wrap at word boundaries to be more readable
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "markdown" },
+    callback = function() vim.opt_local.linebreak = true end,
+})
+
 -- may have installed LSPs and tooling in local node modules
 vim.env.PATH = vim.env.PATH .. ":./node_modules/.bin"
 
