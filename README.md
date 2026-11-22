@@ -73,6 +73,8 @@ mini.move                          181 lines
 
 ## TODO
 
+- [ ] when indenting to a new line, a virtual -> character is shown, this seems to often not exactly appear in the correct place
+- [ ] I need a way to unstage hunks from the editor
 - [ ] add keybind for `lua vim.lsp.buf.hover()`
 - [ ] shellcheck does not properly get killed, I noticed opening it on a very large file, I later am not using my editor and see it is still running and using a bunch of memory
 - [ ] code actions only sometimes work, often an LSP popup will say "fix available" but then the :Action command shows nothing
