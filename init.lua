@@ -302,20 +302,33 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 vim.tbl_extend("force", keymap_opts, { desc = "Format the current buffer" }))
         end
         if client and client.server_capabilities.codeActionProvider then
+            -- code actions are charwise, ie. you only get ones under the
+            -- cursor, but I want all the actions on the current line
             vim.api.nvim_buf_create_user_command(args.buf, "Action", function()
-                vim.lsp.buf.code_action()
+                local cursor_row = vim.api.nvim_win_get_cursor(0)[1]
+                local cursor_line_text = vim.api.nvim_get_current_line()
+                vim.lsp.buf.code_action({
+                    range = {
+                        start = { cursor_row, 0 },
+                        ["end"] = { cursor_row, math.max(#cursor_line_text - 1, 0) },
+                    },
+                })
             end, {})
+            -- override default action keybind with custom Action usercmd
+            vim.keymap.set("n", "gra", "<Cmd>Action<CR>",
+                vim.tbl_extend("force", keymap_opts, { desc = "Show all code actions on current line" }))
         end
 
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, keymap_opts)
         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, keymap_opts)
+        vim.keymap.set("n", "gh", vim.lsp.buf.hover, keymap_opts)
     end,
 })
 
 -- i like the default lsp keymap but it wasn't default in older versions
 if vim.fn.has("nvim-0.11") == 0 then
     vim.keymap.set("n", "grn", vim.lsp.buf.rename, { desc = "vim.lsp.buf.rename()" })
-    vim.keymap.set({ "n", "x" }, "gra", vim.lsp.buf.code_action, { desc = "vim.lsp.buf.code_action()" })
+    vim.keymap.set("x", "gra", vim.lsp.buf.code_action, { desc = "vim.lsp.buf.code_action()" })
     vim.keymap.set("n", "grr", vim.lsp.buf.references, { desc = "vim.lsp.buf.references()" })
     vim.keymap.set("n", "gri", vim.lsp.buf.implementation, { desc = "vim.lsp.buf.implementation()" })
     vim.keymap.set("n", "gO", vim.lsp.buf.document_symbol, { desc = "vim.lsp.buf.document_symbol()" })

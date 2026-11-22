@@ -72,8 +72,6 @@ mini.move                          181 lines
 
 ## TODO
 
-- [ ] add keybind for `lua vim.lsp.buf.hover()`
-- [ ] code actions only sometimes work, often an LSP popup will say "fix available" but then the :Action command shows nothing
 - [ ] set up dot repeat for leap, probably do a small lua reimplementation of tpope/vim-repeat
 - [ ] fix semicolon and other text objects provided by nvim-treesitter-textsubjects. those seem to simply not work in some cases. I find only the ; to be reliable, and only in C/C++ code.
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
@@ -152,11 +150,13 @@ Language server operations (pretty much neovim defaults):
 
 { n }: gd           Go to the definition of the symbol under the cursor
 { n }: gD           Go to the declaration of the symbol under the cursor
+{ n }: gh           Show hover documentation for the symbol under the cursor
 { n }: gri          Go to implementation of symbol under cursor (the meaning of this seems to vary based on the LSP implementation).
 { n }: grr          Show references to symbol under cursor
 { n }: grt          Go to the definition of the type of the symbol under the cursor
 { n }: grn          Rename symbol under cursor
-{ n, x }: gra       Show code actions
+{ n }: gra          Same as :Action
+{ x }: gra          Show code actions for the selection
 { n }: :Action      Show all code actions on current line
 { n }: g0           Show all LSP symbols in the current document
 { n, i }: Ctrl + S  Show signature help in a floating popup
