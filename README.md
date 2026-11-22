@@ -134,10 +134,10 @@ TODO: probably assign buffers to keybinds when opening similar to window manager
 
 Window management:
 
-{ n, x }: Alt + d      Move the cursor half a page down without scrolling the view
-{ n, x }: Alt + u      Move the cursor half a page up without scrolling the view
-{ n }: Ctrl + {h,j,k,l} Resize currently focused window by 1 unit in any direction
-{ n }: Alt + {h,j,k,l}  Jump to an adjacent window in any direction
+{ n, x }: Ctrl + j        Move the cursor half a page down without scrolling the view
+{ n, x }: Ctrl + k        Move the cursor half a page up without scrolling the view
+{ n }: <Leader>w          Enter window resize mode where hjkl resizes the current window, press Esc or try to do any other action 
+{ n }: Ctrl + w {h,j,k,l} Regular vim keybind for moving the cursor to an adjacent window
 
 Debugging:
 (These keybinds only have the effect of generating a .gdbinit in the project directory, this config does not include DAP support).

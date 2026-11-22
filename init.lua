@@ -169,25 +169,24 @@ vim.keymap.set('n', '<S-j>', '<Cmd>bprevious<CR>')
 -- exit terminal mode with escape, I always forget this keybind
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { silent = true })
 
--- navigate windows with alt + hjkl
-local opts = { silent = true }
-vim.keymap.set("t", "<A-h>", "<C-\\><C-N><C-w>h", opts)
-vim.keymap.set("t", "<A-j>", "<C-\\><C-N><C-w>j", opts)
-vim.keymap.set("t", "<A-k>", "<C-\\><C-N><C-w>k", opts)
-vim.keymap.set("t", "<A-l>", "<C-\\><C-N><C-w>l", opts)
-vim.keymap.set("i", "<A-h>", "<C-\\><C-N><C-w>h", opts)
-vim.keymap.set("i", "<A-j>", "<C-\\><C-N><C-w>j", opts)
-vim.keymap.set("i", "<A-k>", "<C-\\><C-N><C-w>k", opts)
-vim.keymap.set("i", "<A-l>", "<C-\\><C-N><C-w>l", opts)
-vim.keymap.set("n", "<A-h>", "<C-w>h", opts)
-vim.keymap.set("n", "<A-j>", "<C-w>j", opts)
-vim.keymap.set("n", "<A-k>", "<C-w>k", opts)
-vim.keymap.set("n", "<A-l>", "<C-w>l", opts)
--- resize windows with ctrl
-vim.keymap.set("n", "<C-h>", "<C-w><", opts)
-vim.keymap.set("n", "<C-l>", "<C-w>>", opts)
-vim.keymap.set("n", "<C-k>", "<C-w>+", opts)
-vim.keymap.set("n", "<C-j>", "<C-w>-", opts)
+-- custom window resizing mode activated by <Leader>w where hjkl resizes the active buffer, Esc to exit
+local resize_wincmd_by_key = { h = "<", l = ">", k = "+", j = "-" }
+vim.keymap.set("n", "<Leader>w", function()
+    while true do
+        vim.api.nvim_echo({ { "-- RESIZE --", "ModeMsg" } }, false, {})
+        vim.cmd.redraw()
+        local key = vim.fn.getcharstr()
+        local resize_wincmd = resize_wincmd_by_key[key]
+        if resize_wincmd == nil then
+            vim.api.nvim_echo({ { "" } }, false, {})
+            if key ~= vim.keycode("<Esc>") then
+                vim.api.nvim_feedkeys(key, "m", false)
+            end
+            return
+        end
+        vim.cmd.wincmd(resize_wincmd)
+    end
+end, { desc = "Window resizing mode, use hjkl" })
 
 -- copy file path to current buffer
 vim.keymap.set("n", "<leader>pa", function()
