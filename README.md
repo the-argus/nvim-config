@@ -67,6 +67,7 @@ mini.move                          181 lines
 
 ## TODO
 
+- [ ] make nvim-spider and nvim-various-textobjs consistent with the subword motion. I have `iM` and `aM` text objects from nvim-various-textobjs, but the motions `Mw`, `Me`, `Mb`, `Mge` are all from nvim-spider. one small behavioral difference is that using nvim-spider to  jump around, `abc123` is considered two subwords, but deleting it with `diM` would result in deleting the entire thing, since nvim-various-textobjs considers that one subword.
 - [ ] set up dot repeat for leap, probably do a small lua reimplementation of tpope/vim-repeat
 - [ ] finish packaging clangd with zig so it can be distributed statically for use on any linux system
 - [ ] Figure out mini.files bookmarking
@@ -237,7 +238,7 @@ Provided by surround.nvim
 
 ```txt
 ae                          Entire current buffer
-{a,i}S                      Subword (like word except it respects separate words in camelCase or snake_case or kebab-case etc.)
+{a,i}M                      Subword (like word except it respects separate words in camelCase or snake_case or kebab-case etc.)
 {a,i}i                      The scope which is always visually highlighted by indent-blankline
 
 Provided by mini.ai (all support being prefixed by count, ie. 2i} to select within the second set of two nested brace sets):
@@ -280,10 +281,10 @@ Provided by mini.bracketed (supports going to first/last with the capital letter
 
 Provided by nvim-spider (replacing builtin motions):
 
-{ n, x, o }: w              Go to the start of the next subword (subword == word but treats capital letters and underscores as word separators)
-{ n, x, o }: e              Go to the end of the next subword
-{ n, x, o }: b              Go to the start of the previous subword
-{ n, x, o }: ge             Go to the end of the previous subword
+{ n, x, o }: Mw             Go to the start of the next subword (subword == word but treats capital letters and underscores as word separators)
+{ n, x, o }: Me             Go to the end of the next subword
+{ n, x, o }: Mb             Go to the start of the previous subword
+{ n, x, o }: Mge            Go to the end of the previous subword
 
 Provided by (and for) leap.nvim:
 
