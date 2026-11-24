@@ -3,7 +3,6 @@ if not present then
     return
 end
 
--- NOTE: this has to run after precognition is set up
 spider.setup()
 
 vim.keymap.set({ "n", "o", "x" }, "M", "<Nop>", { desc = "Subword motion prefix" })

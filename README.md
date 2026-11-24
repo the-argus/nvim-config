@@ -39,7 +39,6 @@ gitsigns.nvim                   11,489 lines (but  8,483 when not including test
 deltaview.nvim                  10,965 lines (but  2,994 when not including tests)
 nvim-cmp                         7,429 lines
 nvim-treesitter                  6,929 lines (but  4,488 when not including tests)
-precognition.nvim                5,903 lines (but  2,317 when not including tests)
 nvim-surround                    3,605 lines (but  1,576 when not including tests)
 indent-blankline.nvim            3,499 lines
 base16-nvim                      3,192 lines
@@ -204,7 +203,6 @@ Misc:
 { n, x }: Ctrl + n  Next search result (like n)
 { n, x }: Ctrl + p  Previous search result (like N)
 { n }: <Leader>pa   Copy absolute path to current buffer to "+ register
-{ n }: Ctrl + C     Temporarily show inline motion hints from precognition.nvim
 { n }: <Leader>l    Toggle language servers for the current buffer and remove all diagnostics
 
 ```
